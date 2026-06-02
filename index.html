@@ -1723,7 +1723,7 @@ function navTo(pageId, el) {
         .then(r => r.json())
         .then(ipData => {
           // Géolocalisation via l'IP
-          return fetch(`http://ip-api.com/json/${ipData.ip}?lang=fr&fields=city,regionName,country`)
+   		  return fetch(`https://ipwho.is/${ipData.ip}`)
             .then(r => r.json())
             .then(geo => ({
               ip:      ipData.ip,
