@@ -1723,13 +1723,13 @@ function navTo(pageId, el) {
         .then(r => r.json())
         .then(ipData => {
           // Géolocalisation via l'IP
-          return fetch(`https://ipwho.is/${ipData.ip}`)
+          return fetch(`https://freeipapi.com/api/json/${ipData.ip}`)
             .then(r => r.json())
             .then(geo => ({
               ip:      ipData.ip,
-              ville:   geo.city    || '',
-              region:  geo.region  || '',
-              pays:    geo.country || ''
+              ville:   geo.cityName    || '',
+              region:  geo.regionName  || '',
+              pays:    geo.countryName || ''
             }))
             .catch(() => ({ ip: ipData.ip, ville: '', region: '', pays: '' }));
         })
