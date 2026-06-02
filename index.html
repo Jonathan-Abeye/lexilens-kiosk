@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lexilens – Test Neurovisuel</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-dark:  #1a3558;
+    --blue-mid:   #2558a8;
+    --green-btn:  #2ebc60;
+    --red-text:   #d0021b;
+        --text-dark:  #1a3558;
+    --sidebar-w:  210px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Nunito', sans-serif; }
+
+  .page { display: none; width: 100vw; height: 100vh; }
+  .page.active { display: flex; flex-direction: row; }
+
+  /* ══════════════════════════════════════
+     PAGE 0 — ACCUEIL
+  ══════════════════════════════════════ */
+  #page-home { background: #eef4fa; flex-direction: column; }
+
+  .home-topbar {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 40px 8px; flex-shrink: 0; position: relative; min-height: 58px;
+  }
+  .home-topbar h1 {
+    font-family: 'Poppins', sans-serif; font-size: 2.1rem;
+    font-weight: 700; color: var(--text-dark); text-align: center;
+  }
+  .topbar-logo {
+    position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    height: 50px; object-fit: contain;
+  }
+
+  /* ── Video grid — max space, no wasted room ── */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px; padding: 4px 16px 6px;
+    flex: 1; min-height: 0;
+  }
+  .video-cell {
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    display: flex; flex-direction: column;
+  }
+  /* Titre en overlay haut, dégradé sombre */
+  .video-cell-header {
+  background: #1a3558;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 10px 12px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.video-cell video {
+  width: 100%;
+  flex: 1;
+  object-fit: contain;
+  background: #0000;
+  display: block;
+  min-height: 0;
+}
+
+  /* ══ Bottom bar ══ */
+  .home-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 80px 14px; flex-shrink: 0; background: #eef4fa;
+  }
+  .deco-img { height: 90px; object-fit: contain; }
+  .testez-btn {
+    background: var(--red-text); color: white; border: none;
+    font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 800;
+    padding: 16px 56px; border-radius: 8px; cursor: pointer;
+    letter-spacing: 1px; text-transform: uppercase;
+    box-shadow: 0 6px 22px rgba(208,2,27,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .testez-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(208,2,27,0.5); }
+
+  /* ══════════════════════════════════════
+     PAGE 1 — KIOSQUE
+  ══════════════════════════════════════ */
+	#page-step1 { flex-direction: row; background: #eef4fa; }
+	
+  .kiosk-main {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 36px 30px 48px;
+  }
+  .kiosk-top { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .kiosk-title {
+    font-family: 'Poppins', sans-serif; font-size: 3rem;
+    font-weight: 800; color: var(--text-dark); text-align: center;
+  }
+  .kiosk-subtitle {
+    font-family: 'Poppins', sans-serif; font-size: 1.4rem;
+    font-weight: 600; color: var(--text-dark); text-align: center;
+  }
+
+  /* Bubbles */
+  .bubbles-row { display: flex; align-items: center; justify-content: center; gap: 0; }
+  .bubble-wrap { display: flex; flex-direction: column; align-items: center; }
+  .bubble {
+    width: 185px; height: 185px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.28), 0 4px 10px rgba(0,0,0,0.18),
+      inset 0 -8px 20px rgba(0,0,0,0.25), inset 0 6px 18px rgba(255,255,255,0.22);
+  }
+  .b1 { background: radial-gradient(circle at 38% 30%, #6aabf0 0%, #3070d0 35%, #1848a8 70%, #0f3080 100%); }
+  .b2 { background: radial-gradient(circle at 38% 30%, #5de090 0%, #28b858 35%, #0e8838 70%, #065820 100%); }
+  .b3 { background: radial-gradient(circle at 38% 30%, #f8d060 0%, #e8a010 35%, #c07800 70%, #905800 100%); }
+  .b-num {
+    position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+    width: 34px; height: 34px; border-radius: 50%; color: white;
+    font-weight: 900; font-size: 1.1rem; display: flex;
+    align-items: center; justify-content: center;
+    border: 2.5px solid white; z-index: 2; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .n1{background:#0f3080;} .n2{background:#065820;} .n3{background:#905800;}
+
+  .bubble-arrow { width:0; height:0; margin:0 14px; margin-bottom:18px; }
+  .arr-blue   { border-top:14px solid transparent; border-bottom:14px solid transparent; border-left:20px solid #2558a8; }
+  .arr-orange { border-top:14px solid transparent; border-bottom:14px solid transparent; border-left:20px solid #2558a8; }
+
+  .start-btn {
+    background: var(--green-btn); color: white; border: none;
+    padding: 16px 60px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 6px 22px rgba(46,188,96,0.4);
+    transition: transform 0.15s, box-shadow 0.15s; letter-spacing: 0.3px;
+  }
+  .start-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(46,188,96,0.5); }
+.btn-play {
+  background: rgba(255,255,255,0.3); border-radius: 50%;
+  width: 34px; height: 34px; display: flex; align-items: center;
+  justify-content: center; font-size: 0.9rem; padding-left: 3px;
+  pointer-events: none; 
+}
+  
+  /* Texte sous les bulles */
+.bubble-label {
+  margin-top: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Barre durée estimée */
+.duration-bar {
+  background: white;
+  border: 1.5px solid #dce8f0;
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(26,53,88,0.08);
+}
+
+  /* Sidebar */
+  .kiosk-sidebar {
+    width: var(--sidebar-w); background: var(--blue-dark);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 26px 14px 18px; flex-shrink: 0;
+  }
+  .sb-logo-img { width: 158px; object-fit: contain; margin-bottom: 28px; }
+  .sb-nav { display: flex; flex-direction: column; gap: 4px; width: 100%; flex: 1; }
+  .sb-nav a {
+    color: rgba(255,255,255,0.70); font-size: 0.8rem; font-weight: 600;
+    text-decoration: none; padding: 10px 10px; border-radius: 8px;
+    cursor: pointer; transition: background 0.2s, color 0.2s;
+    text-align: center; line-height: 1.5;
+  }
+  .sb-nav a:hover, .sb-nav a.active { background: rgba(255,255,255,0.14); color: white; }
+  .sb-help { font-size: 0.80rem; color: rgba(255,255,255,0.28); text-align: center; line-height: 1.5; padding-top: 14px; }
+  
+  
+  /* ══ PAGE PRODUITS ══ */
+  #page-products  { flex-direction: row; background: #eef4fa; }
+  #page-lexilens  { flex-direction: row; background: #eef4fa; }
+
+  /* ══ PAGE LEXILENS ══ */
+  .lex-main {
+    flex: 1; display: flex; flex-direction: column;
+    overflow: hidden; background: #eef4fa;
+  }
+  .lex-scroll {
+    flex: 1; overflow-y: auto; padding: 0;
+    scroll-behavior: smooth; overflow-x: hidden;
+  }
+  .lex-scroll::-webkit-scrollbar { width: 5px; }
+  .lex-scroll::-webkit-scrollbar-track { background: transparent; }
+  .lex-scroll::-webkit-scrollbar-thumb { background: rgba(37,88,168,0.2); border-radius: 4px; }
+
+  /* ── Titre de section universel ── */
+  .lex-section-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.2rem;
+    font-weight: 800; color: #1a3558; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .lex-section-title::before {
+    content: ''; width: 4px; height: 20px;
+    background: #2558a8; border-radius: 2px; flex-shrink: 0;
+  }
+  .lex-section-title.on-dark { color: white; }
+  .lex-section-title.on-dark::before { background: #7eb8f7; }
+
+  /* ── HERO — bleu marine ── */
+  .lex-hero {
+    position: relative; overflow: hidden; flex-shrink: 0;
+    min-height: 200px; display: flex; align-items: center;
+    background: linear-gradient(135deg, #1a3558 0%, #2558a8 100%);
+    padding: 36px 40px;
+  }
+  .lex-hero-bg {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 45%; object-fit: cover; object-position: left center;
+    opacity: 0.18; pointer-events: none;
+  }
+  .lex-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, #1a3558 45%, transparent 100%);
+    pointer-events: none;
+  }
+  .lex-hero-text { position: relative; z-index: 1; max-width: 560px; }
+  .lex-hero-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.85rem; font-weight: 800; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #7eb8f7; margin-bottom: 12px;
+  }
+  .lex-hero-eyebrow::before {
+    content: ''; width: 28px; height: 2px;
+    background: #7eb8f7; border-radius: 2px; flex-shrink: 0;
+  }
+  .lex-hero-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.9rem;
+    font-weight: 900; color: white; line-height: 1.2; margin-bottom: 14px;
+  }
+  .lex-hero-title em { font-style: normal; color: #7eb8f7; border-bottom: 3px solid rgba(126,184,247,0.4); }
+  .lex-hero-sub { font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+  .lex-hero-img-wrap {
+    position: absolute; right: 32px; top: 50%;
+    transform: translateY(-50%); z-index: 1;
+    width: 190px; height: 190px;
+  }
+  .lex-hero-img-wrap img {
+    width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 12px 32px rgba(0,0,0,0.35));
+  }
+
+  /* ── SYMPTÔMES — gris-blanc ── */
+  .lex-symptoms-section { background: #eef4fa; padding: 28px 36px; }
+  .lex-symptoms-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  }
+  .lex-symptom-card {
+    background: white; border-radius: 16px; padding: 20px 16px;
+    border: 1.5px solid #e0eaf5; text-align: center;
+    box-shadow: 0 2px 10px rgba(26,53,88,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .lex-symptom-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; border-radius: 16px 16px 0 0; background: #2558a8;
+  }
+  .lex-symptom-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,53,88,0.13); }
+  .lex-symptom-icon { font-size: 2.8rem; margin-bottom: 10px; margin-top: 4px; }
+  .lex-symptom-label { font-size: 1rem; font-weight: 800; color: #1a3558; margin-bottom: 6px; line-height: 1.3; }
+  .lex-symptom-desc { font-size: 0.86rem; color: #6080a0; line-height: 1.5; }
+
+  /* ── CROWDING — bleu marine ── */
+  .lex-crowding-section { background: #1a3558; padding: 28px 36px; }
+  .lex-crowding-row {
+    display: flex; gap: 0; align-items: stretch;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    margin-top: 16px;
+  }
+  .lex-crowding-img {
+    width: 45%; flex-shrink: 0; background: #0d0d0d;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; min-height: 200px;
+  }
+  .lex-crowding-img img { width: 100%; height: 100%; object-fit: cover; }
+  .lex-crowding-text {
+    flex: 1; background: rgba(255,255,255,0.06); padding: 24px 28px;
+    display: flex; flex-direction: column; justify-content: center; gap: 12px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .lex-crowding-pill {
+    display: inline-block; background: #2558a8; color: white;
+    font-size: 1.1rem; font-weight: 800; padding: 8px 22px;
+    border-radius: 20px; align-self: flex-start;
+  }
+  .lex-crowding-body { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; }
+  .lex-crowding-body strong { color: #7eb8f7; font-weight: 800; }
+  .lex-crowding-note {
+    font-size: 0.86rem; color: rgba(255,255,255,0.5); line-height: 1.6;
+    padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ── SOLUTION — gris-blanc ── */
+  .lex-solution-section { background: #eef4fa; padding: 28px 0; }
+  .lex-solution-inner { padding: 0 36px; }
+  .lex-solution-subtitle {
+    font-family: 'Poppins', sans-serif; font-size: 1rem;
+    font-weight: 700; color: #2558a8; margin-bottom: 18px; margin-top: -8px;
+  }
+  .lex-solution-img-banner {
+    height: 320px; border-radius: 16px;
+    overflow: hidden; background: #0d0d0d; margin-bottom: 20px;
+    display: block;
+  }
+  .lex-solution-img-banner img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; object-position: center center;
+  }
+  .lex-solution-benefits {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-bottom: 18px;
+  }
+  .lex-solution-benefit {
+    background: white; border-radius: 16px; padding: 20px 16px;
+    text-align: center; border: 1.5px solid #e0eaf5;
+    box-shadow: 0 2px 10px rgba(26,53,88,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .lex-solution-benefit::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; border-radius: 16px 16px 0 0; background: #2558a8;
+  }
+  .lex-solution-benefit:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,53,88,0.13); }
+  .lex-solution-benefit-icon { font-size: 2.8rem; margin-bottom: 10px; margin-top: 4px; }
+  .lex-solution-benefit-title { font-size: 1rem; font-weight: 800; color: #1a3558; margin-bottom: 6px; line-height: 1.3; }
+  .lex-solution-benefit-desc { font-size: 0.86rem; color: #6080a0; line-height: 1.5; }
+  .lex-solution-body { font-size: 0.96rem; color: #6080a0; line-height: 1.7; }
+  .lex-solution-body strong { color: #1a3558; font-weight: 800; }
+
+  /* ── AVANTAGES — bleu marine ── */
+  .lex-stats-section { background: #1a3558; padding: 28px 36px; }
+  .lex-stats-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-bottom: 20px; margin-top: -8px; }
+  .lex-stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 20px;
+  }
+  .lex-stat-card {
+    background: rgba(255,255,255,0.08); border-radius: 16px;
+    padding: 20px 14px; text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.2s;
+  }
+  .lex-stat-card:hover { background: rgba(255,255,255,0.13); }
+  .lex-stat-num {
+    font-family: 'Poppins', sans-serif; font-size: 2.4rem;
+    font-weight: 900; color: #7eb8f7; line-height: 1; margin-bottom: 8px;
+  }
+  .lex-stat-num sup { font-size: 1rem; vertical-align: super; }
+  .lex-stat-label { font-size: 0.86rem; color: rgba(255,255,255,0.65); line-height: 1.4; }
+  .lex-bars { display: flex; flex-direction: column; gap: 10px; }
+  .lex-bar-row { display: flex; align-items: center; gap: 14px; }
+  .lex-bar-label { font-size: 0.92rem; color: rgba(255,255,255,0.8); font-weight: 600; min-width: 240px; }
+  .lex-bar-track { flex: 1; height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; }
+  .lex-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #7eb8f7, #2558a8); }
+  .lex-bar-pct { font-size: 0.9rem; font-weight: 800; color: white; min-width: 38px; text-align: right; }
+
+  /* ── TÉMOIGNAGES — gris-blanc ── */
+  .lex-testimonials-section { background: #eef4fa; padding: 28px 36px; }
+  .lex-testimonials-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;
+  }
+  .lex-testimony-avatar-f { background: #fce8f0; border-color: #f0c0d8; }
+  .lex-testimony-avatar-m { background: #e8f0fc; border-color: #c0d4f0; }
+  .lex-testimony {
+    background: white; border-radius: 16px; padding: 24px 26px;
+    border: 1.5px solid #e0eaf5; position: relative;
+    box-shadow: 0 2px 12px rgba(26,53,88,0.07);
+    transition: box-shadow 0.2s;
+  }
+  .lex-testimony:hover { box-shadow: 0 6px 20px rgba(26,53,88,0.12); }
+  .lex-testimony-quote {
+    font-size: 4.5rem; line-height: 1; color: #2558a8;
+    opacity: 0.15; font-family: 'Poppins', sans-serif;
+    font-weight: 900; position: absolute; top: 8px; left: 20px;
+    pointer-events: none;
+  }
+  .lex-testimony-text {
+    font-size: 1rem; color: #6080a0; line-height: 1.7;
+    font-style: italic; padding-top: 28px; position: relative; z-index: 1;
+  }
+  .lex-testimony-author {
+    margin-top: 16px; display: flex; align-items: center; gap: 12px;
+    padding-top: 14px; border-top: 1px solid #e8eef6;
+  }
+  .lex-testimony-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    overflow: hidden; background: #e8f0fc; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #dce8f5;
+  }
+  .lex-testimony-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .lex-testimony-avatar-placeholder { font-size: 1.1rem; }
+  .lex-testimony-name { font-size: 0.9rem; font-weight: 800; color: #1a3558; }
+  .lex-testimony-role { font-size: 0.7rem; color: #6080a0; margin-top: 1px; }
+
+  /* ── BADGE FRANCE — bleu marine ── */
+  .lex-footer-section { background: #1a3558; padding: 20px 36px 28px; }
+  .lex-made-in {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    background: rgba(255,255,255,0.08); border-radius: 16px; padding: 16px 28px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .lex-made-in-flag { font-size: 2rem; flex-shrink: 0; }
+  .lex-made-in-title { font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 800; color: white; margin-bottom: 1px; }
+  .lex-made-in-sub { font-size: 0.78rem; color: rgba(255,255,255,0.55); text-align: center; }
+
+  #page-steps { flex-direction: row; }
+
+  /* ══ PAGE PRODUITS — Option A ══ */
+  .prod-main {
+    flex: 1; display: flex; flex-direction: column; overflow: hidden;
+    background: #eef4fa;
+  }
+
+  /* Header */
+  .prod-header {
+    background: linear-gradient(135deg, #1a3558 0%, #2558a8 100%);
+    padding: 14px 24px; display: flex; align-items: center;
+    justify-content: space-between; flex-shrink: 0;
+  }
+  .prod-header-title {
+    font-family: 'Poppins', sans-serif; font-size: 2rem;
+    font-weight: 800; color: white;
+  }
+  .prod-header-sub { font-size: 0.9rem; color: rgba(255,255,255,0.55); margin-top: 1px; }
+  .prod-header-count {
+    background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 0.72rem; font-weight: 700; color: white;
+  }
+
+  /* Corps : liste gauche + détail droite */
+  .prod-body {
+    flex: 1; display: flex; min-height: 0;
+  }
+
+  /* Liste latérale */
+  .prod-list {
+    width: 210px; flex-shrink: 0; overflow-y: auto;
+    background: white; border-right: 1px solid #e8eef6;
+    padding: 10px 8px; display: flex; flex-direction: column; gap: 5px;
+  }
+  .prod-list::-webkit-scrollbar { width: 4px; }
+  .prod-list::-webkit-scrollbar-thumb { background: rgba(37,88,168,0.15); border-radius: 4px; }
+
+  .prod-list-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 10px; cursor: pointer;
+    border: 1.5px solid transparent; transition: all 0.15s;
+    background: transparent;
+  }
+  .prod-list-item:hover { background: #f5f8fd; border-color: #dce8f5; }
+  .prod-list-item.active {
+    background: #e8f0fc; border-color: #2558a8;
+  }
+  .prod-list-thumb {
+    width: 44px; height: 44px; border-radius: 8px;
+    background: #f0f5fc; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; overflow: hidden;
+  }
+  .prod-list-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+  .prod-list-info { flex: 1; min-width: 0; }
+  .prod-list-name {
+    font-size: 0.74rem; font-weight: 700; color: #1a3558;
+    line-height: 1.3; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .prod-list-chip {
+    display: inline-block; margin-top: 3px;
+    font-size: 0.6rem; font-weight: 800; padding: 2px 8px;
+    border-radius: 10px; letter-spacing: 0.3px;
+  }
+  .chip-S { background: #e8f0fc; color: #2558a8; }
+  .chip-M { background: #e6f5ee; color: #1d8a4a; }
+  .chip-L { background: #fff3e0; color: #b86e0e; }
+
+  /* Panneau détail */
+  .prod-detail {
+    flex: 1; display: flex; flex-direction: column; min-width: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  /* Zone image */
+  .prod-img-zone {
+    flex: 0 0 58%; position: relative;
+    background: linear-gradient(160deg, #f0f6ff 0%, #e4eef8 100%);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .prod-img-zone::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(37,88,168,0.07) 0%, transparent 70%);
+  }
+  .p-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: contain; padding: 20px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .p-visible { opacity: 1; transform: scale(1); }
+  .p-hidden  { opacity: 0; transform: scale(0.96); pointer-events: none; }
+
+  .p-france {
+    position: absolute; top: 12px; left: 12px; background: white;
+    border-radius: 8px; padding: 4px 9px; font-size: 0.62rem; font-weight: 700;
+    color: #1a3558; border: 1px solid #dce8f0; display: none;
+    align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .p-size-badge {
+    position: absolute; top: 12px; right: 12px;
+    border-radius: 12px; padding: 10px 18px;
+    font-weight: 900; font-size: 1.4rem; color: white;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.22); line-height: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .p-size-badge-sub { font-size: 0.65rem; font-weight: 700; opacity: 0.85; letter-spacing: 0.5px; }
+  .p-size-S { background: linear-gradient(135deg,#2558a8,#1a3d80); }
+  .p-size-M { background: linear-gradient(135deg,#2ebc60,#1d8a4a); }
+  .p-size-L { background: linear-gradient(135deg,#e08c1a,#b86e0e); }
+  .p-view-tabs {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px;
+  }
+  .p-tab {
+    background: rgba(255,255,255,0.95); border: 2px solid rgba(37,88,168,0.2);
+    border-radius: 10px; padding: 8px 24px; font-size: 0.88rem; font-weight: 700;
+    color: #6080a0; cursor: pointer; transition: all 0.18s; backdrop-filter: blur(4px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .p-tab-active, .p-tab:hover { background: #2558a8; color: white; border-color: #2558a8; }
+
+  /* Zone infos */
+  .prod-info {
+    flex: 1; padding: 16px 22px; display: flex; flex-direction: column;
+    gap: 10px; border-top: 1px solid #edf1f7; background: white; min-height: 0;
+    overflow-y: auto;
+  }
+  .prod-info::-webkit-scrollbar { width: 3px; }
+  .p-ref {
+    font-size: 0.62rem; font-weight: 800; color: #a0b4cc;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .p-name {
+    font-family: 'Poppins', sans-serif; font-size: 1.4rem;
+    font-weight: 800; color: #1a3558; line-height: 1.3;
+  }
+  .p-specs {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  }
+  .p-spec {
+    background: #f5f8fc; border-radius: 10px; padding: 8px 12px;
+    border: 1px solid #e8eef6;
+  }
+  .p-spec-label {
+    font-size: 0.58rem; font-weight: 800; color: #a0b4cc;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px;
+  }
+  .p-spec-val { font-size: 0.88rem; font-weight: 800; color: #1a3558; }
+  .p-desc { font-size: 0.9rem; color: #6080a0; line-height: 1.7; }
+
+  /* Placeholders */
+
+
+  /* ══ PAGES TEST ══ */
+  .test-page {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 28px 48px 32px; background: #c5daea; overflow: hidden;
+  }
+  .progress-bar {
+    display: flex; align-items: flex-start; gap: 0;
+    width: 100%; max-width: 700px; flex-shrink: 0; margin-bottom: 4px;
+  }
+  .prog-step { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .prog-dot {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.4); border: 2px solid rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.7); font-weight: 800; font-size: 0.8rem;
+    display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+  }
+  .prog-dot.done    { background: var(--green-btn); border-color: var(--green-btn); color: white; }
+  .prog-dot.current { background: white; border-color: white; color: #1a3558; }
+  .prog-line {
+    flex: 1; height: 3px; background: rgba(255,255,255,0.35);
+    align-self: center; margin-bottom: 20px;
+  }
+  .prog-line.done { background: var(--green-btn); }
+  .prog-label {
+    font-size: 0.58rem; font-weight: 600; color: rgba(255,255,255,0.75);
+    margin-top: 4px; text-align: center; max-width: 70px; line-height: 1.2;
+  }
+  .prog-label.current { color: white; font-weight: 800; }
+  .step-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 700;
+    color: #1a3558; text-align: center; margin-bottom: 4px; flex-shrink: 0;
+  }
+  .step-instruction {
+    font-size: 0.95rem; color: #6080a0; text-align: center;
+    flex-shrink: 0; line-height: 1.5;
+  }
+  .step-content {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    width: 100%; min-height: 0; padding: 6px 0; overflow-y: auto;
+  }
+  .step-nav { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+  .btn-prev-step {
+    background: white; color: #2558a8; border: none;
+    padding: 12px 28px; border-radius: 50px; font-family: 'Poppins', sans-serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(26,53,88,0.12); transition: transform 0.15s;
+  }
+  .btn-prev-step:hover { transform: translateY(-2px); }
+  .btn-next-step {
+    background: var(--green-btn); color: white; border: none;
+    padding: 14px 40px; border-radius: 50px; font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem; font-weight: 700; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(46,188,96,0.35); transition: transform 0.15s;
+  }
+  .btn-next-step:hover { transform: translateY(-2px); }
+  .levels-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    width: 100%; max-width: 720px;
+  }
+  .level-card {
+    background: white; border-radius: 16px; padding: 14px 10px;
+    text-align: center; cursor: pointer; border: 3px solid transparent;
+    box-shadow: 0 3px 12px rgba(26,53,88,0.08); transition: all 0.2s;
+  }
+  .level-card:hover { border-color: #2558a8; transform: translateY(-2px); }
+  .level-card.selected { border-color: #2558a8; background: #f0f5ff; }
+  .lv-num {
+    font-family: 'Poppins', sans-serif; font-size: 1.4rem;
+    font-weight: 800; color: #2558a8; margin-bottom: 4px;
+  }
+  .lv-label { font-size: 0.7rem; font-weight: 600; color: #6080a0; }
+  .reading-card {
+    background: white; border-radius: 16px; padding: 28px 36px;
+    max-width: 780px; width: 100%;
+    box-shadow: 0 6px 24px rgba(26,53,88,0.12);
+    overflow-y: auto; max-height: 100%;
+  }
+  .reading-level-badge {
+    display: inline-block; background: #2558a8; color: white;
+    font-size: 0.72rem; font-weight: 700; padding: 3px 12px;
+    border-radius: 20px; margin-bottom: 8px;
+  }
+  .reading-tag {
+    display: inline-block; color: white; font-size: 0.7rem; font-weight: 700;
+    padding: 3px 12px; border-radius: 20px; margin-bottom: 18px; margin-left: 8px;
+  }
+  .reading-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem; line-height: 2.0; color: #1a3558; text-align: justify;
+  }
+  .boitier-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    max-width: 600px; width: 100%;
+  }
+  .boitier-img {
+    width: 100%; max-width: 480px; border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+  }
+  .boitier-arrow {
+    font-size: 3rem; color: #2558a8;
+    animation: bounceDown 1.2s ease-in-out infinite;
+  }
+  @keyframes bounceDown {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(10px); }
+  }
+  .boitier-info {
+    background: white; border-radius: 14px; padding: 14px 28px;
+    box-shadow: 0 3px 14px rgba(26,53,88,0.10);
+    text-align: left; min-width: 300px;
+  }
+  .bi-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid #eef2f7; font-size: 0.95rem;
+  }
+  .bi-row:last-child { border-bottom: none; }
+  .bi-label { font-weight: 600; color: #6080a0; display: flex; align-items: center; gap: 8px; }
+  .bi-value { font-weight: 800; color: #1a3558; font-size: 1.1rem; }
+  .bi-knob { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+  .knob-blue { background: #2558a8; }
+  .knob-red  { background: #d0021b; }
+  .free-tip {
+    background: white; border-radius: 12px; padding: 16px 24px;
+    font-size: 0.9rem; color: #6080a0; text-align: center;
+    line-height: 1.6; box-shadow: 0 2px 10px rgba(26,53,88,0.08);
+    max-width: 480px;
+  }
+  .result-card {
+    background: white; border-radius: 16px; padding: 48px 60px;
+    max-width: 780px; width: 100%; text-align: center;
+    box-shadow: 0 8px 32px rgba(26,53,88,0.12);
+  }
+  .result-icon { font-size: 5rem; margin-bottom: 18px; }
+  .result-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.4rem;
+    font-weight: 700; color: #1a3558; margin-bottom: 10px;
+  }
+  .result-sub { font-size: 0.9rem; color: #6080a0; line-height: 1.6; margin-bottom: 24px; }
+  .result-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-restart {
+    background: #2558a8; color: white; border: none;
+    padding: 14px 32px; border-radius: 50px; font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: transform 0.15s;
+  }
+  .btn-restart:hover { transform: translateY(-2px); }
+  .btn-go-products {
+    background: white; color: #2558a8; border: 2px solid #2558a8;
+    padding: 14px 32px; border-radius: 50px; font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: transform 0.15s;
+  }
+  .btn-go-products:hover { transform: translateY(-2px); }
+
+  /* ── Feedback 3 choix ── */
+  .feedback-question {
+    font-family: 'Poppins', sans-serif; font-size: 1.3rem;
+    font-weight: 700; color: #1a3558; margin-bottom: 24px;
+  }
+  .feedback-btns {
+    display: flex; gap: 16px; justify-content: center;
+    margin-bottom: 0;
+  }
+  .feedback-btn {
+    background: white; color: #2558a8;
+    border: 2px solid #2558a8;
+    padding: 16px 32px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-size: 1.1rem;
+    font-weight: 700; cursor: pointer;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .feedback-btn:hover { background: #f0f5ff; transform: translateY(-2px); }
+  .feedback-btn.selected {
+    background: #2558a8; color: white;
+    cursor: default; transform: none;
+    pointer-events: none;
+  }
+  .feedback-btn.unselected {
+    opacity: 0.35; cursor: default;
+    pointer-events: none; transform: none;
+  }
+
+  /* ── Bloc résultat révélé après feedback ── */
+  .result-reveal {
+    margin-top: 28px; padding-top: 24px;
+    border-top: 1px solid #dce8f5;
+    animation: fadeSlideIn 0.4s ease;
+  }
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .result-reveal-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+  }
+  .result-reveal-text { flex: 1; min-width: 200px; text-align: left; }
+  .result-reveal-text .result-title { text-align: center; margin-bottom: 8px; }
+  .result-reveal-text .result-sub   { text-align: center; margin-bottom: 20px; }
+  .result-qr-block {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    flex-shrink: 0;
+  }
+  .result-qr-label {
+    font-size: 0.9rem; color: #6080a0; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .result-qr-img { width: 150px; height: 150px; border-radius: 8px; }
+  
+
+  /* ══ ÂGES & LECTURE (nouvelles classes) ══ */
+
+  /* Grille 4 cartes d'âge centrées */
+  .age-grid {
+    display: flex; gap: 20px; justify-content: center; align-items: center;
+    width: 100%; flex-wrap: wrap;
+  }
+  .age-card {
+    background: white; border-radius: 16px;
+    padding: 36px 45px; text-align: center;
+    cursor: pointer; border: 3px solid transparent;
+    box-shadow: 0 4px 16px rgba(26,53,88,0.10);
+    transition: all 0.2s; min-width: 160px;
+  }
+  .age-card:hover { border-color: #2558a8; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,53,88,0.15); }
+  .age-card.selected { border-color: #2558a8; background: #f0f5ff; }
+  .age-label {
+    font-family: 'Poppins', sans-serif; font-size: 3rem;
+    font-weight: 800; color: #2558a8;
+  }
+  .age-card.selected .age-label { color: #1a3558; }
+
+  /* Grande carte de lecture pleine page */
+  .reading-card-full {
+    background: white; border-radius: 16px;
+    padding: 36px 52px;
+    width: 95%; max-width: 95%;
+    flex: 1; max-height: 100%;
+    box-shadow: 0 6px 24px rgba(26,53,88,0.12);
+    display: flex; flex-direction: column; gap: 18px;
+    overflow-y: auto;
+  }
+  .reading-badges { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .reading-age-badge {
+    display: inline-block; background: #2558a8; color: white;
+    font-size: 0.85rem; font-weight: 700; padding: 5px 16px; border-radius: 20px;
+  }
+  .reading-tech-badge {
+    display: inline-block; color: white;
+    font-size: 0.82rem; font-weight: 700; padding: 5px 16px; border-radius: 20px;
+  }
+  .reading-text-full {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.45rem; line-height: 2.0; color: #1a3558;
+    text-align: justify; flex: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Boîtier nouveau layout */
+  .boitier-wrap-new {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px; width: 100%; max-width: 680px;
+  }
+  .boitier-img-new {
+    width: 100%; max-width: 520px; border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  }
+  .boitier-bottom {
+    display: flex; gap: 16px; align-items: flex-start;
+    width: 100%; max-width: 520px;
+  }
+  .boitier-info-row {
+    background: white; border-radius: 12px; padding: 12px 20px;
+    box-shadow: 0 3px 12px rgba(26,53,88,0.10); flex-shrink: 0; min-width: 220px;
+  }
+  .boitier-tip {
+    background: white; border-radius: 12px; padding: 14px 18px;
+    font-size: 0.88rem; color: #6080a0; line-height: 1.6;
+    box-shadow: 0 3px 12px rgba(26,53,88,0.08); flex: 1;
+  }
+  .boitier-arrow-down {
+    font-size: 2.8rem; color: #2558a8;
+    animation: bounceDown 1.2s ease-in-out infinite;
+  }
+  .boitier-arrow-label {
+    font-size: 0.78rem; font-weight: 600; color: #6080a0;
+    text-align: center; font-style: italic;
+  }
+
+
+  /* ══ LAYOUT 3 ZONES — steps 2, 3, 5 ══ */
+  .boitier-page-layout {
+    flex: 1; display: flex; flex-direction: column;
+    width: 100%; min-height: 0;
+  }
+  /* Zone 1 — titre + sous-titre : hauteur auto */
+  .boitier-zone-header {
+    flex-shrink: 0; text-align: center; padding: 10px 0 6px;
+  }
+  .boitier-zone-header .step-title      { margin-top: 0; }
+  .boitier-zone-header .step-instruction { margin-bottom: 0; }
+
+  /* Zone 2 — contenu (GIFs) : prend tout l'espace restant */
+  .boitier-zone-content {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    min-height: 0; padding: 4px 0;
+  }
+
+  /* Zone 3 — flèche : hauteur fixe, flèche ancrée en bas */
+  .boitier-zone-arrow {
+    flex-shrink: 0; height: 120px;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 5px;
+  }
+  .boitier-big-arrow {
+    width: 80px; height: 100px;
+    animation: bounceDown 1.2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 10px rgba(26,53,88,0.35));
+  }
+
+
+  /* ══ BOÎTIER DUAL LAYOUT (steps 3 & 5) ══ */
+  .boitier-dual-layout {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+    width: 100%; height: 100%;
+    justify-content: center;
+  }
+  .boitier-dual-row {
+    display: flex; flex-direction: row;
+    align-items: center; justify-content: center;
+    gap: 0; width: 100%; position: relative;
+  }
+  .boitier-dual-gif-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; width: 500px; flex-shrink: 0;
+  }
+  .boitier-dual-label {
+    font-family: 'Poppins', sans-serif; font-size: 0.82rem;
+    color: #1a3558; text-align: center; margin: 0;
+  }
+  .boitier-gif-dual {
+    width: 580px; border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.20);
+    background: transparent; display: block;
+  }
+  .boitier-dual-badge {
+    background: white; border-radius: 12px;
+    padding: 14px 20px; width: 200px; flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    position: absolute; right: 250px;
+  }
+  .badge-dot-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+  .badge-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+  .dot-red  { background: #c8352a; }
+  .dot-blue { background: #1b6fd8; }
+  .badge-text  { font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: #6080a0; }
+  .badge-value { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: #1a3558; }
+
+  /* ══ BOÎTIER ACTIVATION step 2 ══ */
+  .boitier-gif {
+    width: 620px; border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    background: transparent;
+  }
+
+  /* ══ ICÔNES 3D PAGE ACCUEIL ══ */
+  .icons3d-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex: 1; padding: 0;
+	margin-top: -40px;
+  }
+  .icon3d-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .icon3d-img {
+    width: 480px; height: 480px; object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
+    transition: transform 0.2s;
+  }
+  .icon3d-img:hover { transform: translateY(-6px); }
+  .icon3d-arrow {
+    width: 0; height: 0; margin: 0 0 40px 0;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+  }
+  .icon3d-arrow.blue   { border-left: 26px solid #2558a8; }
+  .icon3d-arrow.orange { border-left: 26px solid #2558a8; }
+  .icon3d-label {
+    font-family: 'Poppins', sans-serif; font-size: 2.5rem;
+    font-weight: 700; color: var(--text-dark); text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ══ NAV alignée fil d'ariane : précédent GAUCHE, suivant DROITE ══ */
+  .step-top-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; flex-shrink: 0; padding: 0 0 8px 0; gap: 10px;
+  }
+  .step-top-bar .progress-bar { flex: 1; margin-bottom: 0; max-width: none; }
+  .step-top-left  { flex-shrink: 0; min-width: 140px; }
+  .step-top-right { flex-shrink: 0; min-width: 140px; display: flex; justify-content: flex-end; }
+
+  /* ══ TITRE + SOUS-TITRE plus grands ══ */
+  .step-title {
+    font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 700;
+    color: #1a3558; text-align: center; margin-bottom: 4px; flex-shrink: 0;
+    margin-top: 16px;
+  }
+  .step-instruction {
+    font-size: 1rem; color: #6080a0; text-align: center;
+    flex-shrink: 0; line-height: 1.5; margin-bottom: 4px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     PAGE 0 — ACCUEIL
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <div class="home-topbar">
+    <h1>Votre perception visuelle est elle perturbée ?</h1>
+    <img class="topbar-logo" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+  </div>
+
+  <div class="video-grid">
+
+    <div class="video-cell">
+      <div class="video-cell-header">Le texte apparaît en 3D</div>
+      <video src="lexilens-assets/Media/media1.mov" autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="video-cell">
+      <div class="video-cell-header">Le texte se scinde en deux</div>
+      <video src="lexilens-assets/Media/media2.mov" autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="video-cell">
+      <div class="video-cell-header">Les mots disparaissent</div>
+      <video src="lexilens-assets/Media/media3.mov" autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="video-cell">
+      <div class="video-cell-header">Les mots et le texte ondulent</div>
+      <video src="lexilens-assets/Media/media4.mov" autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="video-cell">
+      <div class="video-cell-header">Les mots et le texte tremblent</div>
+      <video src="lexilens-assets/Media/media5.mov" autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="video-cell">
+      <div class="video-cell-header">Les mots et le texte tournent</div>
+      <video src="lexilens-assets/Media/media6.mov" autoplay loop muted playsinline></video>
+    </div>
+
+  </div>
+
+  <div class="home-bottom">
+    <img class="deco-img" src="lexilens-assets/Images/girl-reading.png" alt="Enfant lisant avec Lexilens">
+    <button class="testez-btn" onclick="showPage('page-step1')">TESTEZ-VOUS ICI</button>
+    <img class="deco-img" src="lexilens-assets/Images/hand-mouse.png" alt="Interaction avec le kiosk">
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 1 — KIOSQUE DÉMARRER
+══════════════════════════════════════ -->
+<div class="page" id="page-step1">
+
+<div class="kiosk-main" style="justify-content:space-between;">
+
+  <!-- Titre centré en haut -->
+  <div class="kiosk-top" style="width:100%; text-align:center;">
+    <div class="kiosk-title">BIENVENUE</div>
+    <div class="kiosk-subtitle">Testez la technologie Lexilens !</div>
+  </div>
+
+  <!-- 3 icônes centrées verticalement et horizontalement -->
+  <div class="icons3d-row">
+
+    <div class="icon3d-wrap">
+      <img class="icon3d-img" src="lexilens-assets/Images/icon-gear.png" alt="Réglage">
+      <div class="icon3d-label">REGLER</div>
+    </div>
+
+    <div class="icon3d-arrow blue"></div>
+
+    <div class="icon3d-wrap">
+      <img class="icon3d-img" src="lexilens-assets/Images/icon-book.png" alt="Lecture">
+      <div class="icon3d-label">LIRE</div>
+    </div>
+
+    <div class="icon3d-arrow orange"></div>
+
+    <div class="icon3d-wrap">
+      <img class="icon3d-img" src="lexilens-assets/Images/icon-check.png" alt="Résultat">
+      <div class="icon3d-label">CONSTATER</div>
+    </div>
+
+  </div>
+
+  <!-- Bouton démarrer en bas centré -->
+  <div style="display:flex; justify-content:center;">
+    <button class="start-btn" onclick="startTest()">
+      <div class="btn-play">▶</div>
+      Démarrer (5 min)
+    </button>
+  </div>
+
+</div>
+
+  <div class="kiosk-sidebar">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <nav class="sb-nav">
+	  <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
+      <a class="active" onclick="navTo('page-step1', this)">Testez-vous</a>
+      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a onclick="navTo('page-products', this)">Produits</a>
+    </nav>
+    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+  </div>
+
+</div>
+
+
+
+
+<div class="page" id="page-lexilens">
+  <div class="lex-main">
+    <div class="lex-scroll">
+
+      <!-- ① HERO — bleu marine -->
+      <div class="lex-hero">
+        <img class="lex-hero-bg" src="lexilens-assets/Images/hero-glasses.png" alt="">
+        <div class="lex-hero-overlay"></div>
+        <div class="lex-hero-text">
+          <div class="lex-hero-eyebrow">Technologie neurovisuelle française</div>
+          <h1 class="lex-hero-title">Vous avez du mal à <em>lire</em> ?<br>Lexilens peut changer ça.</h1>
+          <p class="lex-hero-sub">Certaines personnes relisent plusieurs fois, se fatiguent vite ou perdent le fil.<br>Lexilens est fait pour elles.</p>
+        </div>
+        <div class="lex-hero-img-wrap">
+          <img src="lexilens-assets/Images/hero-glasses.png" alt="Lunettes Lexilens" onerror="this.style.opacity='0'">
+        </div>
+      </div>
+
+      <!-- ② SYMPTÔMES — gris-blanc -->
+      <div class="lex-symptoms-section">
+        <div class="lex-section-title">Vous reconnaissez-vous ?</div>
+        <div class="lex-symptoms-grid">
+          <div class="lex-symptom-card">
+            <div class="lex-symptom-icon">👁️</div>
+            <div class="lex-symptom-label">Perception visuelle perturbée</div>
+            <div class="lex-symptom-desc">Les mots bougent, se dédoublent ou semblent instables</div>
+          </div>
+          <div class="lex-symptom-card">
+            <div class="lex-symptom-icon">😴</div>
+            <div class="lex-symptom-label">Fatigue rapide</div>
+            <div class="lex-symptom-desc">La lecture vous épuise plus vite que les autres</div>
+          </div>
+          <div class="lex-symptom-card">
+            <div class="lex-symptom-icon">😵</div>
+            <div class="lex-symptom-label">Relecture fréquente</div>
+            <div class="lex-symptom-desc">Vous devez relire plusieurs fois pour comprendre un texte</div>
+          </div>
+          <div class="lex-symptom-card">
+            <div class="lex-symptom-icon">🧠</div>
+            <div class="lex-symptom-label">Perte de concentration</div>
+            <div class="lex-symptom-desc">Difficile de rester focus, même sur un texte court</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ CROWDING — bleu marine -->
+      <div class="lex-crowding-section">
+        <div class="lex-section-title on-dark">Pourquoi c'est difficile pour certains ?</div>
+        <div class="lex-crowding-row">
+          <div class="lex-crowding-img">
+            <img src="lexilens-assets/Images/crowding-comparaison.png" alt="Illustration du crowding neurovisuel"
+                 onerror="this.style.opacity='0.1'">
+          </div>
+          <div class="lex-crowding-text">
+            <div class="lex-crowding-pill">1 personne sur 10</div>
+            <div class="lex-crowding-body">
+              Le cerveau reçoit <strong>deux images légèrement décalées</strong> au lieu d'une seule. Ce doublement invisible crée un <strong>« bruit visuel »</strong> qui rend la lecture plus fatigante et moins fluide.
+            </div>
+            <div class="lex-crowding-note">
+              Ce n'est pas un problème de vue, ni d'intelligence. C'est simplement la façon dont certains cerveaux traitent l'image.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ④ SOLUTION — gris-blanc -->
+      <div class="lex-solution-section">
+        <div class="lex-solution-inner">
+          <div class="lex-section-title">La solution Lexilens</div>
+          <div class="lex-solution-subtitle">Lexilens supprime ce bruit visuel</div>
+        </div>
+        <div class="lex-solution-inner">
+          <div class="lex-solution-img-banner">
+            <img src="lexilens-assets/Images/solution-glasses.png" alt="Lexilens en action"
+                 onerror="this.style.opacity='0.1'">
+          </div>
+          <div class="lex-solution-benefits">
+            <div class="lex-solution-benefit">
+              <div class="lex-solution-benefit-icon">📖</div>
+              <div class="lex-solution-benefit-title">Lecture plus fluide</div>
+              <div class="lex-solution-benefit-desc">Les mots restent stables, on n'a plus besoin de tout relire</div>
+            </div>
+            <div class="lex-solution-benefit">
+              <div class="lex-solution-benefit-icon">⚡</div>
+              <div class="lex-solution-benefit-title">Moins de fatigue</div>
+              <div class="lex-solution-benefit-desc">On peut lire plus longtemps sans s'épuiser</div>
+            </div>
+            <div class="lex-solution-benefit">
+              <div class="lex-solution-benefit-icon">🎯</div>
+              <div class="lex-solution-benefit-title">Meilleure concentration</div>
+              <div class="lex-solution-benefit-desc">Rester focus devient naturel, même sur de longs textes</div>
+            </div>
+          </div>
+          <div class="lex-solution-body">
+            Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens empêche le doublement de se former.<br>Résultat : une <strong>lecture plus naturelle, plus fluide, moins épuisante</strong>. Dès les premières secondes, beaucoup ressentent la différence.
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ AVANTAGES — bleu marine -->
+      <div class="lex-stats-section">
+        <div class="lex-section-title on-dark">Avantages pour les utilisateurs de Lexilens</div>
+        <div class="lex-stats-sub">Données consolidées auprès de plus d'utilisateurs dans plus de 20 pays</div>
+        <div class="lex-stats-grid">
+          <div class="lex-stat-card">
+            <div class="lex-stat-num">7 000<sup>+</sup></div>
+            <div class="lex-stat-label">utilisateurs dans le monde</div>
+          </div>
+          <div class="lex-stat-card">
+            <div class="lex-stat-num">20<sup>+</sup></div>
+            <div class="lex-stat-label">pays où Lexilens est utilisé</div>
+          </div>
+          <div class="lex-stat-card">
+            <div class="lex-stat-num">92%</div>
+            <div class="lex-stat-label">d'impact positif sur la vie quotidienne</div>
+          </div>
+          <div class="lex-stat-card">
+            <div class="lex-stat-num">86%</div>
+            <div class="lex-stat-label">d'amélioration scolaire</div>
+          </div>
+        </div>
+        <div class="lex-bars">
+          <div class="lex-bar-row">
+            <div class="lex-bar-label">Impact positif sur la vie</div>
+            <div class="lex-bar-track"><div class="lex-bar-fill" style="width:92%"></div></div>
+            <div class="lex-bar-pct">92%</div>
+          </div>
+          <div class="lex-bar-row">
+            <div class="lex-bar-label">Amélioration scolaire</div>
+            <div class="lex-bar-track"><div class="lex-bar-fill" style="width:86%"></div></div>
+            <div class="lex-bar-pct">86%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑥ TÉMOIGNAGES — gris-blanc -->
+      <div class="lex-testimonials-section">
+        <div class="lex-section-title">Ce qu'en disent les utilisateurs</div>
+        <div class="lex-testimonials-grid">
+          <div class="lex-testimony">
+            <div class="lex-testimony-quote">"</div>
+            <div class="lex-testimony-text">J'ai désormais davantage confiance en moi. Je peux lire, mais je trouve aussi qu'il est plus facile de me faire de nouveaux amis.</div>
+            <div class="lex-testimony-author">
+              <div class="lex-testimony-avatar lex-testimony-avatar-f">
+                <span class="lex-testimony-avatar-placeholder">👩</span>
+              </div>
+              <div>
+                <div class="lex-testimony-name">Lila (France)</div>
+                <div class="lex-testimony-role">Utilisatrice Lexilens</div>
+              </div>
+            </div>
+          </div>
+          <div class="lex-testimony">
+            <div class="lex-testimony-quote">"</div>
+            <div class="lex-testimony-text">Ils m'aident tellement que je n'ai plus besoin de deviner les mots. Je peux enfin lire chaque mot en entier et comprendre ce que je lis !</div>
+            <div class="lex-testimony-author">
+              <div class="lex-testimony-avatar lex-testimony-avatar-m">
+                <span class="lex-testimony-avatar-placeholder">👨</span>
+              </div>
+              <div>
+                <div class="lex-testimony-name">Juozapas (Lithuanie)</div>
+                <div class="lex-testimony-role">Utilisateur Lexilens</div>
+              </div>
+            </div>
+          </div>
+          <div class="lex-testimony">
+            <div class="lex-testimony-quote">"</div>
+            <div class="lex-testimony-text">Je peux comprendre ce que je lis au fur et à mesure de ma lecture. Elles rendent tout plus net.</div>
+            <div class="lex-testimony-author">
+              <div class="lex-testimony-avatar lex-testimony-avatar-f">
+                <span class="lex-testimony-avatar-placeholder">👩</span>
+              </div>
+              <div>
+                <div class="lex-testimony-name">Camilla (Danemark)</div>
+                <div class="lex-testimony-role">Utilisatrice Lexilens</div>
+              </div>
+            </div>
+          </div>
+          <div class="lex-testimony">
+            <div class="lex-testimony-quote">"</div>
+            <div class="lex-testimony-text">Avant, la lecture me fatiguait très rapidement. Aujourd'hui, je peux lire plus longtemps, comme tout le monde. C'est une véritable révolution dans ma vie.</div>
+            <div class="lex-testimony-author">
+              <div class="lex-testimony-avatar lex-testimony-avatar-f">
+                <span class="lex-testimony-avatar-placeholder">👩</span>
+              </div>
+              <div>
+                <div class="lex-testimony-name">Marie (France)</div>
+                <div class="lex-testimony-role">Utilisatrice Lexilens</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑦ BADGE FRANCE — bleu marine -->
+      <div class="lex-footer-section">
+        <div class="lex-made-in">
+         <!-- <span class="lex-made-in-flag"></span>-->
+          <div>
+            <div class="lex-made-in-title">Lexilens — Une innovation de rupture française</div>
+            <div class="lex-made-in-sub">Conçue et fabriquée en France</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end lex-scroll -->
+  </div><!-- end lex-main -->
+
+  <div class="kiosk-sidebar">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <nav class="sb-nav">
+      <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
+      <a onclick="navTo('page-step1', this)">Testez-vous</a>
+      <a class="active" onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a onclick="navTo('page-products', this)">Produits</a>
+    </nav>
+    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE PRODUITS — Carrousel
+══════════════════════════════════════ -->
+<div class="page" id="page-products">
+
+  <div class="prod-main">
+
+    <!-- HEADER -->
+    <div class="prod-header">
+      <div>
+        <div class="prod-header-title">Nos produits</div>
+        <div class="prod-header-sub">Gamme Lexilens — technologie neurovisuelle française</div>
+      </div>
+      <div class="prod-header-count" id="prodHeaderCount">6 modèles</div>
+    </div>
+
+    <!-- CORPS -->
+    <div class="prod-body">
+
+      <!-- LISTE LATÉRALE -->
+      <div class="prod-list" id="prodList"></div>
+
+      <!-- DÉTAIL -->
+      <div class="prod-detail" id="prodDetail">
+        <div class="prod-img-zone">
+          <img class="p-img p-visible" id="imgMain" src="" alt="Photo produit Lexilens">
+          <img class="p-img p-hidden"  id="imgAlt"  src="" alt="Photo produit Lexilens vue 3/4">
+          <div class="p-france" id="pFrance">🇫🇷 Origine France Garantie</div>
+          <div class="p-size-badge" id="pSizeBadge">
+            <span id="pSizeVal"></span>
+            <span class="p-size-badge-sub" id="pSizeSub"></span>
+          </div>
+          <div class="p-view-tabs">
+            <div class="p-tab p-tab-active" onclick="switchView(0)">Face</div>
+            <div class="p-tab" onclick="switchView(1)">3/4</div>
+          </div>
+        </div>
+        <div class="prod-info">
+          <div class="p-ref" id="pRef"></div>
+          <div class="p-name" id="pName"></div>
+          <div class="p-specs">
+            <div class="p-spec"><div class="p-spec-label">Taille</div><div class="p-spec-val" id="pSize"></div></div>
+            <div class="p-spec"><div class="p-spec-label">Calibre / Nez</div><div class="p-spec-val" id="pCalibre"></div></div>
+            <div class="p-spec"><div class="p-spec-label">Branche</div><div class="p-spec-val" id="pBranch"></div></div>
+          </div>
+          <div class="p-desc" id="pDesc"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="kiosk-sidebar">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <nav class="sb-nav">
+      <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
+      <a onclick="navTo('page-step1', this)">Testez-vous</a>
+      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a class="active">Produits</a>
+    </nav>
+    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+  </div>
+
+</div>
+
+<!-- ══ PAGE TEST ══ -->
+<div class="page" id="page-steps">
+  <div class="test-page" id="testContent"></div>
+  <div class="kiosk-sidebar">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <nav class="sb-nav">
+	  <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
+      <a onclick="navTo('page-step1', this)">Testez-vous</a>
+      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a onclick="navTo('page-products', this)">Produits</a>
+    </nav>
+    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+  </div>
+</div>
+
+<script>
+  /* ── Page navigation ── */
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    // Play videos only on home page
+    const isHome = id === 'page-home';
+    document.querySelectorAll('#page-home video').forEach(v => {
+      isHome ? v.play().catch(()=>{}) : v.pause();
+    });
+  }
+  //function navTo(pageId, el) { showPage(pageId); }
+function navTo(pageId, el) {
+  if (pageId === 'page-step1') {
+    // Réinitialiser le test
+    testStep = 0;
+    testLevel = null;
+    // Afficher BIENVENUE
+    showPage('page-step1');
+  } else {
+    showPage(pageId);
+  }
+}
+
+
+  // Autoplay on load
+ // window.addEventListener('load', () => {
+   // document.querySelectorAll('#page-home video').forEach(v => v.play().catch(()=>{}));
+  //});
+  
+  /* ══ MOTEUR TEST ══ */
+
+  // Tranches d'âge — textes chargés depuis lexilens-assets/textes/
+  const AGES = [
+    { label:'8 – 9 ans',    fichier:'8-9ans'   },
+    { label:'10 – 11 ans',  fichier:'10-11ans'  },
+    { label:'12 – 14 ans',  fichier:'12-14ans'  },
+    { label:'15 ans et +',  fichier:'15plus'    }
+  ];
+
+  // 9 étapes
+  const STEPS = [
+    { label:'Âge',            title:'Choisissez votre tranche d\'âge',              instruction:'Sélectionnez la tranche d\'âge qui vous correspond.' },
+    { label:'Désactivation',  title:'Vérifiez que la technologie Lexilens est désactivée', instruction:'Appuyez sur le bouton power pour désactiver la technologie Lexilens.' },
+    { label:'Sans Lexilens',  title:'Lisez sans la technologie Lexilens',            instruction:'Prenez le temps de lire ce texte normalement. Notez votre confort, votre vitesse et votre fatigue visuelle.' },
+    { label:'Activation',     title:'Activez la technologie Lexilens',               instruction:'Appuyez sur le bouton power pour activer la technologie Lexilens.' },
+    { label:'Réglage',        title:'Réglez la fréquence à 80 Hz et la balance à 20%', instruction:'Tournez le bouton rouge pour régler la fréquence, et le bouton bleu pour la balance.' },
+    { label:'Avec Lexilens',  title:'Lisez avec la technologie Lexilens activée',    instruction:'Lisez ce texte avec Lexilens activé. Comparez votre confort par rapport à la première lecture.' },
+    { label:'Réglages libres',title:'Explorez librement les réglages pour optimiser votre confort visuel',               instruction:'Tournez les boutons pour trouver votre réglage idéal.' },
+    { label:'Avec réglages',  title:'Lisez avec vos réglages personnalisés',         instruction:'Lisez ce texte avec votre réglage idéal trouvé à l\'étape précédente.' },
+    { label:'Résultats',      title:'Merci d\'avoir fait le test !',                instruction:'C\'est le moment de votre retour d\'expérience.' }
+  ];
+
+  let testStep  = 0;
+  let testLevel = null;
+
+  // Textes intégrés directement (pas de fetch nécessaire)
+  // Textes intégrés directement
+  const TEXTES_INLINE = {
+    '10-11ans-avec': { texte: 'Inès adorait les sciences depuis que sa maîtresse avait apporté un microscope en classe. Elle décida de créer son propre laboratoire dans le garage de ses parents. Avec quelques bocaux, des loupes et un cahier de notes, elle commença ses expériences. Sa première observation porta sur l\'eau prélevée dans la mare du jardin. Sous la loupe, elle aperçut de minuscules créatures se déplaçant rapidement. Elle dessina chaque forme observée avec le plus de précision possible. Sa mère lui offrit un livre sur les micro-organismes pour l\'encourager. Inès passa des heures à comparer ses dessins avec les illustrations du livre. Elle identifia des paramécies, des rotifères et des larves d\'insectes aquatiques. Son carnet de laboratoire se remplissait de notes et de croquis détaillés. Un voisin biologiste apprit ses expériences et proposa de lui prêter un vrai microscope. Inès n\'en croyait pas ses yeux quand elle vit sa première cellule végétale. La paroi cellulaire et les chloroplastes verts apparaissaient avec une netteté parfaite. Elle comprit alors que le monde invisible était d\'une richesse infinie. Elle prépara des lames avec des feuilles, des pétales et des morceaux de bois. Chaque matériau révélait une organisation différente sous les lentilles grossissantes. Inès invita ses amis à venir regarder dans le microscope un mercredi après-midi. Certains étaient sceptiques au départ mais restèrent bouche bée devant les images. Son ami Tom décida de commencer lui aussi un carnet d\'observations scientifiques. Inès lui expliqua comment préparer une lame sans abîmer l\'échantillon. Ils formèrent un petit club des sciences qui se réunissait chaque semaine. Ensemble, ils observèrent des cheveux, des fourmis et des grains de pollen. Le voisin biologiste venait parfois répondre à leurs questions avec plaisir. Inès apprit que la curiosité était le premier outil de tout scientifique. Elle rêvait de découvrir un organisme encore jamais identifié par personne. Son carnet était devenu un véritable journal de bord scientifique personnel. Les pages s\'enrichissaient chaque semaine de nouvelles découvertes fascinantes. Ses parents étaient fiers de voir leur fille aussi passionnée et sérieuse. Inès savait maintenant qu\'elle voulait travailler dans la recherche plus tard. Et tout avait commencé avec un peu d\'eau prélevée dans une simple mare.', taille: 1.3, interligne: 1.9 },
+    '10-11ans-libre': { texte: 'Marcus était passionné de football depuis ses cinq ans. Il s\'entraînait tous les jours dans la cour de son immeuble après l\'école. Cette année, il avait intégré l\'équipe de son quartier pour la première fois. Les entraînements avaient lieu le mardi et le jeudi soir au stade municipal. L\'entraîneur s\'appelait Monsieur Bertrand et il était très exigeant mais juste. Dès le premier entraînement, Marcus réalisa qu\'il avait encore beaucoup à apprendre. Les autres joueurs maîtrisaient des techniques qu\'il n\'avait jamais pratiquées. Il rentra chez lui ce soir-là avec la tête pleine de questions et de doutes. Sa sœur aînée lui dit que les débuts étaient toujours les plus difficiles. Le lendemain matin, il se leva tôt pour s\'exercer avant d\'aller en classe. Semaine après semaine, ses gestes devinrent plus précis et plus fluides. Monsieur Bertrand remarqua ses progrès et lui confia un rôle de milieu de terrain. Marcus apprit à lire le jeu et à anticiper les mouvements de ses coéquipiers. Il comprit que le football était autant un sport collectif qu\'individuel. Le premier match officiel approchait et la pression montait dans le groupe. La veille, Marcus dormit mal en pensant aux actions importantes du lendemain. Mais dès le coup de sifflet, toute la nervosité disparut instantanément. Il courait, passait et défendait avec une énergie qu\'il ne se connaissait pas. À la vingtième minute, il offrit une passe décisive à son coéquipier Kevin. Le stade retentit d\'applaudissements quand le ballon entra dans le filet. Son équipe gagna ce match par deux buts à un après une belle résistance. Dans les vestiaires, l\'ambiance était joyeuse et les sourires communicatifs. Monsieur Bertrand félicita chaque joueur individuellement avec des mots précis. Il dit à Marcus qu\'il avait montré une belle intelligence de jeu ce soir. Marcus se sentait appartenir à quelque chose de plus grand que lui-même. Le chemin pour devenir meilleur était encore long mais il était sur la bonne voie. Il remercia ses parents qui avaient assisté à chaque entraînement sans exception. Sa mère lui dit qu\'elle était fière de sa persévérance plus que de ses buts. Marcus comprit ce soir-là la valeur du travail régulier et de la patience. Il avait hâte de retrouver ses coéquipiers pour le prochain entraînement.', taille: 1.3, interligne: 1.9 },
+    '10-11ans-sans': { texte: 'Chaque été, Léo passait ses vacances dans la vieille ferme de ses grands-parents. Cette année, il avait décidé d\'explorer le grenier que personne n\'ouvrait plus. Une échelle branlante menait à une trappe poussiéreuse sous les tuiles. En poussant la trappe, une lumière dorée envahit l\'obscurité du grenier. Des caisses en bois, des malles en cuir et des meubles couverts de draps attendaient. Léo s\'avança prudemment sur le plancher qui craquait à chaque pas. Dans un coin, il découvrit une vieille valise portant les initiales de son arrière-grand-père. La serrure céda facilement sous ses doigts après quelques tentatives. À l\'intérieur, des photographies en noir et blanc étaient soigneusement rangées. On y voyait des hommes et des femmes dans des vêtements d\'une autre époque. Léo reconnut le visage de son grand-père enfant sur l\'une d\'elles. Il y avait aussi des lettres pliées en quatre attachées avec un ruban rouge. L\'écriture ancienne était difficile à déchiffrer mais Léo prit son temps. Les lettres racontaient la vie à la ferme pendant les années difficiles d\'après-guerre. Son arrière-grand-père y décrivait les saisons, les récoltes et les fêtes du village. Léo descendit avec précaution en serrant la valise contre lui. Son grand-père, assis dans le jardin, leva les yeux avec surprise. Quand il vit la valise, une émotion profonde traversa son visage ridé. Il s\'assit à côté de Léo et commença à raconter des histoires longtemps gardées. Les photographies devinrent des portes vers un monde disparu mais vivant. Léo écoutait en prenant des notes dans son carnet bleu. Ils passèrent l\'après-midi entier à voyager dans le temps ensemble. Le grand-père riait en se rappelant des souvenirs d\'enfance oubliés. Léo comprit que les objets anciens portaient des vies entières en eux. Le soir, toute la famille se réunit autour de la valise ouverte. Chacun reconnut un visage ou une histoire entendue jadis. La ferme semblait soudain plus grande remplie de tous ces souvenirs. Léo promit de scanner les photographies pour les conserver numériquement. Son grand-père le regarda avec fierté et lui dit merci à voix basse. Ce soir-là, Léo s\'endormit avec le sentiment d\'avoir retrouvé ses racines.', taille: 1.3, interligne: 1.9 },
+    '12-14ans-avec': { texte: 'Le projet artistique de Nathan avait débuté comme un simple passe-temps pendant les vacances scolaires. Il avait commencé à peindre des paysages urbains en utilisant des techniques mixtes sur grand format. L\'acrylique, l\'encre de Chine et les collages de journaux se mêlaient dans des compositions complexes. Son professeur d\'arts plastiques avait immédiatement remarqué son sens original de la composition. Elle l\'avait encouragé à soumettre une œuvre pour l\'exposition annuelle de l\'école secondaire. Nathan travailla pendant trois semaines sur une pièce représentant sa ville vue depuis les toits. Il superposait des couches de peinture transparentes pour créer une impression de profondeur et de mouvement. Les détails architecturaux côtoyaient des formes abstraites qui évoquaient la vie urbaine contemporaine. Quand il présenta son œuvre à l\'exposition, les réactions furent largement positives et encourageantes. Un galeriste local présent ce soir-là lui proposa de rejoindre un atelier collectif pour jeunes artistes. Cet espace de création partagé lui permit de rencontrer d\'autres adolescents partageant sa passion. Les échanges avec les autres artistes enrichirent sa vision et l\'amenèrent à expérimenter de nouvelles techniques. Il découvrit la gravure, la sérigraphie et les techniques numériques appliquées à l\'art traditionnel. Chaque nouvelle technique lui ouvrait des possibilités expressives qu\'il n\'avait pas envisagées. Nathan s\'intéressa également à l\'histoire de l\'art pour comprendre les mouvements qui avaient précédé le sien. Il passa des heures dans les bibliothèques à consulter des ouvrages sur l\'expressionnisme et l\'art conceptuel. Ces références historiques enrichissaient son travail personnel d\'une dimension culturelle nouvelle. Il commença à écrire des textes accompagnant ses œuvres pour expliquer ses intentions artistiques. Cette démarche réflexive l\'amena à mieux comprendre ce qu\'il cherchait à exprimer visuellement. L\'écriture et la peinture devinrent pour lui deux faces complémentaires d\'un même besoin d\'expression. Il fut sélectionné pour représenter sa région dans un concours national d\'arts plastiques pour lycéens. La préparation de ce concours lui demanda une discipline et une rigueur nouvelles dans son travail. Il apprit à gérer la pression des délais sans sacrifier l\'authenticité de sa démarche créative. Le jour de la présentation, il défendit son projet devant un jury professionnel avec assurance et clarté. Sa capacité à expliquer ses choix artistiques impressionna autant les jurés que ses œuvres elles-mêmes. Nathan obtint une mention spéciale pour l\'originalité de sa démarche plastique et conceptuelle. Cette reconnaissance lui donna confiance pour envisager des études supérieures dans le domaine des arts. Il comprit que la créativité sans réflexion restait incomplète et que l\'inverse était tout aussi vrai. Son parcours lui avait appris que l\'art était un dialogue constant entre l\'intuition et la pensée. Il continuait à peindre chaque soir en sachant que chaque œuvre le rapprochait de lui-même.', taille: 1.2, interligne: 1.85 },
+    '12-14ans-libre': { texte: 'La décision de Sarah de créer un jardin partagé dans son quartier n\'avait pas été prise à la légère. Elle avait observé pendant des mois la parcelle abandonnée au coin de sa rue sans comprendre sa destination. Après quelques recherches à la mairie, elle apprit que le terrain appartenait à la ville et était disponible. Elle rédigea une pétition demandant sa transformation en espace vert communautaire et collecta des signatures. Ses voisins furent nombreux à soutenir l\'initiative, surpris qu\'une adolescente prenne une telle démarche. La mairie reçut la pétition avec bienveillance et proposa une réunion avec les habitants concernés. Sarah prépara une présentation détaillée du projet avec plans, budget prévisionnel et planning de réalisation. Elle avait consulté des guides de jardinage urbain et contacté des associations locales pour s\'informer. Lors de la réunion publique, elle présenta son projet devant une cinquantaine de personnes attentives. Les questions fusèrent mais Sarah avait anticipé la plupart des objections et proposait des solutions concrètes. La mairie donna finalement son accord pour une période d\'essai de deux ans avec un soutien financier modeste. Le chantier de transformation débuta un samedi matin d\'avril sous un ciel dégagé et motivant. Des habitants de tous âges vinrent avec leurs outils, leurs graines et leur bonne volonté communicative. Sarah organisait les équipes, répartissait les tâches et résolvait les petits conflits avec diplomatie. En quelques semaines, la friche fut transformée en un espace verdoyant structuré en parcelles individuelles. Chaque famille adoptante s\'engageait à respecter une charte de jardinage biologique et de partage. Des ateliers hebdomadaires permettaient aux débutants d\'apprendre les bases de la culture maraîchère. Les échanges entre générations créaient des liens sociaux nouveaux dans un quartier parfois anonyme. Des enfants qui ne se connaissaient pas se retrouvaient à arroser les tomates côte à côte le mercredi. Des personnes âgées transmettaient leurs savoirs ancestraux sur les associations de plantes bénéfiques. Sarah documentait l\'évolution du jardin avec des photographies et des témoignages réguliers. Elle alimentait un blog suivi par d\'autres porteurs de projets similaires dans différentes villes. Son initiative fut mentionnée dans le journal local comme exemple de citoyenneté active et responsable. Elle fut invitée à présenter son expérience lors d\'une conférence sur l\'urbanisme participatif. Sarah réalisa que son projet avait dépassé largement ses ambitions initiales de simple jardinage. Il était devenu un laboratoire vivant de lien social, d\'écologie urbaine et d\'engagement citoyen. Cette expérience lui donna envie de poursuivre des études en urbanisme ou en sciences environnementales. Elle comprit que les jeunes pouvaient transformer leur environnement immédiat avec des idées et de la persévérance. Son jardin continuait de pousser, saison après saison, comme témoin de ce qu\'on peut accomplir ensemble. Et chaque légume récolté lui rappelait que les plus grandes aventures commencent souvent par un petit geste.', taille: 1.2, interligne: 1.85 },
+    '12-14ans-sans': { texte: 'La passion de Camille pour l\'astronomie avait commencé par une nuit d\'été exceptionnelle. Son père l\'avait réveillée à trois heures du matin pour observer une pluie de météorites. Allongés sur des transats dans le jardin, ils avaient regardé le ciel en silence pendant des heures. Des dizaines d\'étoiles filantes traversaient l\'obscurité comme des traits de lumière fugaces. Depuis cette nuit-là, Camille consultait chaque jour les applications d\'astronomie sur sa tablette. Elle avait appris à identifier les principales constellations visibles depuis son jardin. La Grande Ourse, Orion et Cassiopée étaient devenus des repères familiers dans sa nuit. Pour son anniversaire, ses parents lui offrirent un télescope d\'entrée de gamme mais performant. Les premières observations de la lune la laissèrent sans voix devant les détails des cratères. Elle distinguait clairement les mers lunaires, ces grandes plaines sombres formées par des impacts anciens. Son carnet d\'observations se remplissait de croquis précis réalisés à la lumière d\'une lampe rouge. Elle rejoignit un club d\'astronomie local qui se réunissait une fois par mois dans un champ isolé. Les membres plus expérimentés lui enseignèrent les rudiments de la mise en station équatoriale. Elle apprit également comment calculer l\'heure sidérale pour pointer précisément ses observations. Les soirées d\'observation duraient parfois jusqu\'à l\'aube, entre discussions et découvertes partagées. Camille fut particulièrement fascinée par l\'observation des planètes et de leurs satellites. Jupiter révélait ses bandes nuageuses et ses quatre grands satellites galiléens dès le premier coup d\'œil. Saturne et ses anneaux restaient pour elle la vision la plus saisissante du système solaire. Elle commença à photographier le ciel en adaptant son appareil photo à l\'oculaire du télescope. Ses premières images étaient floues mais chaque tentative améliorait sa technique de prise de vue. Un astronome amateur du club lui expliqua les bases du traitement d\'images astronomiques. Grâce à des logiciels spécialisés, elle parvint à faire ressortir des détails imperceptibles à l\'œil nu. Ses photographies de la nébuleuse d\'Orion furent publiées dans le bulletin du club régional. Camille réalisa alors que la science n\'était pas réservée aux professionnels ni aux adultes. Elle présenta ses travaux devant sa classe dans le cadre d\'un exposé sur l\'exploration spatiale. Ses camarades furent impressionnés par la qualité de ses photographies et la profondeur de ses connaissances. Le professeur de physique lui conseilla de préparer un dossier pour un concours scientifique national. Camille travailla plusieurs semaines sur une étude comparative de la luminosité de plusieurs étoiles variables. Son dossier fut sélectionné parmi les cinq finalistes au niveau régional, une fierté immense pour elle. Cette expérience lui confirma qu\'elle voulait consacrer sa vie à l\'exploration de l\'univers.', taille: 1.2, interligne: 1.85 },
+    '15plus-avec': { texte: 'La question du changement climatique occupe une place centrale dans les débats scientifiques et politiques contemporains. Les données accumulées depuis plusieurs décennies par des milliers de chercheurs convergent vers un constat alarmant. La température moyenne de la surface terrestre a augmenté d\'environ un degré et demi depuis l\'ère préindustrielle. Cette hausse, en apparence modeste, engendre des perturbations systémiques aux conséquences potentiellement irréversibles. La fonte accélérée des glaciers arctiques et antarctiques contribue à l\'élévation du niveau des océans à l\'échelle mondiale. Les événements météorologiques extrêmes, canicules, inondations et tempêtes, gagnent en fréquence et en intensité. La biodiversité terrestre et marine est menacée par la rapidité des transformations que les espèces peinent à absorber. Les migrations climatiques pourraient déplacer des centaines de millions de personnes d\'ici la fin du siècle. Face à ces constats, la communauté internationale a multiplié les accords et les engagements depuis les années quatre-vingt-dix. L\'accord de Paris de 2015 fixait l\'objectif ambitieux de limiter le réchauffement à un virgule cinq degré. Cependant, les trajectoires actuelles d\'émissions de gaz à effet de serre demeurent incompatibles avec cet objectif. Les secteurs de l\'énergie, des transports, de l\'agriculture et de l\'industrie doivent opérer des transformations profondes. La transition énergétique vers les renouvelables s\'accélère mais se heurte à des résistances économiques considérables. Les investissements nécessaires sont colossaux et leur distribution soulève des questions d\'équité internationale. Les pays en développement, qui ont le moins contribué au problème, en subissent souvent les conséquences les plus sévères. Cette injustice fondamentale alimente des tensions lors des négociations climatiques multilatérales. Les solutions technologiques, capture du carbone et hydrogène vert, suscitent des espoirs et des débats. Certains estiment qu\'elles permettront de concilier croissance économique et stabilité climatique. D\'autres soutiennent qu\'aucune innovation ne compensera un modèle de consommation fondamentalement insoutenable. Cette tension entre optimisme technologique et sobriété volontaire traverse les sociétés contemporaines. Les mouvements de la société civile portés par les jeunes générations ont accéléré la prise de conscience mondiale. Les mobilisations des dernières années ont placé l\'urgence climatique au cœur de l\'agenda politique international. L\'engagement individuel constitue néanmoins un levier de transformation culturelle non négligeable. Modifier nos habitudes alimentaires et nos pratiques de consommation envoie des signaux aux marchés et aux décideurs. L\'éducation à l\'environnement joue un rôle essentiel dans la formation des citoyens de demain. Comprendre les mécanismes du système climatique permet d\'adopter une posture informée dans les débats démocratiques. La science climatique, bien que complexe, doit être accessible à tous pour que les choix collectifs soient éclairés. Les défis qui attendent les générations actuelles et futures sont sans précédent dans l\'histoire de l\'humanité. Ils exigent une combinaison rare de lucidité, de créativité, de solidarité et de volonté politique soutenue. La question n\'est plus de savoir si le changement climatique est réel mais comment y répondre collectivement.', taille: 1.1, interligne: 1.8 },
+    '15plus-libre': { texte: 'L\'intelligence artificielle représente sans doute la mutation technologique la plus significative de ce siècle. En quelques années, les progrès dans le domaine de l\'apprentissage automatique ont dépassé les prévisions les plus optimistes. Les systèmes capables de reconnaître des images ou de comprendre le langage surpassent désormais les meilleurs humains. Ces avancées soulèvent des interrogations profondes sur la nature de l\'intelligence et de la conscience. La frontière entre ce qui est proprement humain et ce que les machines simulent devient difficile à tracer. Les applications pratiques touchent des domaines aussi variés que la médecine, la justice et l\'éducation. En oncologie, des algorithmes détectent certains cancers avec une précision supérieure aux radiologues expérimentés. Dans le système judiciaire, des outils d\'aide à la décision sont utilisés avec des biais documentés et préoccupants. Ces exemples illustrent à la fois le potentiel immense et les risques éthiques que porte le déploiement de ces technologies. La question de la responsabilité en cas d\'erreur commise par un système automatisé reste largement non résolue. Les régulateurs du monde entier tentent de construire des cadres législatifs adaptés à une réalité qui évolue rapidement. L\'Union européenne a adopté une approche fondée sur les droits fondamentaux avec son règlement sur l\'intelligence artificielle. Ce texte classe les applications selon leur niveau de risque et impose des obligations de transparence strictes. La Chine et les États-Unis adoptent des approches différentes reflétant leurs priorités stratégiques distinctes. La compétition géopolitique autour de la domination de l\'intelligence artificielle est devenue un enjeu de puissance mondiale. Les questions de propriété des données et de souveraineté numérique structurent ce nouveau champ de rivalités internationales. Sur le plan social, l\'automatisation menace de déstabiliser des marchés du travail déjà fragilisés. Certains emplois disparaîtront rapidement tandis que de nouveaux profils professionnels émergent simultanément. La capacité des systèmes éducatifs à former des individus adaptables sera déterminante dans cette transition. Les compétences cognitives de haut niveau, pensée critique et intelligence émotionnelle, seront des atouts croissants. L\'intelligence artificielle excelle dans l\'exécution de tâches définies mais peine avec l\'intuition humaine contextualisée. Cette complémentarité pourrait constituer le fondement d\'une collaboration féconde entre humains et machines. À condition que cette collaboration ne reproduise pas et n\'amplifie pas les inégalités existantes entre nations. Les biais présents dans les données d\'entraînement se reflètent inévitablement dans les décisions des systèmes appris. Corriger ces biais exige une attention constante, des équipes diversifiées et une volonté politique ferme d\'équité. La gouvernance de l\'intelligence artificielle est un enjeu démocratique qui ne peut être laissé aux seuls ingénieurs. Les citoyens, les philosophes et les juristes doivent participer à ces choix collectifs fondamentaux. Définir les limites de l\'acceptable dans l\'usage des technologies est une responsabilité partagée par la société entière. L\'avenir de l\'intelligence artificielle dépend moins de sa puissance technique que des valeurs que nous lui donnons. Ces choix collectifs détermineront si cette révolution technologique sera au service de l\'humanité ou contre elle.', taille: 1.1, interligne: 1.8 },
+    '15plus-sans': { texte: 'La révolution numérique a profondément modifié les modalités d\'accès à l\'information et au savoir. En l\'espace de deux décennies, internet est passé du statut de curiosité technologique à celui d\'infrastructure essentielle. Les bibliothèques physiques, longtemps seules gardiennes du savoir organisé, coexistent désormais avec des ressources numériques colossales. Cette transition soulève des questions fondamentales sur la qualité, la fiabilité et l\'accessibilité de l\'information. La démocratisation de la publication en ligne a permis à chacun de devenir producteur de contenu sans filtre éditorial. Si cette ouverture représente une opportunité considérable pour la liberté d\'expression, elle génère également des risques nouveaux. La prolifération des informations non vérifiées exige des lecteurs contemporains un niveau critique accru et des compétences nouvelles. L\'éducation aux médias est ainsi devenue une nécessité civique comparable à l\'apprentissage de la lecture. Les algorithmes des plateformes numériques façonnent nos habitudes informationnelles selon des logiques commerciales opaques. La personnalisation des flux d\'information crée des bulles cognitives qui limitent notre exposition à des perspectives différentes. Ce phénomène, parfois désigné comme l\'effet de chambre d\'écho, renforce les convictions préexistantes plutôt qu\'il ne les questionne. Les chercheurs en sciences de l\'information s\'interrogent sur les implications de ces dynamiques pour la cohésion sociale. La capacité à distinguer une source fiable d\'une source partisane nécessite aujourd\'hui des outils pédagogiques adaptés. Les institutions éducatives intègrent progressivement ces compétences informationnelles dans leurs programmes officiels. Vérifier l\'origine d\'une information, recouper les sources et évaluer la légitimité d\'un auteur sont des réflexes à cultiver. Ces pratiques constituent ce que les spécialistes nomment la littératie numérique, compétence fondamentale du citoyen contemporain. Les moteurs de recherche, malgré leur puissance apparente, ne hiérarchisent pas les contenus selon leur valeur intrinsèque. Un résultat bien référencé n\'est pas nécessairement un résultat exact, rigoureux ou représentatif de l\'état des connaissances. La popularité d\'une information sur les réseaux sociaux ne constitue en aucun cas un critère de véracité suffisant. Les fake news exploitent précisément nos biais cognitifs et notre tendance à partager l\'émotion avant la réflexion. Lutter contre ce phénomène exige un effort collectif impliquant journalistes, éducateurs, plateformes et utilisateurs. Des initiatives citoyennes de fact-checking se sont développées pour offrir des contre-feux à la désinformation organisée. La transparence des sources, l\'honnêteté intellectuelle et la rigueur méthodologique restent les meilleures garanties du savoir. L\'histoire des sciences montre que les grandes avancées sont nées du doute systématique et de la remise en question permanente. Adopter cette posture épistémique dans notre vie quotidienne est un acte à la fois intellectuel et démocratique. Il ne s\'agit pas de soupçonner toute information mais d\'exercer en permanence son jugement critique et éclairé. Cette exigence est d\'autant plus nécessaire que les enjeux politiques, sanitaires et climatiques concernent nos vies. Les sociétés qui cultivent l\'esprit critique de leurs citoyens se révèlent mieux armées face aux crises et aux manipulations. L\'éducation demeure ainsi le levier le plus puissant pour préparer les nouvelles générations aux défis informationnels. Apprendre à penser par soi-même reste, dans ce contexte numérique saturé, un acte de résistance et de liberté.', taille: 1.1, interligne: 1.8 },
+    '8-9ans-avec': { texte: 'La petite tortue Marina vivait près d\'un lac tranquille. Elle nageait chaque matin avant que le soleil se lève. Son écaille brillait comme un miroir sous la lumière de l\'aube. Un jour, elle aperçut une bouteille flottant au milieu du lac. Curieuse, elle nagea jusqu\'à elle et la tira vers le bord. À l\'intérieur se trouvait un message écrit sur du papier jauni. Le message disait : cherche le vieux saule au bout du lac. Marina n\'avait jamais exploré ce côté du lac toute seule. Elle demanda à sa cousine la grenouille de l\'accompagner. Ensemble, elles longèrent la rive en observant les plantes. Des libellules bleues voletaient au-dessus de l\'eau calme. Après une longue baignade, elles aperçurent un grand saule pleureur. Ses longues branches touchaient presque la surface du lac. Sous ses racines, une petite boîte en bois était cachée. Marina l\'ouvrit avec précaution de ses pattes avant. Elle contenait un carnet illustré de dessins d\'animaux du lac. Chaque page montrait un habitant de cet endroit depuis des années. La grenouille reconnut la forme de ses ancêtres dans les dessins. Marina referma doucement le carnet avec respect. Elles comprirent que quelqu\'un avait aimé ce lac avant elles. Elles décidèrent de continuer ce carnet avec leurs propres dessins. Chaque semaine, elles y ajoutaient une nouvelle page. Les oiseaux, les poissons et les insectes y trouvèrent leur portrait. Le carnet devint le trésor secret du vieux saule. D\'autres animaux apprirent son existence et vinrent le consulter. Bientôt, tout le lac connaissait l\'histoire du carnet de Marina. La petite tortue était devenue la gardienne de la mémoire du lac. Elle apprit que préserver la nature était le plus beau des cadeaux. Chaque matin, elle nageait encore plus fièrement qu\'avant. Et le vieux saule semblait pencher ses branches pour la remercier.', taille: 1.4, interligne: 2.0 },
+    '8-9ans-libre': { texte: 'Le jeune hérisson Hugo habitait sous un buisson de lavande. L\'odeur des fleurs violettes berçait ses nuits doucement. Un matin d\'automne, il décida de préparer ses provisions d\'hiver. Il ramassa des pommes, des noisettes et des baies sauvages. Son panier était presque plein quand il rencontra un escargot. L\'escargot avançait très lentement sur le chemin mouillé. Hugo s\'arrêta pour lui parler sans l\'écraser par inadvertance. L\'escargot s\'appelait Silvio et cherchait un abri pour la pluie. Hugo lui proposa de partager son buisson pour la nuit. Silvio accepta avec reconnaissance et rentra dans sa coquille. Le lendemain matin, il n\'avait pas bougé de l\'endroit. Hugo lui apporta une feuille de salade fraîche en guise de bonjour. Silvio sortit sa tête et sourit du mieux qu\'il pouvait. Les deux amis passèrent la matinée à observer les oiseaux. Un rouge-gorge vint se poser tout près d\'eux sans peur. Il cherchait des vers dans la terre humide de l\'aube. Hugo et Silvio regardèrent en silence pour ne pas l\'effrayer. Quand l\'oiseau repartit, ils sentirent qu\'ils avaient partagé quelque chose. L\'après-midi, ils explorèrent ensemble le jardin du voisin. Des chrysanthèmes orange et jaunes illuminaient les parterres. Hugo expliqua à Silvio comment reconnaître les champignons comestibles. Silvio lui apprit à observer les traces des limaces après la pluie. Chacun enseignait à l\'autre ce qu\'il savait le mieux. Au coucher du soleil, ils rentrèrent chargés de nouvelles découvertes. Hugo réalisa que l\'amitié pouvait naître des rencontres les plus inattendues. Silvio promit de revenir au printemps quand les fleurs refleuriraient. Ils se dirent au revoir sous les derniers rayons orange du soir. Hugo regarda l\'escargot disparaître lentement derrière la haie. Il se roula en boule sous son buisson avec le cœur chaud. Cette nuit-là, il s\'endormit en pensant à leur prochaine aventure.', taille: 1.4, interligne: 2.0 },
+    '8-9ans-sans': { texte: 'Le petit renard Roux vivait dans une forêt pleine de mystères. Chaque matin, il partait explorer les sentiers entre les arbres. Son ami le lapin blanc l\'accompagnait souvent dans ses aventures. Un jour, ils découvrirent une grotte cachée derrière une cascade. À l\'intérieur, des pierres brillantes couvraient les murs. Le renard prit une pierre et la montra à sa mère le soir. Elle lui expliqua que c\'étaient des cristaux formés depuis très longtemps. Le lendemain, Roux retourna à la grotte avec une lampe de poche. La lumière fit apparaître des couleurs magnifiques sur les murs. Le lapin blanc sauta de joie en voyant ce spectacle. Ils décidèrent de garder le secret de leur découverte. Mais le vieux hibou du chêne avait tout observé depuis la nuit. Il vola jusqu\'à eux et leur dit qu\'il connaissait cette grotte. Jadis, les animaux de la forêt s\'y réunissaient pendant l\'hiver. Roux proposa de faire revivre cette tradition. Il invita tous ses amis : le blaireau, la biche et les écureuils. Le soir venu, ils se retrouvèrent tous dans la grotte illuminée. Chacun apporta quelque chose à manger ou à partager. Le hibou raconta des histoires sur la forêt d\'autrefois. Les jeunes animaux écoutaient avec de grands yeux ébahis. La biche chanta une douce mélodie qui résonna dans la grotte. Les cristaux semblaient vibrer au rythme de sa voix. Roux regardait ses amis avec bonheur autour de lui. Il comprit que les meilleures découvertes se partagent. Avant de partir, chaque animal posa une pierre dans un coin. Ce serait leur façon de se souvenir de cette belle soirée. Depuis ce jour, ils se retrouvèrent dans la grotte chaque mois. La forêt entière semblait plus lumineuse et plus chaleureuse. Roux était fier d\'avoir transformé une grotte en lieu de partage. Et chaque soir, il regardait les étoiles en pensant à ses amis.', taille: 1.4, interligne: 2.0 },
+  };
+
+
+  const textesCache = {};
+  async function chargerTexte(nom) {
+    if (TEXTES_INLINE[nom]) return TEXTES_INLINE[nom];
+    return { texte: 'Texte non disponible.', taille: 1.3, interligne: 1.9 };
+  }
+
+
+  function startTest() {
+    testStep  = 0;
+    testLevel = null;
+    showPage('page-steps');
+    renderStep();
+  }
+
+  function renderStep() {
+    const s    = STEPS[testStep];
+    const area = document.getElementById('testContent');
+    if (!area) return;
+
+    // ── Barre de progression ──
+    let prog = '<div class="progress-bar">';
+    STEPS.forEach((st, i) => {
+      const cls = i < testStep ? 'done' : i === testStep ? 'current' : '';
+      const lbl = i < testStep ? '✓' : (i + 1);
+      if (i > 0) prog += `<div class="prog-line ${i <= testStep ? 'done' : ''}"></div>`;
+      prog += `<div class="prog-step">
+        <div class="prog-dot ${cls}">${lbl}</div>
+        <div class="prog-label ${cls}">${st.label}</div>
+      </div>`;
+    });
+    prog += '</div>';
+
+    let center = '';
+
+    // ── Étape 1 : Choix de l'âge ──
+    if (testStep === 0) {
+      center = '<div class="age-grid">';
+      AGES.forEach((ag, i) => {
+        const sel = testLevel === i ? 'selected' : '';
+        center += `<div class="age-card ${sel}" onclick="selectLevel(${i})">
+          <div class="age-label">${ag.label}</div>
+        </div>`;
+      });
+      center += '</div>';
+    }
+
+    // ── Étapes lecture : 2 (sans), 5 (avec 80Hz), 7 (avec libre) ──
+    else if (testStep === 2 || testStep === 5 || testStep === 7) {
+      const ag      = AGES[testLevel ?? 0];
+      const suffix  = testStep === 2 ? 'sans' : testStep === 5 ? 'avec' : 'libre';
+      // Affichage placeholder pendant le chargement
+      center = `<div class="reading-card-full">
+        <div class="reading-badges">
+          <span class="reading-age-badge">${ag.label}</span>
+        </div>
+        <div class="reading-text-full" id="readingTextZone" style="line-height:1.9;">
+          Chargement du texte...
+        </div>
+      </div>`;
+
+      // Chargement async
+      const fichier = ag.fichier + '-' + suffix;
+      chargerTexte(fichier).then(data => {
+        const zone = document.getElementById('readingTextZone');
+        if (zone) {
+          zone.textContent = data.texte;
+          zone.style.fontSize   = (data.taille || 1.3) + 'rem';
+          zone.style.lineHeight = (data.interligne || 1.9);
+        }
+      });
+    }
+
+    // ── Étapes boîtier : 1 (désactivation), 3 (activation), 4 (réglage), 6 (libre) ──
+    else if (testStep === 1 || testStep === 3 || testStep === 4 || testStep === 6) {
+		const img = testStep === 1
+		? 'lexilens-assets/Images/boitier-desactivation.gif'
+		: testStep === 3
+		? 'lexilens-assets/Images/boitier-activation.gif'
+        : testStep === 4
+        ? 'lexilens-assets/Images/boitier-reglage.gif'
+        : 'lexilens-assets/Images/boitier-libre.gif';
+
+      if (testStep === 1 || testStep === 3) {
+        center = `<img class="boitier-gif" src="${img}" alt="Boîtier de contrôle">`;
+      } else {
+        const label1    = testStep === 4 ? 'Tourner le bouton jusqu\'à atteindre 80 Hz.'       : 'Tourner le bouton pour faire varier la fréquence entre 60 et 120 Hz.';
+        const label2    = testStep === 4 ? 'Tourner le bouton jusqu\'à atteindre 20%.'          : 'Tourner le bouton pour faire varier la balance.';
+        const badge1txt = testStep === 4 ? '80 Hz'  : '60–120 Hz';
+        const badge2txt = testStep === 4 ? '20 %'   : '—';
+
+        center = `<div class="boitier-dual-layout">
+
+          <div class="boitier-dual-row">
+            <div class="boitier-dual-gif-block">
+              <p class="boitier-dual-label">${label1}</p>
+              <img class="boitier-gif-dual" src="lexilens-assets/Images/boitier-reglage.gif" alt="Bouton fréquence">
+            </div>
+            ${testStep === 4 ? `<div class="boitier-dual-badge">
+              <div class="badge-dot-row"><span class="badge-dot dot-red"></span><span class="badge-text">Fréquence Lexilens</span></div>
+              <div class="badge-value">${badge1txt}</div>
+            </div>` : ''}
+          </div>
+
+          <div class="boitier-dual-row">
+            <div class="boitier-dual-gif-block">
+              <p class="boitier-dual-label">${label2}</p>
+              <img class="boitier-gif-dual" src="lexilens-assets/Images/boitier-libre.gif" alt="Bouton balance">
+            </div>
+            ${testStep === 4 ? `<div class="boitier-dual-badge">
+              <div class="badge-dot-row"><span class="badge-dot dot-blue"></span><span class="badge-text">Balance Lexilens</span></div>
+              <div class="badge-value">${badge2txt}</div>
+            </div>` : ''}
+          </div>
+
+        </div>`;
+      }
+    }
+
+    // ── Étape 9 : Résultats ──
+    else if (testStep === 8) {
+      center = `<div class="result-card">
+        <div class="result-icon">🎉</div>
+        <p class="feedback-question">Avez-vous ressenti une différence de confort avec la technologie Lexilens activée&nbsp;?</p>
+        <div class="feedback-btns">
+          <button class="feedback-btn" onclick="selectFeedback(this, 'Aucune différence')">Aucune différence</button>
+          <button class="feedback-btn" onclick="selectFeedback(this, 'Intéressant, sans plus')">Intéressant, sans plus</button>
+          <button class="feedback-btn" onclick="selectFeedback(this, 'C\\'est TOP !')">C'est TOP !</button>
+        </div>
+        <div class="result-reveal" id="resultReveal" style="display:none;">
+          <div class="result-reveal-inner">
+            <div class="result-reveal-text">
+              <div class="result-title">Test terminé !</div>
+              <div class="result-sub">Nos conseillers sont disponibles pour vous expliquer les résultats et vous orienter vers le produit adapté à votre besoin.</div>
+              <div class="result-btns">
+                <button class="btn-go-products" onclick="navTo('page-products',null)">🛍️ Voir les produits</button>
+              </div>
+            </div>
+            <div class="result-qr-block">
+              <span class="result-qr-label">En savoir plus</span>
+              <img class="result-qr-img" src="lexilens-assets/Images/qrcode.png" alt="QR Code Lexilens">
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // ── Boutons nav : Précédent à GAUCHE du fil d'ariane, Suivant à DROITE ──
+    const prevBtn = testStep > 0
+      ? `<button class="btn-prev-step" onclick="prevStep()">◀ Précédent</button>`
+      : `<div></div>`;
+
+    let rightBtn = '';
+    if (testStep === 0) {
+      rightBtn = `<button class="btn-next-step" onclick="confirmLevel()">Confirmation ▶</button>`;
+    } else if (testStep === 8) {
+      rightBtn = `<button class="btn-next-step" onclick="startTest()">🔄 Recommencer le test</button>`;
+    } else {
+      rightBtn = `<button class="btn-next-step" onclick="nextStep()">Suivant ▶</button>`;
+    }
+
+    area.innerHTML = `
+      <div class="step-top-bar">
+        <div class="step-top-left">${prevBtn}</div>
+        ${prog}
+        <div class="step-top-right">${rightBtn}</div>
+      </div>
+      ${(testStep === 1 || testStep === 3 || testStep === 4 || testStep === 6)
+        ? `<div class="boitier-page-layout">
+             <div class="boitier-zone-header">
+               <div class="step-title">${s.title}</div>
+               ${s.instruction ? `<div class="step-instruction">${s.instruction}</div>` : ''}
+             </div>
+             <div class="boitier-zone-content">${center}</div>
+             <div class="boitier-zone-arrow">
+               <svg class="boitier-big-arrow" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+                 <polygon points="20,0 60,0 60,55 80,55 40,100 0,55 20,55" fill="#1a3558"/>
+               </svg>
+             </div>
+           </div>`
+        : `<div class="step-title">${s.title}</div>
+           ${s.instruction ? `<div class="step-instruction">${s.instruction}</div>` : ''}
+           <div class="step-content">${center}</div>`
+      }
+    `;
+  }
+
+  function selectLevel(i) {
+    testLevel = i;
+    document.querySelectorAll('.age-card').forEach((c, idx) => c.classList.toggle('selected', idx === i));
+  }
+
+  function confirmLevel() {
+    if (testLevel === null) { alert('Veuillez choisir votre tranche d\'âge avant de continuer.'); return; }
+    nextStep();
+  }
+
+  function nextStep() {
+    if (testStep < STEPS.length - 1) { testStep++; renderStep(); }
+  }
+
+  function prevStep() {
+    if (testStep > 0) { testStep--; renderStep(); }
+  }
+
+  // ── Feedback résultats ──
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFzMbHJ_ZXscEFHYDoz3plyd2J-jYYo5haUzrwDJh-o47npqjKaztipVMwzsjM4UCh/exec';
+
+  function selectFeedback(btn, value) {
+    // Figer tous les boutons
+    document.querySelectorAll('.feedback-btn').forEach(b => {
+      b.classList.remove('selected', 'unselected');
+      b.classList.add(b === btn ? 'selected' : 'unselected');
+    });
+
+    // Révéler le bloc résultat
+    const reveal = document.getElementById('resultReveal');
+    if (reveal) reveal.style.display = 'block';
+
+    // Préparer les données
+    const ageLabel = testLevel !== null ? AGES[testLevel].label : 'Non renseigné';
+    const now = new Date();
+    const horodatage = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
+
+    if (GOOGLE_SCRIPT_URL !== 'COLLER_ICI_URL_GOOGLE_SCRIPT') {
+      // Récupérer l'IP publique de la borne, puis envoyer
+      fetch('https://api.ipify.org?format=json')
+        .then(r => r.json())
+        .then(ipData => {
+          // Géolocalisation via l'IP
+          return fetch(`http://ip-api.com/json/${ipData.ip}?lang=fr&fields=city,regionName,country`)
+            .then(r => r.json())
+            .then(geo => ({
+              ip:      ipData.ip,
+              ville:   geo.city       || '',
+              region:  geo.regionName || '',
+              pays:    geo.country    || ''
+            }))
+            .catch(() => ({ ip: ipData.ip, ville: '', region: '', pays: '' }));
+        })
+        .catch(() => ({ ip: 'N/A', ville: '', region: '', pays: '' }))
+        .then(loc => {
+          fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              horodatage,
+              age:     ageLabel,
+              feedback: value,
+              ip:      loc.ip,
+              ville:   loc.ville,
+              region:  loc.region,
+              pays:    loc.pays
+            })
+          }).catch(() => {});
+        });
+    }
+  }
+
+  /* ── Products data ── */
+  const products = [
+    { ref:"ABLR024322C01M", name:"Lexilens Enfant — Gris Mat",    size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:false,
+      img3:"lexilens-assets/products/ABLR024322C01M_3.png", img2:"lexilens-assets/products/ABLR024322C01M_2.png",
+      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris gris mat." },
+    { ref:"ABLT024322C02M", name:"Lexilens Enfant — Gris",         size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      img3:"lexilens-assets/products/ABLT024322C02M_3.png", img2:"lexilens-assets/products/ABLT024322C02M_2.png",
+      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris gris avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
+    { ref:"ABLT024322C03M", name:"Lexilens Enfant — Bleu",            size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      img3:"lexilens-assets/products/ABLT024322C03M_3.png", img2:"lexilens-assets/products/ABLT024322C03M_2.png",
+      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris bleu avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
+    { ref:"ABLT024322C04M", name:"Lexilens Enfant — Noir Mat",       size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      img3:"lexilens-assets/products/ABLT024322C04M_3.png", img2:"lexilens-assets/products/ABLT024322C04M_2.png",
+      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris noir avec manchons interchangeables orange ou noir. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
+    { ref:"ABLZ034625C01M", name:"Lexilens Adolescent/Adulte — Gris Mat",             size:"M", calibre:"46 mm / 25 mm", branch:"136 mm", france:false,
+      img3:"lexilens-assets/products/ABLZ034625C01M_3.png", img2:"lexilens-assets/products/ABLZ034625C01M_2.png",
+      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris gris mat. Monture taille M idéale pour adolescent ou adulte" },
+    { ref:"ABLT044625C01M", name:"Lexilens Adulte — Noir Mat",       size:"L", calibre:"48 mm / 25 mm", branch:"136 mm", france:false,
+      img3:"lexilens-assets/products/ABLT044625C01M_3.png", img2:"lexilens-assets/products/ABLT044625C01M_2.png",
+      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris noir mat. Monture taille L idéale pour adulte" },
+  ];
+
+  let currentProd = 0;
+  let currentView = 0;
+  const AUDIENCE = { S: 'Enfant', M: 'Ado / Adulte', L: 'Adulte' };
+
+  function buildList() {
+    const list = document.getElementById('prodList');
+    list.innerHTML = '';
+    products.forEach((p, i) => {
+      const item = document.createElement('div');
+      item.className = 'prod-list-item' + (i === currentProd ? ' active' : '');
+      item.innerHTML = `
+        <div class="prod-list-thumb">
+          <img src="${p.img3}" alt="${p.name}" onerror="this.style.opacity='0.3'">
+        </div>
+        <div class="prod-list-info">
+          <div class="prod-list-name">${p.name.replace('Lexilens ', '')}</div>
+          <span class="prod-list-chip chip-${p.size}">${AUDIENCE[p.size] || p.size}</span>
+        </div>`;
+      item.onclick = () => goToProd(i);
+      list.appendChild(item);
+    });
+  }
+
+  function fillCard(p) {
+    currentView = 0;
+    document.querySelectorAll('.p-tab').forEach((t,i) => t.classList.toggle('p-tab-active', i===0));
+    document.getElementById('imgMain').src = p.img3;
+    document.getElementById('imgAlt').src  = p.img2;
+    document.getElementById('imgMain').className = 'p-img p-visible';
+    document.getElementById('imgAlt').className  = 'p-img p-hidden';
+    document.getElementById('pRef').textContent     = p.ref;
+    document.getElementById('pName').textContent    = p.name;
+    document.getElementById('pSize').textContent    = p.size + ' — ' + (AUDIENCE[p.size] || '');
+    document.getElementById('pCalibre').textContent = p.calibre;
+    document.getElementById('pBranch').textContent  = p.branch;
+    document.getElementById('pDesc').textContent    = p.desc;
+    const badge = document.getElementById('pSizeBadge');
+    badge.className = 'p-size-badge p-size-' + p.size;
+    document.getElementById('pSizeVal').textContent  = p.size;
+    document.getElementById('pSizeSub').textContent  = AUDIENCE[p.size] || '';
+    document.getElementById('pFrance').style.display = p.france ? 'flex' : 'none';
+  }
+
+  function updateProd(animate) {
+    const detail = document.getElementById('prodDetail');
+    if (animate) {
+      detail.style.opacity = '0'; detail.style.transform = 'translateY(8px)';
+      setTimeout(() => {
+        fillCard(products[currentProd]);
+        detail.style.opacity = '1'; detail.style.transform = 'translateY(0)';
+      }, 180);
+    } else {
+      fillCard(products[currentProd]);
+    }
+    buildList();
+  }
+
+  function changeProduct(dir) {
+    const n = currentProd + dir;
+    if (n < 0 || n >= products.length) return;
+    currentProd = n; updateProd(true);
+  }
+  function goToProd(i) { if (i===currentProd) return; currentProd=i; updateProd(true); }
+
+  function switchView(idx) {
+    if (idx === currentView) return;
+    currentView = idx;
+    document.querySelectorAll('.p-tab').forEach((t,i) => t.classList.toggle('p-tab-active', i===idx));
+    document.getElementById('imgMain').className = idx===0 ? 'p-img p-visible' : 'p-img p-hidden';
+    document.getElementById('imgAlt').className  = idx===1 ? 'p-img p-visible' : 'p-img p-hidden';
+  }
+
+  // Init on page load
+window.addEventListener('load', () => {
+  document.querySelectorAll('#page-home video').forEach(v => v.play().catch(()=>{}));
+  updateProd(false);
+});
+</script>
+</body>
+</html>
