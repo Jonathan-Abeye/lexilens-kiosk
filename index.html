@@ -1717,7 +1717,7 @@ function navTo(pageId, el) {
     const now = new Date();
     const horodatage = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
 
-    if (GOOGLE_SCRIPT_URL !== 'COLLER_ICI_URL_GOOGLE_SCRIPT') {
+    if (GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbzct9sfspmfRZkpUnDBFxvHh7dhoR4W4VjsCdu9gMRromglCRJnWurgWasiL4qlR_0W/exec') {
       // Récupérer l'IP publique de la borne, puis envoyer
       // Envoyer IP uniquement — la géo est faite côté serveur (Apps Script)
       fetch('https://api.ipify.org?format=json')
