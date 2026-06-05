@@ -304,10 +304,33 @@
     display: flex; flex-direction: column; justify-content: center; gap: 12px;
     border-left: 1px solid rgba(255,255,255,0.1);
   }
-  .lex-crowding-pill {
-    display: inline-block; background: #2558a8; color: white;
-    font-size: 1.1rem; font-weight: 800; padding: 8px 22px;
-    border-radius: 20px; align-self: flex-start;
+  .lex-crowding-stat {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 4px;
+  }
+  .lex-crowding-stat-box {
+    background: #eef4fa; border-radius: 14px; padding: 10px 16px;
+    text-align: center; flex-shrink: 0;
+  }
+  .lex-crowding-stat-pre {
+    font-size: 0.65rem; font-weight: 800; color: #2558a8;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;
+  }
+  .lex-crowding-stat-num {
+    font-family: 'Poppins', sans-serif; font-size: 4rem;
+    font-weight: 900; color: #1a3558; line-height: 1.1;
+  }
+  .lex-crowding-stat-post {
+    font-size: 0.65rem; font-weight: 800; color: #2558a8;
+    text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;
+  }
+  .lex-crowding-stat-right {
+    flex: 1; border-left: 1px solid rgba(255,255,255,0.15); padding-left: 14px;
+  }
+  .lex-crowding-stat-desc {
+    font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 5px;
+  }
+  .lex-crowding-stat-source {
+    font-size: 0.68rem; color: rgba(255,255,255,0.35); font-style: italic; line-height: 1.4;
   }
   .lex-crowding-body { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; }
   .lex-crowding-body strong { color: #7eb8f7; font-weight: 800; }
@@ -351,6 +374,16 @@
   .lex-solution-benefit-icon { font-size: 2.8rem; margin-bottom: 10px; margin-top: 4px; }
   .lex-solution-benefit-title { font-size: 1rem; font-weight: 800; color: #1a3558; margin-bottom: 6px; line-height: 1.3; }
   .lex-solution-benefit-desc { font-size: 0.86rem; color: #6080a0; line-height: 1.5; }
+  .lex-solution-highlight {
+    border-left: 4px solid #2558a8; padding: 16px 20px;
+    background: #f0f5fc; border-radius: 0 16px 16px 0;
+    margin-bottom: 20px;
+  }
+  .lex-solution-highlight-text {
+    font-size: 1.05rem; line-height: 1.8; color: #1a3558;
+    margin: 0; font-weight: 500;
+  }
+  .lex-solution-highlight-text strong { color: #2558a8; font-weight: 800; }
   .lex-solution-body { font-size: 0.96rem; color: #6080a0; line-height: 1.7; }
   .lex-solution-body strong { color: #1a3558; font-weight: 800; }
 
@@ -1173,12 +1206,22 @@
                  onerror="this.style.opacity='0.1'">
           </div>
           <div class="lex-crowding-text">
-            <div class="lex-crowding-pill">1 personne sur 10</div>
+            <div class="lex-crowding-stat">
+              <div class="lex-crowding-stat-box">
+                <div class="lex-crowding-stat-pre">près de</div>
+                <div class="lex-crowding-stat-num">1 sur 10</div>
+                <div class="lex-crowding-stat-post">personnes</div>
+              </div>
+              <div class="lex-crowding-stat-right">
+                <div class="lex-crowding-stat-desc">sont concernées par ce bruit visuel sans le savoir.</div>
+                <div class="lex-crowding-stat-source">Source : NIH, INSERM — données épidémiologiques internationales</div>
+              </div>
+            </div>
             <div class="lex-crowding-body">
-              Le cerveau reçoit <strong>deux images légèrement décalées</strong> au lieu d'une seule. Ce doublement invisible crée un <strong>« bruit visuel »</strong> qui rend la lecture plus fatigante et moins fluide.
+              Le cerveau reçoit <strong>deux images légèrement décalées</strong> au lieu d'une seule. Ce doublement invisible crée un <strong>« bruit visuel »</strong>, qu'on appelle <strong>encombrement neurovisuel</strong>, rend la lecture moins fluide et plus fatigante.
             </div>
             <div class="lex-crowding-note">
-              Ce n'est pas un problème de vue, ni d'intelligence. C'est simplement la façon dont certains cerveaux traitent l'image.
+              Ce n'est pas un problème de vue, ni d'intelligence. C'est simplement la façon dont certains cerveaux traitent les images.
             </div>
           </div>
         </div>
@@ -1188,12 +1231,15 @@
       <div class="lex-solution-section">
         <div class="lex-solution-inner">
           <div class="lex-section-title">La solution Lexilens</div>
-          <div class="lex-solution-subtitle">Lexilens supprime ce bruit visuel</div>
+          <div class="lex-solution-subtitle">Lexilens supprime cet encombrement neurovisuel que certaines personnes ressentent </div>
         </div>
         <div class="lex-solution-inner">
           <div class="lex-solution-img-banner">
             <img src="lexilens-assets/Images/solution-glasses.png" alt="Lexilens en action"
                  onerror="this.style.opacity='0.1'">
+          </div>
+          <div class="lex-solution-highlight">
+            <p class="lex-solution-highlight-text">Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens empêche le doublement de se former.<br>Résultat : une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, et <strong>plus aisée</strong>, avec <strong>moins de fatigue</strong> et une <strong>comprhension facilitée</strong>. Dès les premières secondes, beaucoup ressentent la différence.</p>
           </div>
           <div class="lex-solution-benefits">
             <div class="lex-solution-benefit">
@@ -1212,16 +1258,14 @@
               <div class="lex-solution-benefit-desc">Rester focus devient naturel, même sur de longs textes</div>
             </div>
           </div>
-          <div class="lex-solution-body">
-            Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens empêche le doublement de se former.<br>Résultat : une <strong>lecture plus naturelle, plus fluide, moins épuisante</strong>. Dès les premières secondes, beaucoup ressentent la différence.
-          </div>
+
         </div>
       </div>
 
       <!-- ⑤ AVANTAGES — bleu marine -->
       <div class="lex-stats-section">
         <div class="lex-section-title on-dark">Avantages pour les utilisateurs de Lexilens</div>
-        <div class="lex-stats-sub">Données consolidées auprès de plus d'utilisateurs dans plus de 20 pays</div>
+        <div class="lex-stats-sub">Données consolidées auprès d'utilisateurs dans plus de 20 pays</div>
         <div class="lex-stats-grid">
           <div class="lex-stat-card">
             <div class="lex-stat-num">7 000<sup>+</sup></div>
@@ -1260,7 +1304,7 @@
         <div class="lex-testimonials-grid">
           <div class="lex-testimony">
             <div class="lex-testimony-quote">"</div>
-            <div class="lex-testimony-text">J'ai désormais davantage confiance en moi. Je peux lire, mais je trouve aussi qu'il est plus facile de me faire de nouveaux amis.</div>
+            <div class="lex-testimony-text">J'ai désormais davantage confiance en moi. Je peux lire, et je trouve aussi qu'il est plus facile de me faire de nouveaux amis.</div>
             <div class="lex-testimony-author">
               <div class="lex-testimony-avatar lex-testimony-avatar-f">
                 <span class="lex-testimony-avatar-placeholder">👩</span>
@@ -1273,7 +1317,7 @@
           </div>
           <div class="lex-testimony">
             <div class="lex-testimony-quote">"</div>
-            <div class="lex-testimony-text">Ils m'aident tellement que je n'ai plus besoin de deviner les mots. Je peux enfin lire chaque mot en entier et comprendre ce que je lis !</div>
+            <div class="lex-testimony-text">Elles m'aident tellement que je n'ai plus besoin de deviner les mots. Je peux enfin lire chaque mot en entier et comprendre ce que je lis !</div>
             <div class="lex-testimony-author">
               <div class="lex-testimony-avatar lex-testimony-avatar-m">
                 <span class="lex-testimony-avatar-placeholder">👨</span>
@@ -1699,7 +1743,7 @@ function navTo(pageId, el) {
   }
 
   // ── Feedback résultats ──
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFzMbHJ_ZXscEFHYDoz3plyd2J-jYYo5haUzrwDJh-o47npqjKaztipVMwzsjM4UCh/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyo72IHgZ9SuZlewvkNXCUtvkef7CUIC6d6Dfp18KxUuhnOECqQTbTMzohAqjvnUoAv/exec';
 
   function selectFeedback(btn, value) {
     // Figer tous les boutons
@@ -1717,30 +1761,37 @@ function navTo(pageId, el) {
     const now = new Date();
     const horodatage = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
 
-    if (GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbzct9sfspmfRZkpUnDBFxvHh7dhoR4W4VjsCdu9gMRromglCRJnWurgWasiL4qlR_0W/exec') {
+    if (GOOGLE_SCRIPT_URL !== 'COLLER_ICI_URL_GOOGLE_SCRIPT') {
       // Récupérer l'IP publique de la borne, puis envoyer
-      // Envoyer IP uniquement — la géo est faite côté serveur (Apps Script)
       fetch('https://api.ipify.org?format=json')
         .then(r => r.json())
         .then(ipData => {
+          // Géolocalisation via l'IP
+          return fetch(`https://freeipapi.com/api/json/${ipData.ip}`)
+            .then(r => r.json())
+            .then(geo => ({
+              ip:      ipData.ip,
+              ville:   geo.cityName    || '',
+              region:  geo.regionName  || '',
+              pays:    geo.countryName || ''
+            }))
+            .catch(() => ({ ip: ipData.ip, ville: '', region: '', pays: '' }));
+        })
+        .catch(() => ({ ip: 'N/A', ville: '', region: '', pays: '' }))
+        .then(loc => {
           fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               horodatage,
-              age:      ageLabel,
+              age:     ageLabel,
               feedback: value,
-              ip:       ipData.ip
+              ip:      loc.ip,
+              ville:   loc.ville,
+              region:  loc.region,
+              pays:    loc.pays
             })
-          }).catch(() => {});
-        })
-        .catch(() => {
-          fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ horodatage, age: ageLabel, feedback: value, ip: 'N/A' })
           }).catch(() => {});
         });
     }
