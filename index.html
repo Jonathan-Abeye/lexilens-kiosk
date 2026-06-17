@@ -91,20 +91,21 @@
   /* ══════════════════════════════════════
      PAGE 1 — KIOSQUE
   ══════════════════════════════════════ */
-	#page-step1 { flex-direction: row; background: #eef4fa; }
+	#page-step1 { flex-direction: row; background: #eef4fa; overflow: hidden; }
 	
   .kiosk-main {
     flex: 1; display: flex; flex-direction: column;
     align-items: center; justify-content: space-between;
-    padding: 36px 30px 48px;
+    padding: clamp(12px,2vh,36px) clamp(12px,2vw,30px) clamp(16px,3vh,48px);
+    overflow: hidden; min-width: 0;
   }
   .kiosk-top { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .kiosk-title {
-    font-family: 'Poppins', sans-serif; font-size: 3rem;
+    font-family: 'Poppins', sans-serif; font-size: clamp(1.4rem,3vw,3rem);
     font-weight: 800; color: var(--text-dark); text-align: center;
   }
   .kiosk-subtitle {
-    font-family: 'Poppins', sans-serif; font-size: 1.4rem;
+    font-family: 'Poppins', sans-serif; font-size: clamp(0.8rem,1.4vw,1.4rem);
     font-weight: 600; color: var(--text-dark); text-align: center;
   }
 
@@ -987,14 +988,16 @@
   /* ══ ICÔNES 3D PAGE ACCUEIL ══ */
   .icons3d-row {
     display: flex; align-items: center; justify-content: center;
-    gap: 20px; flex: 1; padding: 0;
-	margin-top: -40px;
+    gap: clamp(8px,2vw,20px); flex: 1; padding: 0;
+    margin-top: -20px; overflow: hidden; width: 100%;
   }
   .icon3d-wrap {
     display: flex; flex-direction: column; align-items: center; gap: 2px;
   }
   .icon3d-img {
-    width: 480px; height: 480px; object-fit: contain;
+    width: clamp(100px, min(25vw, 38vh), 480px);
+    height: clamp(100px, min(25vw, 38vh), 480px);
+    object-fit: contain;
     filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
     transition: transform 0.2s;
   }
@@ -1007,7 +1010,7 @@
   .icon3d-arrow.blue   { border-left: 26px solid #2558a8; }
   .icon3d-arrow.orange { border-left: 26px solid #2558a8; }
   .icon3d-label {
-    font-family: 'Poppins', sans-serif; font-size: 2.5rem;
+    font-family: 'Poppins', sans-serif; font-size: clamp(0.8rem,2vw,2.5rem);
     font-weight: 700; color: var(--text-dark); text-align: center;
     line-height: 1.3;
   }
