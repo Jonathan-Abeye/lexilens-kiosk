@@ -11,7 +11,7 @@
     --blue-mid:   #2558a8;
     --green-btn:  #2ebc60;
     --red-text:   #d0021b;
-        --text-dark:  #1a3558;
+    --text-dark:  #1a3558;
     --sidebar-w:  210px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -281,7 +281,7 @@
     content: ''; position: absolute; top: 0; left: 0; right: 0;
     height: 4px; border-radius: 16px 16px 0 0; background: #2558a8;
   }
-  .lex-symptom-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,53,88,0.13); }
+  //.lex-symptom-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,53,88,0.13); }
   .lex-symptom-icon { font-size: 2.8rem; margin-bottom: 10px; margin-top: 4px; }
   .lex-symptom-label { font-size: 1rem; font-weight: 800; color: #1a3558; margin-bottom: 6px; line-height: 1.3; }
   .lex-symptom-desc { font-size: 0.86rem; color: #6080a0; line-height: 1.5; }
@@ -309,7 +309,7 @@
     display: flex; align-items: center; gap: 16px; margin-bottom: 4px;
   }
   .lex-crowding-stat-box {
-    background: #eef4fa; border-radius: 14px; padding: 10px 16px;
+    background: #fbbd2c; border-radius: 14px; padding: 10px 16px;
     text-align: center; flex-shrink: 0;
   }
   .lex-crowding-stat-pre {
@@ -371,7 +371,7 @@
     content: ''; position: absolute; top: 0; left: 0; right: 0;
     height: 4px; border-radius: 16px 16px 0 0; background: #2558a8;
   }
-  .lex-solution-benefit:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,53,88,0.13); }
+  //.lex-solution-benefit:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,53,88,0.13); }
   .lex-solution-benefit-icon { font-size: 2.8rem; margin-bottom: 10px; margin-top: 4px; }
   .lex-solution-benefit-title { font-size: 1rem; font-weight: 800; color: #1a3558; margin-bottom: 6px; line-height: 1.3; }
   .lex-solution-benefit-desc { font-size: 0.86rem; color: #6080a0; line-height: 1.5; }
@@ -844,12 +844,12 @@
     transition: all 0.2s; min-width: 160px;
   }
   .age-card:hover { border-color: #2558a8; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,53,88,0.15); }
-  .age-card.selected { border-color: #2558a8; background: #f0f5ff; }
+  .age-card.selected { border-color: #2558a8; background: #2558a8; }
   .age-label {
     font-family: 'Poppins', sans-serif; font-size: 3rem;
     font-weight: 800; color: #2558a8;
   }
-  .age-card.selected .age-label { color: #1a3558; }
+  .age-card.selected .age-label { color: #ffffff; }
 
   /* Grande carte de lecture pleine page */
   .reading-card-full {
@@ -1001,14 +1001,13 @@
     filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
     transition: transform 0.2s;
   }
-  .icon3d-img:hover { transform: translateY(-6px); }
+  //.icon3d-img:hover { transform: translateY(-6px); }
   .icon3d-arrow {
     width: 0; height: 0; margin: 0 0 40px 0;
     border-top: 18px solid transparent;
     border-bottom: 18px solid transparent;
   }
   .icon3d-arrow.blue   { border-left: 26px solid #2558a8; }
-  .icon3d-arrow.orange { border-left: 26px solid #2558a8; }
   .icon3d-label {
     font-family: 'Poppins', sans-serif; font-size: clamp(0.8rem,2vw,2.5rem);
     font-weight: 700; color: var(--text-dark); text-align: center;
@@ -1102,7 +1101,7 @@
   <!-- Titre centré en haut -->
   <div class="kiosk-top" style="width:100%; text-align:center;">
     <div class="kiosk-title">BIENVENUE</div>
-    <div class="kiosk-subtitle">Testez la technologie Lexilens !</div>
+    <div class="kiosk-subtitle">Testez facilement la technologie Lexilens en 3 étapes !</div>
   </div>
 
   <!-- 3 icônes centrées verticalement et horizontalement -->
@@ -1120,7 +1119,7 @@
       <div class="icon3d-label">LIRE</div>
     </div>
 
-    <div class="icon3d-arrow orange"></div>
+    <div class="icon3d-arrow blue"></div>
 
     <div class="icon3d-wrap">
       <img class="icon3d-img" src="lexilens-assets/Images/icon-check.png" alt="Résultat">
@@ -1216,12 +1215,12 @@
                 <div class="lex-crowding-stat-post">personnes</div>
               </div>
               <div class="lex-crowding-stat-right">
-                <div class="lex-crowding-stat-desc">sont concernées par ce bruit visuel sans le savoir.</div>
+                <div class="lex-crowding-stat-desc">sont concernées par ce bruit neurovisuel sans le savoir.</div>
                 <div class="lex-crowding-stat-source">Source : NIH, INSERM — données épidémiologiques internationales</div>
               </div>
             </div>
             <div class="lex-crowding-body">
-              Le cerveau reçoit <strong>deux images légèrement décalées</strong> au lieu d'une seule. Ce doublement invisible crée un <strong>« bruit visuel »</strong>, qu'on appelle <strong>encombrement neurovisuel</strong>, rend la lecture moins fluide et plus fatigante.
+              Le cerveau reçoit <strong>deux images légèrement décalées</strong> au lieu d'une seule. Ce doublement invisible crée un <strong>« bruit neurovisuel »</strong>, qu'on appelle <strong>encombrement neurovisuel</strong>. Ce phénomène rend la lecture moins fluide et plus fatigante.
             </div>
             <div class="lex-crowding-note">
               Ce n'est pas un problème de vue, ni d'intelligence. C'est simplement la façon dont certains cerveaux traitent les images.
@@ -1242,7 +1241,7 @@
                  onerror="this.style.opacity='0.1'">
           </div>
           <div class="lex-solution-highlight">
-            <p class="lex-solution-highlight-text">Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens empêche le doublement de se former.<br>Résultat : une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, et <strong>plus aisée</strong>, avec <strong>moins de fatigue</strong> et une <strong>comprhension facilitée</strong>. Dès les premières secondes, beaucoup ressentent la différence.</p>
+            <p class="lex-solution-highlight-text">Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens empêche le doublement de se former.<br>Résultat : <strong>L'expérience de lecture est transformée</strong> - une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, avec <strong>moins de fatigue</strong>, une <strong>compréhension facilitée</strong> et une <strong>meilleure concentration</strong>. Dès les premières secondes, de nombreuses personnes ressentent la différence.</p>
           </div>
           <div class="lex-solution-benefits">
             <div class="lex-solution-benefit">
@@ -1511,10 +1510,10 @@ function navTo(pageId, el) {
   const STEPS = [
     { label:'Âge',            title:'Choisissez votre tranche d\'âge',              instruction:'Sélectionnez la tranche d\'âge qui vous correspond.' },
     { label:'Désactivation',  title:'Vérifiez que la technologie Lexilens est désactivée', instruction:'Appuyez sur le bouton power pour désactiver la technologie Lexilens.' },
-    { label:'Sans Lexilens',  title:'Lisez sans la technologie Lexilens',            instruction:'Prenez le temps de lire ce texte normalement. Notez votre confort, votre vitesse et votre fatigue visuelle.' },
+    { label:'Sans Lexilens',  title:'Lisez sans la technologie Lexilens',            instruction:'Lisez ce texte à votre ruthme habitueld. Evaluez votre confort, votre vitesse et votre fatigue visuelle.' },
     { label:'Activation',     title:'Activez la technologie Lexilens',               instruction:'Appuyez sur le bouton power pour activer la technologie Lexilens.' },
     { label:'Réglage',        title:'Réglez la fréquence à 80 Hz et la balance à 20%', instruction:'Tournez le bouton rouge pour régler la fréquence, et le bouton bleu pour la balance.' },
-    { label:'Avec Lexilens',  title:'Lisez avec la technologie Lexilens activée',    instruction:'Lisez ce texte avec Lexilens activé. Comparez votre confort par rapport à la première lecture.' },
+    { label:'Avec Lexilens',  title:'Lisez avec la technologie Lexilens activée',    instruction:'Comparez votre confort par rapport à la première lecture.' },
     { label:'Réglages libres',title:'Explorez librement les réglages pour optimiser votre confort visuel',               instruction:'Tournez les boutons pour trouver votre réglage idéal.' },
     { label:'Avec réglages',  title:'Lisez avec vos réglages personnalisés',         instruction:'Lisez ce texte avec votre réglage idéal trouvé à l\'étape précédente.' },
     { label:'Résultats',      title:'Merci d\'avoir fait le test !',                instruction:'C\'est le moment de votre retour d\'expérience.' }
@@ -1524,7 +1523,6 @@ function navTo(pageId, el) {
   let testLevel = null;
 
   // Textes intégrés directement (pas de fetch nécessaire)
-  // Textes intégrés directement
   const TEXTES_INLINE = {
     '10-11ans-avec': { texte: 'Inès adorait les sciences depuis que sa maîtresse avait apporté un microscope en classe. Elle décida de créer son propre laboratoire dans le garage de ses parents. Avec quelques bocaux, des loupes et un cahier de notes, elle commença ses expériences. Sa première observation porta sur l\'eau prélevée dans la mare du jardin. Sous la loupe, elle aperçut de minuscules créatures se déplaçant rapidement. Elle dessina chaque forme observée avec le plus de précision possible. Sa mère lui offrit un livre sur les micro-organismes pour l\'encourager. Inès passa des heures à comparer ses dessins avec les illustrations du livre. Elle identifia des paramécies, des rotifères et des larves d\'insectes aquatiques. Son carnet de laboratoire se remplissait de notes et de croquis détaillés. Un voisin biologiste apprit ses expériences et proposa de lui prêter un vrai microscope. Inès n\'en croyait pas ses yeux quand elle vit sa première cellule végétale. La paroi cellulaire et les chloroplastes verts apparaissaient avec une netteté parfaite. Elle comprit alors que le monde invisible était d\'une richesse infinie. Elle prépara des lames avec des feuilles, des pétales et des morceaux de bois. Chaque matériau révélait une organisation différente sous les lentilles grossissantes. Inès invita ses amis à venir regarder dans le microscope un mercredi après-midi. Certains étaient sceptiques au départ mais restèrent bouche bée devant les images. Son ami Tom décida de commencer lui aussi un carnet d\'observations scientifiques. Inès lui expliqua comment préparer une lame sans abîmer l\'échantillon. Ils formèrent un petit club des sciences qui se réunissait chaque semaine. Ensemble, ils observèrent des cheveux, des fourmis et des grains de pollen. Le voisin biologiste venait parfois répondre à leurs questions avec plaisir. Inès apprit que la curiosité était le premier outil de tout scientifique. Elle rêvait de découvrir un organisme encore jamais identifié par personne. Son carnet était devenu un véritable journal de bord scientifique personnel. Les pages s\'enrichissaient chaque semaine de nouvelles découvertes fascinantes. Ses parents étaient fiers de voir leur fille aussi passionnée et sérieuse. Inès savait maintenant qu\'elle voulait travailler dans la recherche plus tard. Et tout avait commencé avec un peu d\'eau prélevée dans une simple mare.', taille: 1.3, interligne: 1.9 },
     '10-11ans-libre': { texte: 'Marcus était passionné de football depuis ses cinq ans. Il s\'entraînait tous les jours dans la cour de son immeuble après l\'école. Cette année, il avait intégré l\'équipe de son quartier pour la première fois. Les entraînements avaient lieu le mardi et le jeudi soir au stade municipal. L\'entraîneur s\'appelait Monsieur Bertrand et il était très exigeant mais juste. Dès le premier entraînement, Marcus réalisa qu\'il avait encore beaucoup à apprendre. Les autres joueurs maîtrisaient des techniques qu\'il n\'avait jamais pratiquées. Il rentra chez lui ce soir-là avec la tête pleine de questions et de doutes. Sa sœur aînée lui dit que les débuts étaient toujours les plus difficiles. Le lendemain matin, il se leva tôt pour s\'exercer avant d\'aller en classe. Semaine après semaine, ses gestes devinrent plus précis et plus fluides. Monsieur Bertrand remarqua ses progrès et lui confia un rôle de milieu de terrain. Marcus apprit à lire le jeu et à anticiper les mouvements de ses coéquipiers. Il comprit que le football était autant un sport collectif qu\'individuel. Le premier match officiel approchait et la pression montait dans le groupe. La veille, Marcus dormit mal en pensant aux actions importantes du lendemain. Mais dès le coup de sifflet, toute la nervosité disparut instantanément. Il courait, passait et défendait avec une énergie qu\'il ne se connaissait pas. À la vingtième minute, il offrit une passe décisive à son coéquipier Kevin. Le stade retentit d\'applaudissements quand le ballon entra dans le filet. Son équipe gagna ce match par deux buts à un après une belle résistance. Dans les vestiaires, l\'ambiance était joyeuse et les sourires communicatifs. Monsieur Bertrand félicita chaque joueur individuellement avec des mots précis. Il dit à Marcus qu\'il avait montré une belle intelligence de jeu ce soir. Marcus se sentait appartenir à quelque chose de plus grand que lui-même. Le chemin pour devenir meilleur était encore long mais il était sur la bonne voie. Il remercia ses parents qui avaient assisté à chaque entraînement sans exception. Sa mère lui dit qu\'elle était fière de sa persévérance plus que de ses buts. Marcus comprit ce soir-là la valeur du travail régulier et de la patience. Il avait hâte de retrouver ses coéquipiers pour le prochain entraînement.', taille: 1.3, interligne: 1.9 },
@@ -1662,7 +1660,7 @@ function navTo(pageId, el) {
     // ── Étape 9 : Résultats ──
     else if (testStep === 8) {
       center = `<div class="result-card">
-        <div class="result-icon">🎉</div>
+        <div class="result-icon">🤔</div>
         <p class="feedback-question">Avez-vous ressenti une différence de confort avec la technologie Lexilens activée&nbsp;?</p>
         <div class="feedback-btns">
           <button class="feedback-btn" onclick="selectFeedback(this, 'Aucune différence')">Aucune différence</button>
@@ -1673,7 +1671,7 @@ function navTo(pageId, el) {
           <div class="result-reveal-inner">
             <div class="result-reveal-text">
               <div class="result-title">Test terminé !</div>
-              <div class="result-sub">Nos conseillers sont disponibles pour vous expliquer les résultats et vous orienter vers le produit adapté à votre besoin.</div>
+              <div class="result-sub">Nos experts sont disponibles pour vous expliquer les résultats et vous orienter vers le produit adapté à votre besoin.</div>
               <div class="result-btns">
                 <button class="btn-go-products" onclick="navTo('page-products',null)">🛍️ Voir les produits</button>
               </div>
