@@ -411,7 +411,7 @@
   .prod-list-info { flex:1; min-width:0; }
   .prod-list-name { font-size:clamp(0.58rem,0.74vw,0.74rem); font-weight:700; color:#1a3558; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .prod-list-chip { display:inline-block; margin-top:3px; font-size:clamp(0.48rem,0.6vw,0.6rem); font-weight:800; padding:2px 8px; border-radius:10px; }
-  .chip-S{background:#e8f0fc;color:#2558a8;} .chip-M{background:#e6f5ee;color:#1d8a4a;} .chip-L{background:#fff3e0;color:#b86e0e;}
+  .chip-S{background:#e8f0fc;color:#2558a8;} .chip-M{background:#e6f5ee;color:#1d8a4a;} .chip-L{background:#fff3e0;color:#b86e0e;} .chip-MON{background:#1a3558;color:white;}
   .prod-detail { flex:1; display:flex; flex-direction:column; min-width:0; transition:opacity 0.2s ease,transform 0.2s ease; }
   .prod-img-zone { flex:0 0 58%; position:relative; background:linear-gradient(160deg,#f0f6ff 0%,#e4eef8 100%); display:flex; align-items:center; justify-content:center; overflow:hidden; }
   .prod-img-zone::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 40%,rgba(37,88,168,0.07) 0%,transparent 70%); }
@@ -824,7 +824,7 @@
     /* ── Page accueil ── */
     .home-topbar { padding: 8px 12px; min-height: 40px; }
     .home-topbar h1 { font-size: clamp(0.85rem,4vw,1.1rem); }
-    .topbar-logo { height: 28px; }
+    .topbar-logo { display: none; } /* masqué sur mobile : déjà dans la topbar mobile */
     .video-grid { grid-template-columns: repeat(2,1fr); gap: 5px; padding: 5px; }
     .video-cell-header { font-size: clamp(0.6rem,2.8vw,0.8rem); padding: 4px 6px; }
     .home-bottom { padding: 8px 16px; }
@@ -1324,9 +1324,9 @@
     <div class="prod-header">
       <div>
         <div class="prod-header-title">Nos produits</div>
-        <div class="prod-header-sub">Gamme Lexilens — technologie neurovisuelle française</div>
+        <div class="prod-header-sub">6 montures · 1 moniteur LED</div>
       </div>
-      <div class="prod-header-count" id="prodHeaderCount">6 modèles</div>
+      <div class="prod-header-count" id="prodHeaderCount">7 produits</div>
     </div>
 
     <!-- CORPS -->
@@ -1766,6 +1766,13 @@ function navTo(pageId, el) {
     { ref:"ABLT044625C01M", name:"Lexilens Adulte — Noir Mat",       size:"L", calibre:"48 mm / 25 mm", branch:"136 mm", france:false,
       img3:"lexilens-assets/products/ABLT044625C01M_3.png", img2:"lexilens-assets/products/ABLT044625C01M_2.png",
       desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris noir mat. Monture taille L idéale pour adulte" },
+    { ref:"ABEVT24G144P01", name:"Moniteur LED Lexilens®", size:"MON",
+      ecran:"23,8 pouces (60,5 cm)", resolution:"FHD 1920 × 1080", dalle:"IPS LED — Noir mat",
+      refresh:"144 Hz", response:"< 3 ms", connectiques:"HDMI ×2 — VGA ×1 — Audio ×2",
+      france:false, isMonitor:true,
+	  img3:"lexilens-assets/products/Lexilens_Monitor_face.png",
+      img2:"lexilens-assets/products/Lexilens_Monitor_3-4.png",
+      desc:"Le Moniteur LED Lexilens® est conçu pour améliorer la clarté de lecture et le confort cognitif. Technologie Lexilens® Inside — Édition Hybride avec boîtier de contrôle externe et OSD. Idéal pour le bureau et l'enseignement. Fonctionne indépendamment des lunettes Lexilens." },
   ];
 
   let currentProd = 0;
@@ -1784,7 +1791,7 @@ function navTo(pageId, el) {
         </div>
         <div class="prod-list-info">
           <div class="prod-list-name">${p.name.replace('Lexilens ', '')}</div>
-          <span class="prod-list-chip chip-${p.size}">${AUDIENCE[p.size] || p.size}</span>
+          <span class="prod-list-chip chip-${p.size}">${p.isMonitor ? 'Moniteur' : (AUDIENCE[p.size] || p.size)}</span>
         </div>`;
       item.onclick = () => goToProd(i);
       list.appendChild(item);
@@ -1800,15 +1807,47 @@ function navTo(pageId, el) {
     document.getElementById('imgAlt').className  = 'p-img p-hidden';
     document.getElementById('pRef').textContent     = p.ref;
     document.getElementById('pName').textContent    = p.name;
-    document.getElementById('pSize').textContent    = p.size + ' — ' + (AUDIENCE[p.size] || '');
-    document.getElementById('pCalibre').textContent = p.calibre;
-    document.getElementById('pBranch').textContent  = p.branch;
     document.getElementById('pDesc').textContent    = p.desc;
-    const badge = document.getElementById('pSizeBadge');
-    badge.className = 'p-size-badge p-size-' + p.size;
-    document.getElementById('pSizeVal').textContent  = p.size;
-    document.getElementById('pSizeSub').textContent  = AUDIENCE[p.size] || '';
     document.getElementById('pFrance').style.display = p.france ? 'flex' : 'none';
+
+    const badge = document.getElementById('pSizeBadge');
+
+    if (p.isMonitor) {
+      /* Moniteur : specs écran */
+      badge.className = 'p-size-badge p-size-MON';
+      badge.style.background = 'linear-gradient(135deg,#1a3558,#2558a8)';
+      document.getElementById('pSizeVal').textContent  = '24"';
+      document.getElementById('pSizeSub').textContent  = 'FHD';
+      document.getElementById('pSize').textContent     = 'Moniteur';
+      document.getElementById('pCalibre').textContent  = p.ecran;
+      document.getElementById('pBranch').textContent   = p.resolution;
+      /* Changer les labels specs */
+      const labels = document.querySelectorAll('.p-spec-label');
+      if (labels[0]) labels[0].textContent = 'ÉCRAN';
+      if (labels[1]) labels[1].textContent = 'RÉSOLUTION';
+      if (labels[2]) labels[2].textContent = 'RAFRAÎCHISSEMENT';
+      const vals = document.querySelectorAll('.p-spec-val');
+      if (vals[0]) vals[0].textContent = p.ecran;
+      if (vals[1]) vals[1].textContent = p.resolution;
+      if (vals[2]) vals[2].textContent = p.refresh;
+    } else {
+      badge.style.background = '';
+      badge.className = 'p-size-badge p-size-' + p.size;
+      document.getElementById('pSizeVal').textContent  = p.size;
+      document.getElementById('pSizeSub').textContent  = AUDIENCE[p.size] || '';
+      document.getElementById('pSize').textContent     = p.size + ' — ' + (AUDIENCE[p.size] || '');
+      document.getElementById('pCalibre').textContent  = p.calibre;
+      document.getElementById('pBranch').textContent   = p.branch;
+      /* Restaurer les labels specs */
+      const labels = document.querySelectorAll('.p-spec-label');
+      if (labels[0]) labels[0].textContent = 'TAILLE';
+      if (labels[1]) labels[1].textContent = 'CALIBRE';
+      if (labels[2]) labels[2].textContent = 'BRANCHES';
+      const vals = document.querySelectorAll('.p-spec-val');
+      if (vals[0]) vals[0].textContent = p.size + ' — ' + (AUDIENCE[p.size] || '');
+      if (vals[1]) vals[1].textContent = p.calibre;
+      if (vals[2]) vals[2].textContent = p.branch;
+    }
   }
 
   function updateProd(animate) {
