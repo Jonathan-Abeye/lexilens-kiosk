@@ -915,11 +915,45 @@
     .lex-bar-label { min-width: clamp(80px,28vw,120px); font-size: 0.7rem; }
 
     /* ── Produits ── */
-    .prod-body { flex-direction: column; }
-    .prod-list { width: 100%; height: clamp(80px,18vh,120px); flex-direction: row; flex-wrap: wrap; padding: 6px; gap: 6px; overflow-x: auto; overflow-y: hidden; border-right: none; border-bottom: 1px solid #e8eef6; }
-    .prod-detail { flex: 1; }
-    .prod-img-zone { flex: 0 0 clamp(120px,35vh,220px); }
+    .prod-body { flex-direction: column; overflow-y: auto; }
+
+    /* Liste : scroll horizontal, items compacts */
+    .prod-list {
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      flex-wrap: nowrap;      /* une seule ligne, scroll horizontal */
+      padding: 8px 6px;
+      gap: 6px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      border-right: none;
+      border-bottom: 1px solid #e8eef6;
+      flex-shrink: 0;
+    }
+    .prod-list::-webkit-scrollbar { height: 3px; }
+    .prod-list::-webkit-scrollbar-thumb { background: rgba(37,88,168,0.2); border-radius: 3px; }
+
+    /* Chaque item : compact, largeur fixe pour scroll */
+    .prod-list-item {
+      flex-shrink: 0;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: clamp(64px, 18vw, 90px);
+      padding: 6px 4px;
+      gap: 3px;
+    }
+    .prod-list-name { white-space: normal; font-size: 0.55rem; line-height: 1.2; }
+    .prod-list-chip { font-size: 0.48rem; padding: 1px 5px; }
+    .prod-list-thumb { width: 36px; height: 36px; }
+
+    /* Détail : image + infos empilés */
+    .prod-detail { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .prod-img-zone { flex: 0 0 clamp(160px, 38vw, 260px); }
+    .prod-info { flex: 1; overflow-y: auto; }
     .p-specs { grid-template-columns: repeat(2,1fr); }
+    .p-desc { font-size: clamp(0.65rem, 3vw, 0.82rem); }
   }
 </style>
 </head>
@@ -1770,8 +1804,8 @@ function navTo(pageId, el) {
       ecran:"23,8 pouces (60,5 cm)", resolution:"FHD 1920 × 1080", dalle:"IPS LED — Noir mat",
       refresh:"144 Hz", response:"< 3 ms", connectiques:"HDMI ×2 — VGA ×1 — Audio ×2",
       france:false, isMonitor:true,
-	  img3:"lexilens-assets/products/Lexilens_Monitor_face.png",
       img2:"lexilens-assets/products/Lexilens_Monitor_3-4.png",
+      img3:"lexilens-assets/products/Lexilens_Monitor_face.png",
       desc:"Le Moniteur LED Lexilens® est conçu pour améliorer la clarté de lecture et le confort cognitif. Technologie Lexilens® Inside — Édition Hybride avec boîtier de contrôle externe et OSD. Idéal pour le bureau et l'enseignement. Fonctionne indépendamment des lunettes Lexilens." },
   ];
 
