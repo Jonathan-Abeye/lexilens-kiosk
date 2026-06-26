@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lexilens – Kiosk</title>
+<title>Lexilens® – Kiosk</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ═══════════════════════════════════════════════════════
@@ -271,7 +271,7 @@
   }
 
   /* ═══════════════════════════════════════════════════════
-     PAGE LEXILENS
+     PAGE Lexilens®
   ═══════════════════════════════════════════════════════ */
   #page-lexilens { background: #eef4fa; }
   .lex-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #eef4fa; min-width: 0; }
@@ -915,45 +915,11 @@
     .lex-bar-label { min-width: clamp(80px,28vw,120px); font-size: 0.7rem; }
 
     /* ── Produits ── */
-    .prod-body { flex-direction: column; overflow-y: auto; }
-
-    /* Liste : scroll horizontal, items compacts */
-    .prod-list {
-      width: 100%;
-      height: auto;
-      flex-direction: row;
-      flex-wrap: nowrap;      /* une seule ligne, scroll horizontal */
-      padding: 8px 6px;
-      gap: 6px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      border-right: none;
-      border-bottom: 1px solid #e8eef6;
-      flex-shrink: 0;
-    }
-    .prod-list::-webkit-scrollbar { height: 3px; }
-    .prod-list::-webkit-scrollbar-thumb { background: rgba(37,88,168,0.2); border-radius: 3px; }
-
-    /* Chaque item : compact, largeur fixe pour scroll */
-    .prod-list-item {
-      flex-shrink: 0;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      width: clamp(64px, 18vw, 90px);
-      padding: 6px 4px;
-      gap: 3px;
-    }
-    .prod-list-name { white-space: normal; font-size: 0.55rem; line-height: 1.2; }
-    .prod-list-chip { font-size: 0.48rem; padding: 1px 5px; }
-    .prod-list-thumb { width: 36px; height: 36px; }
-
-    /* Détail : image + infos empilés */
-    .prod-detail { flex: 1; display: flex; flex-direction: column; min-height: 0; }
-    .prod-img-zone { flex: 0 0 clamp(160px, 38vw, 260px); }
-    .prod-info { flex: 1; overflow-y: auto; }
+    .prod-body { flex-direction: column; }
+    .prod-list { width: 100%; height: clamp(80px,18vh,120px); flex-direction: row; flex-wrap: wrap; padding: 6px; gap: 6px; overflow-x: auto; overflow-y: hidden; border-right: none; border-bottom: 1px solid #e8eef6; }
+    .prod-detail { flex: 1; }
+    .prod-img-zone { flex: 0 0 clamp(120px,35vh,220px); }
     .p-specs { grid-template-columns: repeat(2,1fr); }
-    .p-desc { font-size: clamp(0.65rem, 3vw, 0.82rem); }
   }
 </style>
 </head>
@@ -974,7 +940,7 @@
 
   <div class="home-topbar">
     <h1>Votre perception visuelle est elle perturbée ?</h1>
-    <img class="topbar-logo" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <img class="topbar-logo" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
   </div>
 
   <div class="video-grid">
@@ -1020,7 +986,7 @@
   <div class="mobile-bottomnav"><nav>
     <a class="active" onclick="navTo('page-home', this)">Perturbations</a>
     <a onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens ?</a>
+    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
     <a onclick="navTo('page-products', this)">Produits</a>
   </nav></div>
 
@@ -1041,7 +1007,7 @@
   <!-- Titre centré en haut -->
   <div class="kiosk-top" style="width:100%; text-align:center;">
     <div class="kiosk-title">BIENVENUE</div>
-    <div class="kiosk-subtitle">Testez facilement la technologie Lexilens en 3 étapes !</div>
+    <div class="kiosk-subtitle">Testez facilement la technologie Lexilens® en 3 étapes !</div>
   </div>
 
   <!-- 3 icônes centrées verticalement et horizontalement -->
@@ -1079,11 +1045,11 @@
 </div>
 
   <div class="kiosk-sidebar">
-    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
     <nav class="sb-nav">
 	  <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
       <a class="active" onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
       <a onclick="navTo('page-products', this)">Produits</a>
     </nav>
     <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
@@ -1092,7 +1058,7 @@
   <div class="mobile-bottomnav"><nav>
     <a onclick="navTo('page-home', this)">Perturbations</a>
     <a class="active" onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens ?</a>
+    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
     <a onclick="navTo('page-products', this)">Produits</a>
   </nav></div>
 
@@ -1115,8 +1081,8 @@
         <div class="lex-hero-overlay"></div>
         <div class="lex-hero-text">
           <div class="lex-hero-eyebrow">Technologie neurovisuelle française</div>
-          <h1 class="lex-hero-title">Vous avez du mal à <em>lire</em> ?<br>Lexilens peut changer ça.</h1>
-          <p class="lex-hero-sub">Certaines personnes relisent plusieurs fois, se fatiguent vite ou perdent le fil.<br>Lexilens est fait pour elles.</p>
+          <h1 class="lex-hero-title">Vous avez du mal à <em>lire</em> ?<br>Lexilens® peut changer ça.</h1>
+          <p class="lex-hero-sub">Certaines personnes relisent plusieurs fois, se fatiguent vite ou perdent le fil.<br>Lexilens® est fait pour elles.</p>
         </div>
         <div class="lex-hero-img-wrap">
           <img src="lexilens-assets/Images/hero-glasses.png" alt="Lunettes Lexilens" onerror="this.style.opacity='0'">
@@ -1183,16 +1149,16 @@
       <!-- ④ SOLUTION — gris-blanc -->
       <div class="lex-solution-section">
         <div class="lex-solution-inner">
-          <div class="lex-section-title">La solution Lexilens</div>
-          <div class="lex-solution-subtitle">Lexilens supprime cet encombrement neurovisuel que certaines personnes ressentent </div>
+          <div class="lex-section-title">La solution Lexilens®</div>
+          <div class="lex-solution-subtitle">Lexilens® supprime cet encombrement neurovisuel que certaines personnes ressentent </div>
         </div>
         <div class="lex-solution-inner">
           <div class="lex-solution-img-banner">
-            <img src="lexilens-assets/Images/solution-glasses.png" alt="Lexilens en action"
+            <img src="lexilens-assets/Images/solution-glasses.png" alt="Lexilens® en action"
                  onerror="this.style.opacity='0.1'">
           </div>
           <div class="lex-solution-highlight">
-            <p class="lex-solution-highlight-text">Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens empêche le doublement de se former.<br>Résultat : <strong>L'expérience de lecture est transformée</strong> - une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, avec <strong>moins de fatigue</strong>, une <strong>compréhension facilitée</strong> et une <strong>meilleure concentration</strong>. Dès les premières secondes, de nombreuses personnes ressentent la différence.</p>
+            <p class="lex-solution-highlight-text">Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens® empêche le doublement de se former.<br>Résultat : <strong>L'expérience de lecture est transformée</strong> - une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, avec <strong>moins de fatigue</strong>, une <strong>compréhension facilitée</strong> et une <strong>meilleure concentration</strong>. Dès les premières secondes, de nombreuses personnes ressentent la différence.</p>
           </div>
           <div class="lex-solution-benefits">
             <div class="lex-solution-benefit">
@@ -1217,7 +1183,7 @@
 
       <!-- ⑤ AVANTAGES — bleu marine -->
       <div class="lex-stats-section">
-        <div class="lex-section-title on-dark">Avantages pour les utilisateurs de Lexilens</div>
+        <div class="lex-section-title on-dark">Avantages pour les utilisateurs de Lexilens®</div>
         <div class="lex-stats-sub">Données consolidées auprès d'utilisateurs dans plus de 20 pays</div>
         <div class="lex-stats-grid">
           <div class="lex-stat-card">
@@ -1226,7 +1192,7 @@
           </div>
           <div class="lex-stat-card">
             <div class="lex-stat-num">20<sup>+</sup></div>
-            <div class="lex-stat-label">pays où Lexilens est utilisé</div>
+            <div class="lex-stat-label">pays où Lexilens® est utilisé</div>
           </div>
           <div class="lex-stat-card">
             <div class="lex-stat-num">92%</div>
@@ -1264,7 +1230,7 @@
               </div>
               <div>
                 <div class="lex-testimony-name">Lila (France)</div>
-                <div class="lex-testimony-role">Utilisatrice Lexilens</div>
+                <div class="lex-testimony-role">Utilisatrice Lexilens®</div>
               </div>
             </div>
           </div>
@@ -1277,7 +1243,7 @@
               </div>
               <div>
                 <div class="lex-testimony-name">Juozapas (Lithuanie)</div>
-                <div class="lex-testimony-role">Utilisateur Lexilens</div>
+                <div class="lex-testimony-role">Utilisateur Lexilens®</div>
               </div>
             </div>
           </div>
@@ -1290,7 +1256,7 @@
               </div>
               <div>
                 <div class="lex-testimony-name">Camilla (Danemark)</div>
-                <div class="lex-testimony-role">Utilisatrice Lexilens</div>
+                <div class="lex-testimony-role">Utilisatrice Lexilens®</div>
               </div>
             </div>
           </div>
@@ -1303,7 +1269,7 @@
               </div>
               <div>
                 <div class="lex-testimony-name">Marie (France)</div>
-                <div class="lex-testimony-role">Utilisatrice Lexilens</div>
+                <div class="lex-testimony-role">Utilisatrice Lexilens®</div>
               </div>
             </div>
           </div>
@@ -1315,7 +1281,7 @@
         <div class="lex-made-in">
          <!-- <span class="lex-made-in-flag"></span>-->
           <div>
-            <div class="lex-made-in-title">Lexilens — Une innovation de rupture française</div>
+            <div class="lex-made-in-title">Lexilens® — Une innovation de rupture française</div>
             <div class="lex-made-in-sub">Conçue et fabriquée en France</div>
           </div>
         </div>
@@ -1325,11 +1291,11 @@
   </div><!-- end lex-main -->
 
   <div class="kiosk-sidebar">
-    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
     <nav class="sb-nav">
       <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
       <a onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a class="active" onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a class="active" onclick="navTo('page-Lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
       <a onclick="navTo('page-products', this)">Produits</a>
     </nav>
     <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
@@ -1337,7 +1303,7 @@
   <div class="mobile-bottomnav"><nav>
     <a onclick="navTo('page-home', this)">Perturbations</a>
     <a onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a class="active" onclick="navTo('page-lexilens', this)">Lexilens ?</a>
+    <a class="active" onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
     <a onclick="navTo('page-products', this)">Produits</a>
   </nav></div>
 
@@ -1373,7 +1339,7 @@
       <div class="prod-detail" id="prodDetail">
         <div class="prod-img-zone">
           <img class="p-img p-visible" id="imgMain" src="" alt="Photo produit Lexilens">
-          <img class="p-img p-hidden"  id="imgAlt"  src="" alt="Photo produit Lexilens vue 3/4">
+          <img class="p-img p-hidden"  id="imgAlt"  src="" alt="Photo produit Lexilens® vue 3/4">
           <div class="p-france" id="pFrance">🇫🇷 Origine France Garantie</div>
           <div class="p-size-badge" id="pSizeBadge">
             <span id="pSizeVal"></span>
@@ -1401,11 +1367,11 @@
 
   <!-- SIDEBAR -->
   <div class="kiosk-sidebar">
-    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
     <nav class="sb-nav">
       <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
       <a onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
       <a class="active">Produits</a>
     </nav>
     <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
@@ -1414,7 +1380,7 @@
   <div class="mobile-bottomnav"><nav>
     <a onclick="navTo('page-home', this)">Perturbations</a>
     <a onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens ?</a>
+    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
     <a class="active" onclick="navTo('page-products', this)">Produits</a>
   </nav></div>
 
@@ -1428,11 +1394,11 @@
   </div>
   <div class="test-page" id="testContent"></div>
   <div class="kiosk-sidebar">
-    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens by Abeye">
+    <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
     <nav class="sb-nav">
 	  <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
       <a onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens ?</a>
+      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
       <a onclick="navTo('page-products', this)">Produits</a>
     </nav>
     <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
@@ -1440,7 +1406,7 @@
   <div class="mobile-bottomnav"><nav>
     <a onclick="navTo('page-home', this)">Perturbations</a>
     <a class="active" onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens ?</a>
+    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
     <a onclick="navTo('page-products', this)">Produits</a>
   </nav></div>
 
@@ -1489,11 +1455,11 @@ function navTo(pageId, el) {
   // 9 étapes
   const STEPS = [
     { label:'Âge',            title:'Choisissez votre tranche d\'âge',              instruction:'Sélectionnez la tranche d\'âge qui vous correspond.' },
-    { label:'Désactivation',  title:'Vérifiez que la technologie Lexilens est désactivée', instruction:'Appuyez sur le bouton power pour désactiver la technologie Lexilens.' },
-    { label:'Sans Lexilens',  title:'Lisez sans la technologie Lexilens',            instruction:'Lisez ce texte à votre ruthme habitueld. Evaluez votre confort, votre vitesse et votre fatigue visuelle.' },
-    { label:'Activation',     title:'Activez la technologie Lexilens',               instruction:'Appuyez sur le bouton power pour activer la technologie Lexilens.' },
+    { label:'Désactivation',  title:'Vérifiez que la technologie Lexilens® est désactivée', instruction:'Appuyez sur le bouton power pour désactiver la technologie Lexilens®.' },
+    { label:'Sans Lexilens®',  title:'Lisez sans la technologie Lexilens®',            instruction:'Lisez ce texte à votre ruthme habitueld. Evaluez votre confort, votre vitesse et votre fatigue visuelle.' },
+    { label:'Activation',     title:'Activez la technologie Lexilens®',               instruction:'Appuyez sur le bouton power pour activer la technologie Lexilens®.' },
     { label:'Réglage',        title:'Réglez la fréquence à 80 Hz et la balance à 20%', instruction:'Tournez le bouton rouge pour régler la fréquence, et le bouton bleu pour la balance.' },
-    { label:'Avec Lexilens',  title:'Lisez avec la technologie Lexilens activée',    instruction:'Comparez votre confort par rapport à la première lecture.' },
+    { label:'Avec Lexilens®',  title:'Lisez avec la technologie Lexilens® activée',    instruction:'Comparez votre confort par rapport à la première lecture.' },
     { label:'Réglages libres',title:'Explorez librement les réglages pour optimiser votre confort visuel',               instruction:'Tournez les boutons pour trouver votre réglage idéal.' },
     { label:'Avec réglages',  title:'Lisez avec vos réglages personnalisés',         instruction:'Lisez ce texte avec votre réglage idéal trouvé à l\'étape précédente.' },
     { label:'Résultats',      title:'Merci d\'avoir fait le test !',                instruction:'C\'est le moment de votre retour d\'expérience.' }
@@ -1618,7 +1584,7 @@ function navTo(pageId, el) {
               <img class="boitier-gif-dual" src="lexilens-assets/Images/boitier-reglage.gif" alt="Bouton fréquence">
             </div>
             ${testStep === 4 ? `<div class="boitier-dual-badge">
-              <div class="badge-dot-row"><span class="badge-dot dot-red"></span><span class="badge-text">Fréquence Lexilens</span></div>
+              <div class="badge-dot-row"><span class="badge-dot dot-red"></span><span class="badge-text">Fréquence Lexilens®</span></div>
               <div class="badge-value">${badge1txt}</div>
             </div>` : ''}
           </div>
@@ -1630,7 +1596,7 @@ function navTo(pageId, el) {
               <img class="boitier-gif-dual" src="lexilens-assets/Images/boitier-libre.gif" alt="Bouton balance">
             </div>
             ${testStep === 4 ? `<div class="boitier-dual-badge">
-              <div class="badge-dot-row"><span class="badge-dot dot-blue"></span><span class="badge-text">Balance Lexilens</span></div>
+              <div class="badge-dot-row"><span class="badge-dot dot-blue"></span><span class="badge-text">Balance Lexilens®</span></div>
               <div class="badge-value">${badge2txt}</div>
             </div>` : ''}
           </div>
@@ -1643,7 +1609,7 @@ function navTo(pageId, el) {
     else if (testStep === 8) {
       center = `<div class="result-card">
         <div class="result-icon">🤔</div>
-        <p class="feedback-question">Avez-vous ressenti une différence de confort avec la technologie Lexilens activée&nbsp;?</p>
+        <p class="feedback-question">Avez-vous ressenti une différence de confort avec la technologie Lexilens® activée&nbsp;?</p>
         <div class="feedback-btns">
           <button class="feedback-btn" onclick="selectFeedback(this, 'Aucune différence')">Aucune différence</button>
           <button class="feedback-btn" onclick="selectFeedback(this, 'Un peu mieux')">Un peu mieux</button>
@@ -1782,30 +1748,30 @@ function navTo(pageId, el) {
 
   /* ── Products data ── */
   const products = [
-    { ref:"ABLR024322C01M", name:"Lexilens Enfant — Gris Mat",    size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:false,
+    { ref:"ABLR024322C01M", name:"Lexilens® Enfant — Gris Mat",    size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:false,
       img3:"lexilens-assets/products/ABLR024322C01M_3.png", img2:"lexilens-assets/products/ABLR024322C01M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris gris mat." },
-    { ref:"ABLT024322C02M", name:"Lexilens Enfant — Gris",         size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris mat." },
+    { ref:"ABLT024322C02M", name:"Lexilens® Enfant — Gris",         size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
       img3:"lexilens-assets/products/ABLT024322C02M_3.png", img2:"lexilens-assets/products/ABLT024322C02M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris gris avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
-    { ref:"ABLT024322C03M", name:"Lexilens Enfant — Bleu",            size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
+    { ref:"ABLT024322C03M", name:"Lexilens® Enfant — Bleu",            size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
       img3:"lexilens-assets/products/ABLT024322C03M_3.png", img2:"lexilens-assets/products/ABLT024322C03M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris bleu avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
-    { ref:"ABLT024322C04M", name:"Lexilens Enfant — Noir Mat",       size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris bleu avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
+    { ref:"ABLT024322C04M", name:"Lexilens® Enfant — Noir Mat",       size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
       img3:"lexilens-assets/products/ABLT024322C04M_3.png", img2:"lexilens-assets/products/ABLT024322C04M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris noir avec manchons interchangeables orange ou noir. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
-    { ref:"ABLZ034625C01M", name:"Lexilens Adolescent/Adulte — Gris Mat",             size:"M", calibre:"46 mm / 25 mm", branch:"136 mm", france:false,
+      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris noir avec manchons interchangeables orange ou noir. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
+    { ref:"ABLZ034625C01M", name:"Lexilens® Adolescent/Adulte — Gris Mat",             size:"M", calibre:"46 mm / 25 mm", branch:"136 mm", france:false,
       img3:"lexilens-assets/products/ABLZ034625C01M_3.png", img2:"lexilens-assets/products/ABLZ034625C01M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris gris mat. Monture taille M idéale pour adolescent ou adulte" },
-    { ref:"ABLT044625C01M", name:"Lexilens Adulte — Noir Mat",       size:"L", calibre:"48 mm / 25 mm", branch:"136 mm", france:false,
+      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris mat. Monture taille M idéale pour adolescent ou adulte" },
+    { ref:"ABLT044625C01M", name:"Lexilens® Adulte — Noir Mat",       size:"L", calibre:"48 mm / 25 mm", branch:"136 mm", france:false,
       img3:"lexilens-assets/products/ABLT044625C01M_3.png", img2:"lexilens-assets/products/ABLT044625C01M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens intégrée. Coloris noir mat. Monture taille L idéale pour adulte" },
+      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris noir mat. Monture taille L idéale pour adulte" },
     { ref:"ABEVT24G144P01", name:"Moniteur LED Lexilens®", size:"MON",
       ecran:"23,8 pouces (60,5 cm)", resolution:"FHD 1920 × 1080", dalle:"IPS LED — Noir mat",
       refresh:"144 Hz", response:"< 3 ms", connectiques:"HDMI ×2 — VGA ×1 — Audio ×2",
       france:false, isMonitor:true,
+	  img3:"lexilens-assets/products/Lexilens_Monitor_face.png",
       img2:"lexilens-assets/products/Lexilens_Monitor_3-4.png",
-      img3:"lexilens-assets/products/Lexilens_Monitor_face.png",
       desc:"Le Moniteur LED Lexilens® est conçu pour améliorer la clarté de lecture et le confort cognitif. Technologie Lexilens® Inside — Édition Hybride avec boîtier de contrôle externe et OSD. Idéal pour le bureau et l'enseignement. Fonctionne indépendamment des lunettes Lexilens." },
   ];
 
