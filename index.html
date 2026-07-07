@@ -961,6 +961,52 @@
     .p-desc { font-size: clamp(0.65rem, 3vw, 0.82rem); line-height: 1.6; }
     .p-name { font-size: clamp(0.9rem, 4.5vw, 1.2rem); }
   }
+
+  /* ═══════════════════════════════════════════════════════
+     LANG TOGGLE (FR / EN)
+  ═══════════════════════════════════════════════════════ */
+  .lang-toggle {
+    display: flex; gap: 2px; flex-shrink: 0;
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px; padding: 3px;
+  }
+  .lang-toggle button {
+    border: none; background: transparent; cursor: pointer;
+    display: flex; align-items: center; gap: 4px;
+    padding: clamp(4px,0.8vh,6px) clamp(7px,1.2vw,11px);
+    border-radius: 16px;
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: clamp(0.5rem,0.75vw,0.7rem);
+    color: rgba(255,255,255,0.55);
+    transition: background 0.2s, color 0.2s;
+  }
+  .lang-toggle button .flag {
+    width: 1.15em; height: 0.85em;
+    border-radius: 2px; flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    display: block;
+  }
+  .lang-toggle button.active { background: white; color: #1a3558; }
+  .lang-toggle button:hover:not(.active) { color: white; }
+
+  .lang-toggle.on-light { background: rgba(26,53,88,0.08); }
+  .lang-toggle.on-light button { color: #5a7ba0; }
+  .lang-toggle.on-light button.active { background: #1a3558; color: white; }
+  .lang-toggle.on-light button:hover:not(.active) { color: #1a3558; }
+
+  .sb-lang-toggle { margin-bottom: clamp(10px,2vh,20px); }
+
+  .home-topbar { position: relative; }
+  .home-lang-toggle {
+    position: absolute; left: clamp(12px,2vw,24px); top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .mobile-topbar { position: relative; }
+  .mobile-lang-toggle {
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+  }
 </style>
 </head>
 <body>
@@ -976,42 +1022,50 @@
   <!-- MOBILE -->
   <div class="mobile-topbar">
     <img src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens">
+    <div class="lang-toggle mobile-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
   </div>
 
   <div class="home-topbar">
-    <h1>Votre perception visuelle est elle perturbée ?</h1>
+    <div class="lang-toggle on-light home-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
+    <h1 data-i18n="home_title">Votre perception visuelle est elle perturbée ?</h1>
     <img class="topbar-logo" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
   </div>
 
   <div class="video-grid">
 
     <div class="video-cell">
-      <div class="video-cell-header">Le texte apparaît en 3D</div>
+      <div class="video-cell-header" data-i18n="home_v1">Le texte apparaît en 3D</div>
       <video src="lexilens-assets/Media/Media1.mp4" autoplay loop muted playsinline></video>
     </div>
 
     <div class="video-cell">
-      <div class="video-cell-header">Le texte se scinde en deux</div>
+      <div class="video-cell-header" data-i18n="home_v2">Le texte se scinde en deux</div>
       <video src="lexilens-assets/Media/Media2.mp4" autoplay loop muted playsinline></video>
     </div>
 
     <div class="video-cell">
-      <div class="video-cell-header">Les mots disparaissent</div>
+      <div class="video-cell-header" data-i18n="home_v3">Les mots disparaissent</div>
       <video src="lexilens-assets/Media/Media3.mp4" autoplay loop muted playsinline></video>
     </div>
 
     <div class="video-cell">
-      <div class="video-cell-header">Les mots et le texte ondulent</div>
+      <div class="video-cell-header" data-i18n="home_v4">Les mots et le texte ondulent</div>
       <video src="lexilens-assets/Media/Media4.mp4" autoplay loop muted playsinline></video>
     </div>
 
     <div class="video-cell">
-      <div class="video-cell-header">Les mots et le texte tremblent</div>
+      <div class="video-cell-header" data-i18n="home_v5">Les mots et le texte tremblent</div>
       <video src="lexilens-assets/Media/Media5.mp4" autoplay loop muted playsinline></video>
     </div>
 
     <div class="video-cell">
-      <div class="video-cell-header">Les mots et le texte tournent</div>
+      <div class="video-cell-header" data-i18n="home_v6">Les mots et le texte tournent</div>
       <video src="lexilens-assets/Media/Media6.mp4" autoplay loop muted playsinline></video>
     </div>
 
@@ -1019,15 +1073,15 @@
 
   <div class="home-bottom">
     <img class="deco-img" src="lexilens-assets/Images/girl-reading.png" alt="Enfant lisant avec Lexilens">
-    <button class="testez-btn" onclick="showPage('page-step1')">TESTEZ-VOUS ICI</button>
+    <button class="testez-btn" onclick="showPage('page-step1')" data-i18n="home_cta">TESTEZ-VOUS ICI</button>
     <img class="deco-img" src="lexilens-assets/Images/hand-mouse.png" alt="Interaction avec le kiosk">
   </div>
 
   <div class="mobile-bottomnav"><nav>
-    <a class="active" onclick="navTo('page-home', this)">Perturbations</a>
-    <a onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
-    <a onclick="navTo('page-products', this)">Produits</a>
+    <a class="active" onclick="navTo('page-home', this)" data-i18n="nav_m_home">Perturbations</a>
+    <a onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+    <a onclick="navTo('page-lexilens', this)" data-i18n="nav_m_lexilens">Lexilens® ?</a>
+    <a onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
   </nav></div>
 
 </div>
@@ -1040,36 +1094,40 @@
   <!-- MOBILE -->
   <div class="mobile-topbar">
     <img src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens">
+    <div class="lang-toggle mobile-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
   </div>
 
 <div class="kiosk-main" style="justify-content:space-between;">
 
   <!-- Titre centré en haut -->
   <div class="kiosk-top" style="width:100%; text-align:center;">
-    <div class="kiosk-title">BIENVENUE</div>
-    <div class="kiosk-subtitle">Testez facilement la technologie Lexilens® en 3 étapes !</div>
+    <div class="kiosk-title" data-i18n="welcome_title">BIENVENUE</div>
+    <div class="kiosk-subtitle" data-i18n="welcome_subtitle">Testez facilement la technologie Lexilens® en 3 étapes !</div>
   </div>
 
   <!-- 3 icônes centrées verticalement et horizontalement -->
   <div class="icons3d-row">
 
     <div class="icon3d-wrap">
-      <img class="icon3d-img" src="lexilens-assets/Images/icon-gear.png" alt="Réglage">
-      <div class="icon3d-label">REGLER</div>
+      <img class="icon3d-img" src="lexilens-assets/Images/icon-gear.png" alt="Adjust">
+      <div class="icon3d-label" data-i18n="icon_adjust">REGLER</div>
     </div>
 
     <div class="icon3d-arrow blue"></div>
 
     <div class="icon3d-wrap">
-      <img class="icon3d-img" src="lexilens-assets/Images/icon-book.png" alt="Lecture">
-      <div class="icon3d-label">LIRE</div>
+      <img class="icon3d-img" src="lexilens-assets/Images/icon-book.png" alt="Read">
+      <div class="icon3d-label" data-i18n="icon_read">LIRE</div>
     </div>
 
     <div class="icon3d-arrow blue"></div>
 
     <div class="icon3d-wrap">
-      <img class="icon3d-img" src="lexilens-assets/Images/icon-check.png" alt="Résultat">
-      <div class="icon3d-label">CONSTATER</div>
+      <img class="icon3d-img" src="lexilens-assets/Images/icon-check.png" alt="Result">
+      <div class="icon3d-label" data-i18n="icon_observe">CONSTATER</div>
     </div>
 
   </div>
@@ -1078,7 +1136,7 @@
   <div style="display:flex; justify-content:center;">
     <button class="start-btn" onclick="startTest()">
       <div class="btn-play">▶</div>
-      Démarrer (5 min)
+      <span data-i18n="welcome_start">Démarrer (5 min)</span>
     </button>
   </div>
 
@@ -1086,20 +1144,24 @@
 
   <div class="kiosk-sidebar">
     <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
+    <div class="lang-toggle sb-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
     <nav class="sb-nav">
-	  <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
-      <a class="active" onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
-      <a onclick="navTo('page-products', this)">Produits</a>
+	  <a onclick="navTo('page-home', this)" data-i18n="nav_s_home">Perturbations de<br>perception visuelle</a>
+      <a class="active" onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+      <a onclick="navTo('page-lexilens', this)" data-i18n="nav_s_lexilens">Qu'est-ce que<br>Lexilens® ?</a>
+      <a onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
     </nav>
-    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+    <div class="sb-help" data-i18n="sb_help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
   </div>
 
   <div class="mobile-bottomnav"><nav>
-    <a onclick="navTo('page-home', this)">Perturbations</a>
-    <a class="active" onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
-    <a onclick="navTo('page-products', this)">Produits</a>
+    <a onclick="navTo('page-home', this)" data-i18n="nav_m_home">Perturbations</a>
+    <a class="active" onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+    <a onclick="navTo('page-lexilens', this)" data-i18n="nav_m_lexilens">Lexilens® ?</a>
+    <a onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
   </nav></div>
 
 </div>
@@ -1111,6 +1173,10 @@
   <!-- MOBILE -->
   <div class="mobile-topbar">
     <img src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens">
+    <div class="lang-toggle mobile-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
   </div>
   <div class="lex-main">
     <div class="lex-scroll">
@@ -1120,9 +1186,9 @@
         <img class="lex-hero-bg" src="lexilens-assets/Images/hero-glasses.png" alt="">
         <div class="lex-hero-overlay"></div>
         <div class="lex-hero-text">
-          <div class="lex-hero-eyebrow">Technologie neurovisuelle française</div>
-          <h1 class="lex-hero-title">Vous avez du mal à <em>lire</em> ?<br>Lexilens® peut changer ça.</h1>
-          <p class="lex-hero-sub">Certaines personnes relisent plusieurs fois, se fatiguent vite ou perdent le fil.<br>Lexilens® est fait pour elles.</p>
+          <div class="lex-hero-eyebrow" data-i18n="lex_eyebrow">Technologie neurovisuelle française</div>
+          <h1 class="lex-hero-title" data-i18n="lex_hero_title">Vous avez du mal à <em>lire</em> ?<br>Lexilens® peut changer ça.</h1>
+          <p class="lex-hero-sub" data-i18n="lex_hero_sub">Certaines personnes relisent plusieurs fois, se fatiguent vite ou perdent le fil.<br>Lexilens® est fait pour elles.</p>
         </div>
         <div class="lex-hero-img-wrap">
           <img src="lexilens-assets/Images/hero-glasses.png" alt="Lunettes Lexilens" onerror="this.style.opacity='0'">
@@ -1131,34 +1197,34 @@
 
       <!-- ② SYMPTÔMES — gris-blanc -->
       <div class="lex-symptoms-section">
-        <div class="lex-section-title">Vous reconnaissez-vous ?</div>
+        <div class="lex-section-title" data-i18n="lex_symptoms_title">Vous reconnaissez-vous ?</div>
         <div class="lex-symptoms-grid">
           <div class="lex-symptom-card">
             <div class="lex-symptom-icon">👁️</div>
-            <div class="lex-symptom-label">Perception visuelle perturbée</div>
-            <div class="lex-symptom-desc">Les mots bougent, se dédoublent ou semblent instables</div>
+            <div class="lex-symptom-label" data-i18n="lex_symptom1_label">Perception visuelle perturbée</div>
+            <div class="lex-symptom-desc" data-i18n="lex_symptom1_desc">Les mots bougent, se dédoublent ou semblent instables</div>
           </div>
           <div class="lex-symptom-card">
             <div class="lex-symptom-icon">😴</div>
-            <div class="lex-symptom-label">Fatigue rapide</div>
-            <div class="lex-symptom-desc">La lecture vous épuise plus vite que les autres</div>
+            <div class="lex-symptom-label" data-i18n="lex_symptom2_label">Fatigue rapide</div>
+            <div class="lex-symptom-desc" data-i18n="lex_symptom2_desc">La lecture vous épuise plus vite que les autres</div>
           </div>
           <div class="lex-symptom-card">
             <div class="lex-symptom-icon">😵</div>
-            <div class="lex-symptom-label">Relecture fréquente</div>
-            <div class="lex-symptom-desc">Vous devez relire plusieurs fois pour comprendre un texte</div>
+            <div class="lex-symptom-label" data-i18n="lex_symptom3_label">Relecture fréquente</div>
+            <div class="lex-symptom-desc" data-i18n="lex_symptom3_desc">Vous devez relire plusieurs fois pour comprendre un texte</div>
           </div>
           <div class="lex-symptom-card">
             <div class="lex-symptom-icon">🧠</div>
-            <div class="lex-symptom-label">Perte de concentration</div>
-            <div class="lex-symptom-desc">Difficile de rester focus, même sur un texte court</div>
+            <div class="lex-symptom-label" data-i18n="lex_symptom4_label">Perte de concentration</div>
+            <div class="lex-symptom-desc" data-i18n="lex_symptom4_desc">Difficile de rester focus, même sur un texte court</div>
           </div>
         </div>
       </div>
 
       <!-- ③ CROWDING — bleu marine -->
       <div class="lex-crowding-section">
-        <div class="lex-section-title on-dark">Pourquoi c'est difficile pour certains ?</div>
+        <div class="lex-section-title on-dark" data-i18n="lex_crowding_title">Pourquoi c'est difficile pour certains ?</div>
         <div class="lex-crowding-row">
           <div class="lex-crowding-img">
             <img src="lexilens-assets/Images/crowding-comparaison.png" alt="Illustration du crowding neurovisuel"
@@ -1167,19 +1233,19 @@
           <div class="lex-crowding-text">
             <div class="lex-crowding-stat">
               <div class="lex-crowding-stat-box">
-                <div class="lex-crowding-stat-pre">près de</div>
-                <div class="lex-crowding-stat-num">1 sur 10</div>
-                <div class="lex-crowding-stat-post">personnes</div>
+                <div class="lex-crowding-stat-pre" data-i18n="lex_stat_pre">près de</div>
+                <div class="lex-crowding-stat-num" data-i18n="lex_stat_num">1 sur 10</div>
+                <div class="lex-crowding-stat-post" data-i18n="lex_stat_post">personnes</div>
               </div>
               <div class="lex-crowding-stat-right">
-                <div class="lex-crowding-stat-desc">sont concernées par ce bruit neurovisuel sans le savoir.</div>
-                <div class="lex-crowding-stat-source">Source : NIH, INSERM — données épidémiologiques internationales</div>
+                <div class="lex-crowding-stat-desc" data-i18n="lex_stat_desc">sont concernées par ce bruit neurovisuel sans le savoir.</div>
+                <div class="lex-crowding-stat-source" data-i18n="lex_stat_source">Source : NIH, INSERM — données épidémiologiques internationales</div>
               </div>
             </div>
-            <div class="lex-crowding-body">
+            <div class="lex-crowding-body" data-i18n="lex_crowding_body">
               Le cerveau reçoit <strong>deux images légèrement décalées</strong> au lieu d'une seule. Ce doublement invisible crée un <strong>« bruit neurovisuel »</strong>, qu'on appelle <strong>encombrement neurovisuel</strong>. Ce phénomène rend la lecture moins fluide et plus fatigante.
             </div>
-            <div class="lex-crowding-note">
+            <div class="lex-crowding-note" data-i18n="lex_crowding_note">
               Ce n'est pas un problème de vue, ni d'intelligence. C'est simplement la façon dont certains cerveaux traitent les images.
             </div>
           </div>
@@ -1189,8 +1255,8 @@
       <!-- ④ SOLUTION — gris-blanc -->
       <div class="lex-solution-section">
         <div class="lex-solution-inner">
-          <div class="lex-section-title">La solution Lexilens®</div>
-          <div class="lex-solution-subtitle">Lexilens® supprime cet encombrement neurovisuel que certaines personnes ressentent </div>
+          <div class="lex-section-title" data-i18n="lex_solution_title">La solution Lexilens®</div>
+          <div class="lex-solution-subtitle" data-i18n="lex_solution_subtitle">Lexilens® supprime cet encombrement neurovisuel que certaines personnes ressentent </div>
         </div>
         <div class="lex-solution-inner">
           <div class="lex-solution-img-banner">
@@ -1198,23 +1264,23 @@
                  onerror="this.style.opacity='0.1'">
           </div>
           <div class="lex-solution-highlight">
-            <p class="lex-solution-highlight-text">Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens® empêche le doublement de se former.<br>Résultat : <strong>L'expérience de lecture est transformée</strong> - une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, avec <strong>moins de fatigue</strong>, une <strong>compréhension facilitée</strong> et une <strong>meilleure concentration</strong>. Dès les premières secondes, de nombreuses personnes ressentent la différence.</p>
+            <p class="lex-solution-highlight-text" data-i18n="lex_solution_highlight">Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens® empêche le doublement de se former.<br>Résultat : <strong>L'expérience de lecture est transformée</strong> - une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, avec <strong>moins de fatigue</strong>, une <strong>compréhension facilitée</strong> et une <strong>meilleure concentration</strong>. Dès les premières secondes, de nombreuses personnes ressentent la différence.</p>
           </div>
           <div class="lex-solution-benefits">
             <div class="lex-solution-benefit">
               <div class="lex-solution-benefit-icon">📖</div>
-              <div class="lex-solution-benefit-title">Lecture plus fluide</div>
-              <div class="lex-solution-benefit-desc">Les mots restent stables, on n'a plus besoin de tout relire</div>
+              <div class="lex-solution-benefit-title" data-i18n="lex_benefit1_title">Lecture plus fluide</div>
+              <div class="lex-solution-benefit-desc" data-i18n="lex_benefit1_desc">Les mots restent stables, on n'a plus besoin de tout relire</div>
             </div>
             <div class="lex-solution-benefit">
               <div class="lex-solution-benefit-icon">⚡</div>
-              <div class="lex-solution-benefit-title">Moins de fatigue</div>
-              <div class="lex-solution-benefit-desc">On peut lire plus longtemps sans s'épuiser</div>
+              <div class="lex-solution-benefit-title" data-i18n="lex_benefit2_title">Moins de fatigue</div>
+              <div class="lex-solution-benefit-desc" data-i18n="lex_benefit2_desc">On peut lire plus longtemps sans s'épuiser</div>
             </div>
             <div class="lex-solution-benefit">
               <div class="lex-solution-benefit-icon">🎯</div>
-              <div class="lex-solution-benefit-title">Meilleure concentration</div>
-              <div class="lex-solution-benefit-desc">Rester focus devient naturel, même sur de longs textes</div>
+              <div class="lex-solution-benefit-title" data-i18n="lex_benefit3_title">Meilleure concentration</div>
+              <div class="lex-solution-benefit-desc" data-i18n="lex_benefit3_desc">Rester focus devient naturel, même sur de longs textes</div>
             </div>
           </div>
 
@@ -1223,34 +1289,34 @@
 
       <!-- ⑤ AVANTAGES — bleu marine -->
       <div class="lex-stats-section">
-        <div class="lex-section-title on-dark">Avantages pour les utilisateurs de Lexilens®</div>
-        <div class="lex-stats-sub">Données consolidées auprès d'utilisateurs dans plus de 20 pays</div>
+        <div class="lex-section-title on-dark" data-i18n="lex_stats_title">Avantages pour les utilisateurs de Lexilens®</div>
+        <div class="lex-stats-sub" data-i18n="lex_stats_sub">Données consolidées auprès d'utilisateurs dans plus de 20 pays</div>
         <div class="lex-stats-grid">
           <div class="lex-stat-card">
             <div class="lex-stat-num">7 000<sup>+</sup></div>
-            <div class="lex-stat-label">utilisateurs dans le monde</div>
+            <div class="lex-stat-label" data-i18n="lex_stat1_label">utilisateurs dans le monde</div>
           </div>
           <div class="lex-stat-card">
             <div class="lex-stat-num">20<sup>+</sup></div>
-            <div class="lex-stat-label">pays où Lexilens® est utilisé</div>
+            <div class="lex-stat-label" data-i18n="lex_stat2_label">pays où Lexilens® est utilisé</div>
           </div>
           <div class="lex-stat-card">
             <div class="lex-stat-num">92%</div>
-            <div class="lex-stat-label">d'impact positif sur la vie quotidienne</div>
+            <div class="lex-stat-label" data-i18n="lex_stat3_label">d'impact positif sur la vie quotidienne</div>
           </div>
           <div class="lex-stat-card">
             <div class="lex-stat-num">86%</div>
-            <div class="lex-stat-label">d'amélioration scolaire</div>
+            <div class="lex-stat-label" data-i18n="lex_stat4_label">d'amélioration scolaire</div>
           </div>
         </div>
         <div class="lex-bars">
           <div class="lex-bar-row">
-            <div class="lex-bar-label">Impact positif sur la vie</div>
+            <div class="lex-bar-label" data-i18n="lex_bar1_label">Impact positif sur la vie</div>
             <div class="lex-bar-track"><div class="lex-bar-fill" style="width:92%"></div></div>
             <div class="lex-bar-pct">92%</div>
           </div>
           <div class="lex-bar-row">
-            <div class="lex-bar-label">Amélioration scolaire</div>
+            <div class="lex-bar-label" data-i18n="lex_bar2_label">Amélioration scolaire</div>
             <div class="lex-bar-track"><div class="lex-bar-fill" style="width:86%"></div></div>
             <div class="lex-bar-pct">86%</div>
           </div>
@@ -1259,57 +1325,57 @@
 
       <!-- ⑥ TÉMOIGNAGES — gris-blanc -->
       <div class="lex-testimonials-section">
-        <div class="lex-section-title">Ce qu'en disent les utilisateurs</div>
+        <div class="lex-section-title" data-i18n="lex_testi_title">Ce qu'en disent les utilisateurs</div>
         <div class="lex-testimonials-grid">
           <div class="lex-testimony">
             <div class="lex-testimony-quote">"</div>
-            <div class="lex-testimony-text">J'ai désormais davantage confiance en moi. Je peux lire, et je trouve aussi qu'il est plus facile de me faire de nouveaux amis.</div>
+            <div class="lex-testimony-text" data-i18n="lex_testi1_text">J'ai désormais davantage confiance en moi. Je peux lire, et je trouve aussi qu'il est plus facile de me faire de nouveaux amis.</div>
             <div class="lex-testimony-author">
               <div class="lex-testimony-avatar lex-testimony-avatar-f">
                 <span class="lex-testimony-avatar-placeholder">👩</span>
               </div>
               <div>
                 <div class="lex-testimony-name">Lila (France)</div>
-                <div class="lex-testimony-role">Utilisatrice Lexilens®</div>
+                <div class="lex-testimony-role" data-i18n="lex_role_f">Utilisatrice Lexilens®</div>
               </div>
             </div>
           </div>
           <div class="lex-testimony">
             <div class="lex-testimony-quote">"</div>
-            <div class="lex-testimony-text">Elles m'aident tellement que je n'ai plus besoin de deviner les mots. Je peux enfin lire chaque mot en entier et comprendre ce que je lis !</div>
+            <div class="lex-testimony-text" data-i18n="lex_testi2_text">Elles m'aident tellement que je n'ai plus besoin de deviner les mots. Je peux enfin lire chaque mot en entier et comprendre ce que je lis !</div>
             <div class="lex-testimony-author">
               <div class="lex-testimony-avatar lex-testimony-avatar-m">
                 <span class="lex-testimony-avatar-placeholder">👨</span>
               </div>
               <div>
                 <div class="lex-testimony-name">Juozapas (Lithuanie)</div>
-                <div class="lex-testimony-role">Utilisateur Lexilens®</div>
+                <div class="lex-testimony-role" data-i18n="lex_role_m">Utilisateur Lexilens®</div>
               </div>
             </div>
           </div>
           <div class="lex-testimony">
             <div class="lex-testimony-quote">"</div>
-            <div class="lex-testimony-text">Je peux comprendre ce que je lis au fur et à mesure de ma lecture. Elles rendent tout plus net.</div>
+            <div class="lex-testimony-text" data-i18n="lex_testi3_text">Je peux comprendre ce que je lis au fur et à mesure de ma lecture. Elles rendent tout plus net.</div>
             <div class="lex-testimony-author">
               <div class="lex-testimony-avatar lex-testimony-avatar-f">
                 <span class="lex-testimony-avatar-placeholder">👩</span>
               </div>
               <div>
                 <div class="lex-testimony-name">Camilla (Danemark)</div>
-                <div class="lex-testimony-role">Utilisatrice Lexilens®</div>
+                <div class="lex-testimony-role" data-i18n="lex_role_f">Utilisatrice Lexilens®</div>
               </div>
             </div>
           </div>
           <div class="lex-testimony">
             <div class="lex-testimony-quote">"</div>
-            <div class="lex-testimony-text">Avant, la lecture me fatiguait très rapidement. Aujourd'hui, je peux lire plus longtemps, comme tout le monde. C'est une véritable révolution dans ma vie.</div>
+            <div class="lex-testimony-text" data-i18n="lex_testi4_text">Avant, la lecture me fatiguait très rapidement. Aujourd'hui, je peux lire plus longtemps, comme tout le monde. C'est une véritable révolution dans ma vie.</div>
             <div class="lex-testimony-author">
               <div class="lex-testimony-avatar lex-testimony-avatar-f">
                 <span class="lex-testimony-avatar-placeholder">👩</span>
               </div>
               <div>
                 <div class="lex-testimony-name">Marie (France)</div>
-                <div class="lex-testimony-role">Utilisatrice Lexilens®</div>
+                <div class="lex-testimony-role" data-i18n="lex_role_f">Utilisatrice Lexilens®</div>
               </div>
             </div>
           </div>
@@ -1321,8 +1387,8 @@
         <div class="lex-made-in">
          <!-- <span class="lex-made-in-flag"></span>-->
           <div>
-            <div class="lex-made-in-title">Lexilens® — Une innovation de rupture française</div>
-            <div class="lex-made-in-sub">Conçue et fabriquée en France</div>
+            <div class="lex-made-in-title" data-i18n="lex_madein_title">Lexilens® — Une innovation de rupture française</div>
+            <div class="lex-made-in-sub" data-i18n="lex_madein_sub">Conçue et fabriquée en France</div>
           </div>
         </div>
       </div>
@@ -1332,19 +1398,23 @@
 
   <div class="kiosk-sidebar">
     <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
+    <div class="lang-toggle sb-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
     <nav class="sb-nav">
-      <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
-      <a onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a class="active" onclick="navTo('page-Lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
-      <a onclick="navTo('page-products', this)">Produits</a>
+      <a onclick="navTo('page-home', this)" data-i18n="nav_s_home">Perturbations de<br>perception visuelle</a>
+      <a onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+      <a class="active" onclick="navTo('page-Lexilens', this)" data-i18n="nav_s_lexilens">Qu'est-ce que<br>Lexilens® ?</a>
+      <a onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
     </nav>
-    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+    <div class="sb-help" data-i18n="sb_help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
   </div>
   <div class="mobile-bottomnav"><nav>
-    <a onclick="navTo('page-home', this)">Perturbations</a>
-    <a onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a class="active" onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
-    <a onclick="navTo('page-products', this)">Produits</a>
+    <a onclick="navTo('page-home', this)" data-i18n="nav_m_home">Perturbations</a>
+    <a onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+    <a class="active" onclick="navTo('page-lexilens', this)" data-i18n="nav_m_lexilens">Lexilens® ?</a>
+    <a onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
   </nav></div>
 
 </div>
@@ -1356,6 +1426,10 @@
   <!-- MOBILE -->
   <div class="mobile-topbar">
     <img src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens">
+    <div class="lang-toggle mobile-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
   </div>
 
   <div class="prod-main">
@@ -1363,10 +1437,10 @@
     <!-- HEADER -->
     <div class="prod-header">
       <div>
-        <div class="prod-header-title">Nos produits</div>
-        <div class="prod-header-sub">6 montures · 1 moniteur LED</div>
+        <div class="prod-header-title" data-i18n="prod_title">Nos produits</div>
+        <div class="prod-header-sub" data-i18n="prod_sub">6 montures · 1 moniteur LED</div>
       </div>
-      <div class="prod-header-count" id="prodHeaderCount">7 produits</div>
+      <div class="prod-header-count" id="prodHeaderCount" data-i18n="prod_count">7 produits</div>
     </div>
 
     <!-- CORPS -->
@@ -1380,13 +1454,13 @@
         <div class="prod-img-zone">
           <img class="p-img p-visible" id="imgMain" src="" alt="Photo produit Lexilens">
           <img class="p-img p-hidden"  id="imgAlt"  src="" alt="Photo produit Lexilens® vue 3/4">
-          <div class="p-france" id="pFrance">🇫🇷 Origine France Garantie</div>
+          <div class="p-france" id="pFrance" data-i18n="prod_france">🇫🇷 Origine France Garantie</div>
           <div class="p-size-badge" id="pSizeBadge">
             <span id="pSizeVal"></span>
             <span class="p-size-badge-sub" id="pSizeSub"></span>
           </div>
           <div class="p-view-tabs">
-            <div class="p-tab p-tab-active" onclick="switchView(0)">Face</div>
+            <div class="p-tab p-tab-active" onclick="switchView(0)" data-i18n="prod_tab_front">Face</div>
             <div class="p-tab" onclick="switchView(1)">3/4</div>
           </div>
         </div>
@@ -1394,9 +1468,9 @@
           <div class="p-ref" id="pRef"></div>
           <div class="p-name" id="pName"></div>
           <div class="p-specs">
-            <div class="p-spec"><div class="p-spec-label">Taille</div><div class="p-spec-val" id="pSize"></div></div>
-            <div class="p-spec"><div class="p-spec-label">Calibre / Nez</div><div class="p-spec-val" id="pCalibre"></div></div>
-            <div class="p-spec"><div class="p-spec-label">Branche</div><div class="p-spec-val" id="pBranch"></div></div>
+            <div class="p-spec"><div class="p-spec-label" data-i18n="prod_spec_size">Taille</div><div class="p-spec-val" id="pSize"></div></div>
+            <div class="p-spec"><div class="p-spec-label" data-i18n="prod_spec_calibre">Calibre / Nez</div><div class="p-spec-val" id="pCalibre"></div></div>
+            <div class="p-spec"><div class="p-spec-label" data-i18n="prod_spec_branch">Branche</div><div class="p-spec-val" id="pBranch"></div></div>
           </div>
           <div class="p-desc" id="pDesc"></div>
         </div>
@@ -1408,20 +1482,24 @@
   <!-- SIDEBAR -->
   <div class="kiosk-sidebar">
     <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
+    <div class="lang-toggle sb-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
     <nav class="sb-nav">
-      <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
-      <a onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
-      <a class="active">Produits</a>
+      <a onclick="navTo('page-home', this)" data-i18n="nav_s_home">Perturbations de<br>perception visuelle</a>
+      <a onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+      <a onclick="navTo('page-lexilens', this)" data-i18n="nav_s_lexilens">Qu'est-ce que<br>Lexilens® ?</a>
+      <a class="active" data-i18n="nav_m_products">Produits</a>
     </nav>
-    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+    <div class="sb-help" data-i18n="sb_help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
   </div>
 
   <div class="mobile-bottomnav"><nav>
-    <a onclick="navTo('page-home', this)">Perturbations</a>
-    <a onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
-    <a class="active" onclick="navTo('page-products', this)">Produits</a>
+    <a onclick="navTo('page-home', this)" data-i18n="nav_m_home">Perturbations</a>
+    <a onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+    <a onclick="navTo('page-lexilens', this)" data-i18n="nav_m_lexilens">Lexilens® ?</a>
+    <a class="active" onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
   </nav></div>
 
 </div>
@@ -1431,28 +1509,291 @@
   <!-- MOBILE -->
   <div class="mobile-topbar">
     <img src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens">
+    <div class="lang-toggle mobile-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
   </div>
   <div class="test-page" id="testContent"></div>
   <div class="kiosk-sidebar">
     <img class="sb-logo-img" src="lexilens-assets/Images/logo-lexilens.png" alt="Lexilens® by Abeye">
+    <div class="lang-toggle sb-lang-toggle">
+      <button data-lang="fr" onclick="setLang('fr')"><svg class="flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</button>
+      <button data-lang="en" onclick="setLang('en')"><svg class="flag" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#00247d"/><path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 60,36 M60,0 0,36" stroke="#cf142b" stroke-width="3"/><path d="M30,0 30,36 M0,18 60,18" stroke="#fff" stroke-width="11"/><path d="M30,0 30,36 M0,18 60,18" stroke="#cf142b" stroke-width="7"/></svg>EN</button>
+    </div>
     <nav class="sb-nav">
-	  <a onclick="navTo('page-home', this)">Perturbations de<br>perception visuelle</a>
-      <a onclick="navTo('page-step1', this)">Testez-vous</a>
-      <a onclick="navTo('page-lexilens', this)">Qu'est-ce que<br>Lexilens® ?</a>
-      <a onclick="navTo('page-products', this)">Produits</a>
+	  <a onclick="navTo('page-home', this)" data-i18n="nav_s_home">Perturbations de<br>perception visuelle</a>
+      <a onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+      <a onclick="navTo('page-lexilens', this)" data-i18n="nav_s_lexilens">Qu'est-ce que<br>Lexilens® ?</a>
+      <a onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
     </nav>
-    <div class="sb-help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
+    <div class="sb-help" data-i18n="sb_help">Contactez le personnel<br>si vous avez besoin d'aide.</div>
   </div>
   <div class="mobile-bottomnav"><nav>
-    <a onclick="navTo('page-home', this)">Perturbations</a>
-    <a class="active" onclick="navTo('page-step1', this)">Testez-vous</a>
-    <a onclick="navTo('page-lexilens', this)">Lexilens® ?</a>
-    <a onclick="navTo('page-products', this)">Produits</a>
+    <a onclick="navTo('page-home', this)" data-i18n="nav_m_home">Perturbations</a>
+    <a class="active" onclick="navTo('page-step1', this)" data-i18n="nav_m_test">Testez-vous</a>
+    <a onclick="navTo('page-lexilens', this)" data-i18n="nav_m_lexilens">Lexilens® ?</a>
+    <a onclick="navTo('page-products', this)" data-i18n="nav_m_products">Produits</a>
   </nav></div>
 
 </div>
 
 <script>
+  /* ═══════════════════════════════════════════════════════
+     I18N — FR / EN
+  ═══════════════════════════════════════════════════════ */
+  let LANG = 'fr';
+
+  const I18N = {
+    fr: {
+      home_title: "Votre perception visuelle est elle perturbée ?",
+      home_v1: "Le texte apparaît en 3D",
+      home_v2: "Le texte se scinde en deux",
+      home_v3: "Les mots disparaissent",
+      home_v4: "Les mots et le texte ondulent",
+      home_v5: "Les mots et le texte tremblent",
+      home_v6: "Les mots et le texte tournent",
+      home_cta: "TESTEZ-VOUS ICI",
+
+      nav_m_home: "Perturbations",
+      nav_m_test: "Testez-vous",
+      nav_m_lexilens: "Lexilens® ?",
+      nav_m_products: "Produits",
+      nav_s_home: "Perturbations de<br>perception visuelle",
+      nav_s_lexilens: "Qu'est-ce que<br>Lexilens® ?",
+      sb_help: "Contactez le personnel<br>si vous avez besoin d'aide.",
+
+      welcome_title: "BIENVENUE",
+      welcome_subtitle: "Testez facilement la technologie Lexilens® en 3 étapes !",
+      icon_adjust: "REGLER",
+      icon_read: "LIRE",
+      icon_observe: "CONSTATER",
+      welcome_start: "Démarrer (5 min)",
+
+      lex_eyebrow: "Technologie neurovisuelle française",
+      lex_hero_title: "Vous avez du mal à <em>lire</em> ?<br>Lexilens® peut changer ça.",
+      lex_hero_sub: "Certaines personnes relisent plusieurs fois, se fatiguent vite ou perdent le fil.<br>Lexilens® est fait pour elles.",
+      lex_symptoms_title: "Vous reconnaissez-vous ?",
+      lex_symptom1_label: "Perception visuelle perturbée",
+      lex_symptom1_desc: "Les mots bougent, se dédoublent ou semblent instables",
+      lex_symptom2_label: "Fatigue rapide",
+      lex_symptom2_desc: "La lecture vous épuise plus vite que les autres",
+      lex_symptom3_label: "Relecture fréquente",
+      lex_symptom3_desc: "Vous devez relire plusieurs fois pour comprendre un texte",
+      lex_symptom4_label: "Perte de concentration",
+      lex_symptom4_desc: "Difficile de rester focus, même sur un texte court",
+      lex_crowding_title: "Pourquoi c'est difficile pour certains ?",
+      lex_stat_pre: "près de",
+      lex_stat_num: "1 sur 10",
+      lex_stat_post: "personnes",
+      lex_stat_desc: "sont concernées par ce bruit neurovisuel sans le savoir.",
+      lex_stat_source: "Source : NIH, INSERM — données épidémiologiques internationales",
+      lex_crowding_body: "Le cerveau reçoit <strong>deux images légèrement décalées</strong> au lieu d'une seule. Ce doublement invisible crée un <strong>« bruit neurovisuel »</strong>, qu'on appelle <strong>encombrement neurovisuel</strong>. Ce phénomène rend la lecture moins fluide et plus fatigante.",
+      lex_crowding_note: "Ce n'est pas un problème de vue, ni d'intelligence. C'est simplement la façon dont certains cerveaux traitent les images.",
+      lex_solution_title: "La solution Lexilens®",
+      lex_solution_subtitle: "Lexilens® supprime cet encombrement neurovisuel que certaines personnes ressentent ",
+      lex_solution_highlight: "Grâce à une <strong>modulation lumineuse invisible</strong>, Lexilens® empêche le doublement de se former.<br>Résultat : <strong>L'expérience de lecture est transformée</strong> - une lecture <strong>plus naturelle</strong>, <strong>plus fluide</strong>, avec <strong>moins de fatigue</strong>, une <strong>compréhension facilitée</strong> et une <strong>meilleure concentration</strong>. Dès les premières secondes, de nombreuses personnes ressentent la différence.",
+      lex_benefit1_title: "Lecture plus fluide",
+      lex_benefit1_desc: "Les mots restent stables, on n'a plus besoin de tout relire",
+      lex_benefit2_title: "Moins de fatigue",
+      lex_benefit2_desc: "On peut lire plus longtemps sans s'épuiser",
+      lex_benefit3_title: "Meilleure concentration",
+      lex_benefit3_desc: "Rester focus devient naturel, même sur de longs textes",
+      lex_stats_title: "Avantages pour les utilisateurs de Lexilens®",
+      lex_stats_sub: "Données consolidées auprès d'utilisateurs dans plus de 20 pays",
+      lex_stat1_label: "utilisateurs dans le monde",
+      lex_stat2_label: "pays où Lexilens® est utilisé",
+      lex_stat3_label: "d'impact positif sur la vie quotidienne",
+      lex_stat4_label: "d'amélioration scolaire",
+      lex_bar1_label: "Impact positif sur la vie",
+      lex_bar2_label: "Amélioration scolaire",
+      lex_testi_title: "Ce qu'en disent les utilisateurs",
+      lex_testi1_text: "J'ai désormais davantage confiance en moi. Je peux lire, et je trouve aussi qu'il est plus facile de me faire de nouveaux amis.",
+      lex_testi2_text: "Elles m'aident tellement que je n'ai plus besoin de deviner les mots. Je peux enfin lire chaque mot en entier et comprendre ce que je lis !",
+      lex_testi3_text: "Je peux comprendre ce que je lis au fur et à mesure de ma lecture. Elles rendent tout plus net.",
+      lex_testi4_text: "Avant, la lecture me fatiguait très rapidement. Aujourd'hui, je peux lire plus longtemps, comme tout le monde. C'est une véritable révolution dans ma vie.",
+      lex_role_f: "Utilisatrice Lexilens®",
+      lex_role_m: "Utilisateur Lexilens®",
+      lex_madein_title: "Lexilens® — Une innovation de rupture française",
+      lex_madein_sub: "Conçue et fabriquée en France",
+
+      prod_title: "Nos produits",
+      prod_sub: "6 montures · 1 moniteur LED",
+      prod_count: "7 produits",
+      prod_france: "🇫🇷 Origine France Garantie",
+      prod_tab_front: "Face",
+      prod_spec_size: "Taille",
+      prod_spec_calibre: "Calibre / Nez",
+      prod_spec_branch: "Branche",
+      prod_spec_screen: "ÉCRAN",
+      prod_spec_resolution: "RÉSOLUTION",
+      prod_spec_refresh: "RAFRAÎCHISSEMENT",
+      prod_monitor: "Moniteur",
+
+      audience_S: "Enfant",
+      audience_M: "Ado / Adulte",
+      audience_L: "Adulte",
+
+      alert_choose_age: "Veuillez choisir votre tranche d'âge avant de continuer.",
+      loading_text: "Chargement du texte...",
+      text_unavailable: "Texte non disponible.",
+      btn_prev: "◀ Précédent",
+      btn_confirm: "Confirmation ▶",
+      btn_restart: "🔄 Recommencer le test",
+      btn_next: "Suivant ▶",
+      feedback_question: "Avez-vous ressenti une différence de confort avec la technologie Lexilens® activée&nbsp;?",
+      feedback_none: "Aucune différence",
+      feedback_better: "Un peu mieux",
+      feedback_top: "C'est TOP !",
+      result_title: "Test terminé !",
+      result_sub: "Nos experts sont disponibles pour vous expliquer les résultats et vous orienter vers le produit adapté à votre besoin.",
+      result_btn_products: "🛍️ Voir les produits",
+      result_qr_label: "En savoir plus",
+      badge_freq: "Fréquence Lexilens®",
+      badge_balance: "Balance Lexilens®",
+      age_not_provided: "Non renseigné",
+      label_freq_80hz: "Tourner le bouton jusqu'à atteindre 80 Hz.",
+      label_freq_range: "Tourner le bouton pour faire varier la fréquence entre 60 et 120 Hz.",
+      label_balance_20: "Tourner le bouton jusqu'à atteindre 20%.",
+      label_balance_range: "Tourner le bouton pour faire varier la balance.",
+    },
+    en: {
+      home_title: "Is your visual perception disturbed?",
+      home_v1: "The text appears in 3D",
+      home_v2: "The text splits in two",
+      home_v3: "The words disappear",
+      home_v4: "The words and text ripple",
+      home_v5: "The words and text shake",
+      home_v6: "The words and text spin",
+      home_cta: "TEST YOURSELF HERE",
+
+      nav_m_home: "Disruptions",
+      nav_m_test: "Test yourself",
+      nav_m_lexilens: "Lexilens®?",
+      nav_m_products: "Products",
+      nav_s_home: "Visual perception<br>disruptions",
+      nav_s_lexilens: "What is<br>Lexilens®?",
+      sb_help: "Contact staff<br>if you need help.",
+
+      welcome_title: "WELCOME",
+      welcome_subtitle: "Easily try Lexilens® technology in 3 steps!",
+      icon_adjust: "ADJUST",
+      icon_read: "READ",
+      icon_observe: "OBSERVE",
+      welcome_start: "Start (5 min)",
+
+      lex_eyebrow: "French neurovisual technology",
+      lex_hero_title: "Struggling to <em>read</em>?<br>Lexilens® can change that.",
+      lex_hero_sub: "Some people re-read several times, tire quickly, or lose their place.<br>Lexilens® is made for them.",
+      lex_symptoms_title: "Do you recognize yourself?",
+      lex_symptom1_label: "Disturbed visual perception",
+      lex_symptom1_desc: "Words move, double up, or seem unstable",
+      lex_symptom2_label: "Rapid fatigue",
+      lex_symptom2_desc: "Reading tires you out faster than others",
+      lex_symptom3_label: "Frequent re-reading",
+      lex_symptom3_desc: "You need to re-read several times to understand a text",
+      lex_symptom4_label: "Loss of concentration",
+      lex_symptom4_desc: "Hard to stay focused, even on a short text",
+      lex_crowding_title: "Why is it difficult for some people?",
+      lex_stat_pre: "nearly",
+      lex_stat_num: "1 in 10",
+      lex_stat_post: "people",
+      lex_stat_desc: "are affected by this neurovisual noise without knowing it.",
+      lex_stat_source: "Source: NIH, INSERM — international epidemiological data",
+      lex_crowding_body: "The brain receives <strong>two slightly offset images</strong> instead of one. This invisible doubling creates <strong>\"neurovisual noise,\"</strong> known as <strong>neurovisual crowding</strong>. This phenomenon makes reading less fluid and more tiring.",
+      lex_crowding_note: "It isn't a problem with eyesight or intelligence. It's simply the way some brains process images.",
+      lex_solution_title: "The Lexilens® solution",
+      lex_solution_subtitle: "Lexilens® removes the neurovisual crowding that some people experience",
+      lex_solution_highlight: "Thanks to <strong>invisible light modulation</strong>, Lexilens® prevents the doubling from forming.<br>Result: <strong>the reading experience is transformed</strong> — reading that is <strong>more natural</strong>, <strong>more fluid</strong>, with <strong>less fatigue</strong>, <strong>easier comprehension</strong>, and <strong>better concentration</strong>. Within the first few seconds, many people feel the difference.",
+      lex_benefit1_title: "More fluid reading",
+      lex_benefit1_desc: "Words stay stable, no need to re-read everything",
+      lex_benefit2_title: "Less fatigue",
+      lex_benefit2_desc: "You can read longer without wearing yourself out",
+      lex_benefit3_title: "Better concentration",
+      lex_benefit3_desc: "Staying focused becomes natural, even on long texts",
+      lex_stats_title: "Benefits for Lexilens® users",
+      lex_stats_sub: "Data gathered from users in more than 20 countries",
+      lex_stat1_label: "users worldwide",
+      lex_stat2_label: "countries where Lexilens® is used",
+      lex_stat3_label: "report a positive impact on daily life",
+      lex_stat4_label: "report improved school performance",
+      lex_bar1_label: "Positive impact on life",
+      lex_bar2_label: "School improvement",
+      lex_testi_title: "What users are saying",
+      lex_testi1_text: "I now have much more confidence in myself. I can read, and I also find it easier to make new friends.",
+      lex_testi2_text: "They help me so much that I no longer need to guess words. I can finally read every word in full and understand what I'm reading!",
+      lex_testi3_text: "I can understand what I'm reading as I go along. They make everything clearer.",
+      lex_testi4_text: "Before, reading tired me out very quickly. Today, I can read longer, just like everyone else. It's a real turning point in my life.",
+      lex_role_f: "Lexilens® user",
+      lex_role_m: "Lexilens® user",
+      lex_madein_title: "Lexilens® — A breakthrough French innovation",
+      lex_madein_sub: "Designed and manufactured in France",
+
+      prod_title: "Our products",
+      prod_sub: "6 frames · 1 LED monitor",
+      prod_count: "7 products",
+      prod_france: "🇫🇷 Guaranteed Made in France",
+      prod_tab_front: "Front",
+      prod_spec_size: "Size",
+      prod_spec_calibre: "Lens width / Bridge",
+      prod_spec_branch: "Temple",
+      prod_spec_screen: "SCREEN",
+      prod_spec_resolution: "RESOLUTION",
+      prod_spec_refresh: "REFRESH RATE",
+      prod_monitor: "Monitor",
+
+      audience_S: "Kids",
+      audience_M: "Teen / Adult",
+      audience_L: "Adult",
+
+      alert_choose_age: "Please choose your age range before continuing.",
+      loading_text: "Loading text...",
+      text_unavailable: "Text unavailable.",
+      btn_prev: "◀ Previous",
+      btn_confirm: "Confirm ▶",
+      btn_restart: "🔄 Restart the test",
+      btn_next: "Next ▶",
+      feedback_question: "Did you feel a difference in comfort with Lexilens® technology turned on?",
+      feedback_none: "No difference",
+      feedback_better: "A bit better",
+      feedback_top: "It's GREAT!",
+      result_title: "Test complete!",
+      result_sub: "Our experts are available to explain the results and help you find the product suited to your needs.",
+      result_btn_products: "🛍️ View products",
+      result_qr_label: "Learn more",
+      badge_freq: "Lexilens® Frequency",
+      badge_balance: "Lexilens® Balance",
+      age_not_provided: "Not provided",
+      label_freq_80hz: "Turn the dial until you reach 80 Hz.",
+      label_freq_range: "Turn the dial to vary the frequency between 60 and 120 Hz.",
+      label_balance_20: "Turn the dial until you reach 20%.",
+      label_balance_range: "Turn the dial to vary the balance.",
+    }
+  };
+
+  function t(key) { return (I18N[LANG] && I18N[LANG][key] !== undefined) ? I18N[LANG][key] : key; }
+
+  function applyStaticI18n() {
+    document.documentElement.lang = LANG;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (I18N[LANG][key] !== undefined) el.innerHTML = I18N[LANG][key];
+    });
+    document.querySelectorAll('.lang-toggle button').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === LANG);
+    });
+  }
+
+  function setLang(lang) {
+    if (lang === LANG) return;
+    LANG = lang;
+    applyStaticI18n();
+    // Re-render dynamic, JS-built content in the new language
+    if (typeof renderStep === 'function' && document.getElementById('testContent')) renderStep();
+    if (typeof updateProd === 'function' && document.getElementById('prodDetail')) updateProd(false);
+  }
+
+
   /* ── Page navigation ── */
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1486,23 +1827,41 @@ function navTo(pageId, el) {
 
   // Tranches d'âge — textes chargés depuis lexilens-assets/textes/
   const AGES = [
-    { label:'8 – 9 ans',    fichier:'8-9ans'   },
-    { label:'10 – 11 ans',  fichier:'10-11ans'  },
-    { label:'12 – 14 ans',  fichier:'12-14ans'  },
-    { label:'15 ans et +',  fichier:'15plus'    }
+    { label:{fr:'8 – 9 ans', en:'8 – 9 years'},    fichier:'8-9ans'   },
+    { label:{fr:'10 – 11 ans', en:'10 – 11 years'},  fichier:'10-11ans'  },
+    { label:{fr:'12 – 14 ans', en:'12 – 14 years'},  fichier:'12-14ans'  },
+    { label:{fr:'15 ans et +', en:'15 years and +'},  fichier:'15plus'    }
   ];
 
   // 9 étapes
   const STEPS = [
-    { label:'Âge',            title:'Choisissez votre tranche d\'âge',              instruction:'Sélectionnez la tranche d\'âge qui vous correspond.' },
-    { label:'Désactivation',  title:'Vérifiez que la technologie Lexilens® est désactivée', instruction:'Appuyez sur le bouton power pour désactiver la technologie Lexilens®.' },
-    { label:'Sans Lexilens®',  title:'Lisez sans la technologie Lexilens®',            instruction:'Lisez ce texte à votre ruthme habitueld. Evaluez votre confort, votre vitesse et votre fatigue visuelle.' },
-    { label:'Activation',     title:'Activez la technologie Lexilens®',               instruction:'Appuyez sur le bouton power pour activer la technologie Lexilens®.' },
-    { label:'Réglage',        title:'Réglez la fréquence à 80 Hz et la balance à 20%', instruction:'Tournez le bouton rouge pour régler la fréquence, et le bouton bleu pour la balance.' },
-    { label:'Avec Lexilens®',  title:'Lisez avec la technologie Lexilens® activée',    instruction:'Comparez votre confort par rapport à la première lecture.' },
-    { label:'Réglages libres',title:'Explorez librement les réglages pour optimiser votre confort visuel',               instruction:'Tournez les boutons pour trouver votre réglage idéal.' },
-    { label:'Avec réglages',  title:'Lisez avec vos réglages personnalisés',         instruction:'Lisez ce texte avec votre réglage idéal trouvé à l\'étape précédente.' },
-    { label:'Résultats',      title:'Merci d\'avoir fait le test !',                instruction:'C\'est le moment de votre retour d\'expérience.' }
+    { label:{fr:'Âge', en:'Age'},
+      title:{fr:'Choisissez votre tranche d\'âge', en:'Choose your age range'},
+      instruction:{fr:'Sélectionnez la tranche d\'âge qui vous correspond.', en:'Select the age range that matches you.'} },
+    { label:{fr:'Désactivation', en:'Deactivation'},
+      title:{fr:'Vérifiez que la technologie Lexilens® est désactivée', en:'Check that Lexilens® technology is turned off'},
+      instruction:{fr:'Appuyez sur le bouton power pour désactiver la technologie Lexilens®.', en:'Press the power button to turn off Lexilens® technology.'} },
+    { label:{fr:'Sans Lexilens®', en:'Without Lexilens®'},
+      title:{fr:'Lisez sans la technologie Lexilens®', en:'Read without Lexilens® technology'},
+      instruction:{fr:'Lisez ce texte à votre ruthme habitueld. Evaluez votre confort, votre vitesse et votre fatigue visuelle.', en:'Read this text at your usual pace. Assess your comfort, your speed, and your visual fatigue.'} },
+    { label:{fr:'Activation', en:'Activation'},
+      title:{fr:'Activez la technologie Lexilens®', en:'Turn on Lexilens® technology'},
+      instruction:{fr:'Appuyez sur le bouton power pour activer la technologie Lexilens®.', en:'Press the power button to turn on Lexilens® technology.'} },
+    { label:{fr:'Réglage', en:'Adjustment'},
+      title:{fr:'Réglez la fréquence à 80 Hz et la balance à 20%', en:'Set the frequency to 80 Hz and the balance to 20%'},
+      instruction:{fr:'Tournez le bouton rouge pour régler la fréquence, et le bouton bleu pour la balance.', en:'Turn the red dial to adjust the frequency, and the blue dial for the balance.'} },
+    { label:{fr:'Avec Lexilens®', en:'With Lexilens®'},
+      title:{fr:'Lisez avec la technologie Lexilens® activée', en:'Read with Lexilens® technology turned on'},
+      instruction:{fr:'Comparez votre confort par rapport à la première lecture.', en:'Compare your comfort to the first reading.'} },
+    { label:{fr:'Réglages libres', en:'Free settings'},
+      title:{fr:'Explorez librement les réglages pour optimiser votre confort visuel', en:'Freely explore the settings to optimize your visual comfort'},
+      instruction:{fr:'Tournez les boutons pour trouver votre réglage idéal.', en:'Turn the dials to find your ideal setting.'} },
+    { label:{fr:'Avec réglages', en:'With custom settings'},
+      title:{fr:'Lisez avec vos réglages personnalisés', en:'Read with your custom settings'},
+      instruction:{fr:'Lisez ce texte avec votre réglage idéal trouvé à l\'étape précédente.', en:'Read this text with the ideal setting you found in the previous step.'} },
+    { label:{fr:'Résultats', en:'Results'},
+      title:{fr:'Merci d\'avoir fait le test !', en:'Thank you for taking the test!'},
+      instruction:{fr:'C\'est le moment de votre retour d\'expérience.', en:'Now it\'s time for your feedback.'} }
   ];
 
   let testStep  = 0;
@@ -1510,25 +1869,25 @@ function navTo(pageId, el) {
 
   // Textes intégrés directement (pas de fetch nécessaire)
   const TEXTES_INLINE = {
-    '10-11ans-avec': { texte: 'Inès adorait les sciences depuis que sa maîtresse avait apporté un microscope en classe. Elle décida de créer son propre laboratoire dans le garage de ses parents. Avec quelques bocaux, des loupes et un cahier de notes, elle commença ses expériences. Sa première observation porta sur l\'eau prélevée dans la mare du jardin. Sous la loupe, elle aperçut de minuscules créatures se déplaçant rapidement. Elle dessina chaque forme observée avec le plus de précision possible. Sa mère lui offrit un livre sur les micro-organismes pour l\'encourager. Inès passa des heures à comparer ses dessins avec les illustrations du livre. Elle identifia des paramécies, des rotifères et des larves d\'insectes aquatiques. Son carnet de laboratoire se remplissait de notes et de croquis détaillés. Un voisin biologiste apprit ses expériences et proposa de lui prêter un vrai microscope. Inès n\'en croyait pas ses yeux quand elle vit sa première cellule végétale. La paroi cellulaire et les chloroplastes verts apparaissaient avec une netteté parfaite. Elle comprit alors que le monde invisible était d\'une richesse infinie. Elle prépara des lames avec des feuilles, des pétales et des morceaux de bois. Chaque matériau révélait une organisation différente sous les lentilles grossissantes. Inès invita ses amis à venir regarder dans le microscope un mercredi après-midi. Certains étaient sceptiques au départ mais restèrent bouche bée devant les images. Son ami Tom décida de commencer lui aussi un carnet d\'observations scientifiques. Inès lui expliqua comment préparer une lame sans abîmer l\'échantillon. Ils formèrent un petit club des sciences qui se réunissait chaque semaine. Ensemble, ils observèrent des cheveux, des fourmis et des grains de pollen. Le voisin biologiste venait parfois répondre à leurs questions avec plaisir. Inès apprit que la curiosité était le premier outil de tout scientifique. Elle rêvait de découvrir un organisme encore jamais identifié par personne. Son carnet était devenu un véritable journal de bord scientifique personnel. Les pages s\'enrichissaient chaque semaine de nouvelles découvertes fascinantes. Ses parents étaient fiers de voir leur fille aussi passionnée et sérieuse. Inès savait maintenant qu\'elle voulait travailler dans la recherche plus tard. Et tout avait commencé avec un peu d\'eau prélevée dans une simple mare.', taille: 1.3, interligne: 1.9 },
-    '10-11ans-libre': { texte: 'Marcus était passionné de football depuis ses cinq ans. Il s\'entraînait tous les jours dans la cour de son immeuble après l\'école. Cette année, il avait intégré l\'équipe de son quartier pour la première fois. Les entraînements avaient lieu le mardi et le jeudi soir au stade municipal. L\'entraîneur s\'appelait Monsieur Bertrand et il était très exigeant mais juste. Dès le premier entraînement, Marcus réalisa qu\'il avait encore beaucoup à apprendre. Les autres joueurs maîtrisaient des techniques qu\'il n\'avait jamais pratiquées. Il rentra chez lui ce soir-là avec la tête pleine de questions et de doutes. Sa sœur aînée lui dit que les débuts étaient toujours les plus difficiles. Le lendemain matin, il se leva tôt pour s\'exercer avant d\'aller en classe. Semaine après semaine, ses gestes devinrent plus précis et plus fluides. Monsieur Bertrand remarqua ses progrès et lui confia un rôle de milieu de terrain. Marcus apprit à lire le jeu et à anticiper les mouvements de ses coéquipiers. Il comprit que le football était autant un sport collectif qu\'individuel. Le premier match officiel approchait et la pression montait dans le groupe. La veille, Marcus dormit mal en pensant aux actions importantes du lendemain. Mais dès le coup de sifflet, toute la nervosité disparut instantanément. Il courait, passait et défendait avec une énergie qu\'il ne se connaissait pas. À la vingtième minute, il offrit une passe décisive à son coéquipier Kevin. Le stade retentit d\'applaudissements quand le ballon entra dans le filet. Son équipe gagna ce match par deux buts à un après une belle résistance. Dans les vestiaires, l\'ambiance était joyeuse et les sourires communicatifs. Monsieur Bertrand félicita chaque joueur individuellement avec des mots précis. Il dit à Marcus qu\'il avait montré une belle intelligence de jeu ce soir. Marcus se sentait appartenir à quelque chose de plus grand que lui-même. Le chemin pour devenir meilleur était encore long mais il était sur la bonne voie. Il remercia ses parents qui avaient assisté à chaque entraînement sans exception. Sa mère lui dit qu\'elle était fière de sa persévérance plus que de ses buts. Marcus comprit ce soir-là la valeur du travail régulier et de la patience. Il avait hâte de retrouver ses coéquipiers pour le prochain entraînement.', taille: 1.3, interligne: 1.9 },
-    '10-11ans-sans': { texte: 'Chaque été, Léo passait ses vacances dans la vieille ferme de ses grands-parents. Cette année, il avait décidé d\'explorer le grenier que personne n\'ouvrait plus. Une échelle branlante menait à une trappe poussiéreuse sous les tuiles. En poussant la trappe, une lumière dorée envahit l\'obscurité du grenier. Des caisses en bois, des malles en cuir et des meubles couverts de draps attendaient. Léo s\'avança prudemment sur le plancher qui craquait à chaque pas. Dans un coin, il découvrit une vieille valise portant les initiales de son arrière-grand-père. La serrure céda facilement sous ses doigts après quelques tentatives. À l\'intérieur, des photographies en noir et blanc étaient soigneusement rangées. On y voyait des hommes et des femmes dans des vêtements d\'une autre époque. Léo reconnut le visage de son grand-père enfant sur l\'une d\'elles. Il y avait aussi des lettres pliées en quatre attachées avec un ruban rouge. L\'écriture ancienne était difficile à déchiffrer mais Léo prit son temps. Les lettres racontaient la vie à la ferme pendant les années difficiles d\'après-guerre. Son arrière-grand-père y décrivait les saisons, les récoltes et les fêtes du village. Léo descendit avec précaution en serrant la valise contre lui. Son grand-père, assis dans le jardin, leva les yeux avec surprise. Quand il vit la valise, une émotion profonde traversa son visage ridé. Il s\'assit à côté de Léo et commença à raconter des histoires longtemps gardées. Les photographies devinrent des portes vers un monde disparu mais vivant. Léo écoutait en prenant des notes dans son carnet bleu. Ils passèrent l\'après-midi entier à voyager dans le temps ensemble. Le grand-père riait en se rappelant des souvenirs d\'enfance oubliés. Léo comprit que les objets anciens portaient des vies entières en eux. Le soir, toute la famille se réunit autour de la valise ouverte. Chacun reconnut un visage ou une histoire entendue jadis. La ferme semblait soudain plus grande remplie de tous ces souvenirs. Léo promit de scanner les photographies pour les conserver numériquement. Son grand-père le regarda avec fierté et lui dit merci à voix basse. Ce soir-là, Léo s\'endormit avec le sentiment d\'avoir retrouvé ses racines.', taille: 1.3, interligne: 1.9 },
-    '12-14ans-avec': { texte: 'Le projet artistique de Nathan avait débuté comme un simple passe-temps pendant les vacances scolaires. Il avait commencé à peindre des paysages urbains en utilisant des techniques mixtes sur grand format. L\'acrylique, l\'encre de Chine et les collages de journaux se mêlaient dans des compositions complexes. Son professeur d\'arts plastiques avait immédiatement remarqué son sens original de la composition. Elle l\'avait encouragé à soumettre une œuvre pour l\'exposition annuelle de l\'école secondaire. Nathan travailla pendant trois semaines sur une pièce représentant sa ville vue depuis les toits. Il superposait des couches de peinture transparentes pour créer une impression de profondeur et de mouvement. Les détails architecturaux côtoyaient des formes abstraites qui évoquaient la vie urbaine contemporaine. Quand il présenta son œuvre à l\'exposition, les réactions furent largement positives et encourageantes. Un galeriste local présent ce soir-là lui proposa de rejoindre un atelier collectif pour jeunes artistes. Cet espace de création partagé lui permit de rencontrer d\'autres adolescents partageant sa passion. Les échanges avec les autres artistes enrichirent sa vision et l\'amenèrent à expérimenter de nouvelles techniques. Il découvrit la gravure, la sérigraphie et les techniques numériques appliquées à l\'art traditionnel. Chaque nouvelle technique lui ouvrait des possibilités expressives qu\'il n\'avait pas envisagées. Nathan s\'intéressa également à l\'histoire de l\'art pour comprendre les mouvements qui avaient précédé le sien. Il passa des heures dans les bibliothèques à consulter des ouvrages sur l\'expressionnisme et l\'art conceptuel. Ces références historiques enrichissaient son travail personnel d\'une dimension culturelle nouvelle. Il commença à écrire des textes accompagnant ses œuvres pour expliquer ses intentions artistiques. Cette démarche réflexive l\'amena à mieux comprendre ce qu\'il cherchait à exprimer visuellement. L\'écriture et la peinture devinrent pour lui deux faces complémentaires d\'un même besoin d\'expression. Il fut sélectionné pour représenter sa région dans un concours national d\'arts plastiques pour lycéens. La préparation de ce concours lui demanda une discipline et une rigueur nouvelles dans son travail. Il apprit à gérer la pression des délais sans sacrifier l\'authenticité de sa démarche créative. Le jour de la présentation, il défendit son projet devant un jury professionnel avec assurance et clarté. Sa capacité à expliquer ses choix artistiques impressionna autant les jurés que ses œuvres elles-mêmes. Nathan obtint une mention spéciale pour l\'originalité de sa démarche plastique et conceptuelle. Cette reconnaissance lui donna confiance pour envisager des études supérieures dans le domaine des arts. Il comprit que la créativité sans réflexion restait incomplète et que l\'inverse était tout aussi vrai. Son parcours lui avait appris que l\'art était un dialogue constant entre l\'intuition et la pensée. Il continuait à peindre chaque soir en sachant que chaque œuvre le rapprochait de lui-même.', taille: 1.2, interligne: 1.85 },
-    '12-14ans-libre': { texte: 'La décision de Sarah de créer un jardin partagé dans son quartier n\'avait pas été prise à la légère. Elle avait observé pendant des mois la parcelle abandonnée au coin de sa rue sans comprendre sa destination. Après quelques recherches à la mairie, elle apprit que le terrain appartenait à la ville et était disponible. Elle rédigea une pétition demandant sa transformation en espace vert communautaire et collecta des signatures. Ses voisins furent nombreux à soutenir l\'initiative, surpris qu\'une adolescente prenne une telle démarche. La mairie reçut la pétition avec bienveillance et proposa une réunion avec les habitants concernés. Sarah prépara une présentation détaillée du projet avec plans, budget prévisionnel et planning de réalisation. Elle avait consulté des guides de jardinage urbain et contacté des associations locales pour s\'informer. Lors de la réunion publique, elle présenta son projet devant une cinquantaine de personnes attentives. Les questions fusèrent mais Sarah avait anticipé la plupart des objections et proposait des solutions concrètes. La mairie donna finalement son accord pour une période d\'essai de deux ans avec un soutien financier modeste. Le chantier de transformation débuta un samedi matin d\'avril sous un ciel dégagé et motivant. Des habitants de tous âges vinrent avec leurs outils, leurs graines et leur bonne volonté communicative. Sarah organisait les équipes, répartissait les tâches et résolvait les petits conflits avec diplomatie. En quelques semaines, la friche fut transformée en un espace verdoyant structuré en parcelles individuelles. Chaque famille adoptante s\'engageait à respecter une charte de jardinage biologique et de partage. Des ateliers hebdomadaires permettaient aux débutants d\'apprendre les bases de la culture maraîchère. Les échanges entre générations créaient des liens sociaux nouveaux dans un quartier parfois anonyme. Des enfants qui ne se connaissaient pas se retrouvaient à arroser les tomates côte à côte le mercredi. Des personnes âgées transmettaient leurs savoirs ancestraux sur les associations de plantes bénéfiques. Sarah documentait l\'évolution du jardin avec des photographies et des témoignages réguliers. Elle alimentait un blog suivi par d\'autres porteurs de projets similaires dans différentes villes. Son initiative fut mentionnée dans le journal local comme exemple de citoyenneté active et responsable. Elle fut invitée à présenter son expérience lors d\'une conférence sur l\'urbanisme participatif. Sarah réalisa que son projet avait dépassé largement ses ambitions initiales de simple jardinage. Il était devenu un laboratoire vivant de lien social, d\'écologie urbaine et d\'engagement citoyen. Cette expérience lui donna envie de poursuivre des études en urbanisme ou en sciences environnementales. Elle comprit que les jeunes pouvaient transformer leur environnement immédiat avec des idées et de la persévérance. Son jardin continuait de pousser, saison après saison, comme témoin de ce qu\'on peut accomplir ensemble. Et chaque légume récolté lui rappelait que les plus grandes aventures commencent souvent par un petit geste.', taille: 1.2, interligne: 1.85 },
-    '12-14ans-sans': { texte: 'La passion de Camille pour l\'astronomie avait commencé par une nuit d\'été exceptionnelle. Son père l\'avait réveillée à trois heures du matin pour observer une pluie de météorites. Allongés sur des transats dans le jardin, ils avaient regardé le ciel en silence pendant des heures. Des dizaines d\'étoiles filantes traversaient l\'obscurité comme des traits de lumière fugaces. Depuis cette nuit-là, Camille consultait chaque jour les applications d\'astronomie sur sa tablette. Elle avait appris à identifier les principales constellations visibles depuis son jardin. La Grande Ourse, Orion et Cassiopée étaient devenus des repères familiers dans sa nuit. Pour son anniversaire, ses parents lui offrirent un télescope d\'entrée de gamme mais performant. Les premières observations de la lune la laissèrent sans voix devant les détails des cratères. Elle distinguait clairement les mers lunaires, ces grandes plaines sombres formées par des impacts anciens. Son carnet d\'observations se remplissait de croquis précis réalisés à la lumière d\'une lampe rouge. Elle rejoignit un club d\'astronomie local qui se réunissait une fois par mois dans un champ isolé. Les membres plus expérimentés lui enseignèrent les rudiments de la mise en station équatoriale. Elle apprit également comment calculer l\'heure sidérale pour pointer précisément ses observations. Les soirées d\'observation duraient parfois jusqu\'à l\'aube, entre discussions et découvertes partagées. Camille fut particulièrement fascinée par l\'observation des planètes et de leurs satellites. Jupiter révélait ses bandes nuageuses et ses quatre grands satellites galiléens dès le premier coup d\'œil. Saturne et ses anneaux restaient pour elle la vision la plus saisissante du système solaire. Elle commença à photographier le ciel en adaptant son appareil photo à l\'oculaire du télescope. Ses premières images étaient floues mais chaque tentative améliorait sa technique de prise de vue. Un astronome amateur du club lui expliqua les bases du traitement d\'images astronomiques. Grâce à des logiciels spécialisés, elle parvint à faire ressortir des détails imperceptibles à l\'œil nu. Ses photographies de la nébuleuse d\'Orion furent publiées dans le bulletin du club régional. Camille réalisa alors que la science n\'était pas réservée aux professionnels ni aux adultes. Elle présenta ses travaux devant sa classe dans le cadre d\'un exposé sur l\'exploration spatiale. Ses camarades furent impressionnés par la qualité de ses photographies et la profondeur de ses connaissances. Le professeur de physique lui conseilla de préparer un dossier pour un concours scientifique national. Camille travailla plusieurs semaines sur une étude comparative de la luminosité de plusieurs étoiles variables. Son dossier fut sélectionné parmi les cinq finalistes au niveau régional, une fierté immense pour elle. Cette expérience lui confirma qu\'elle voulait consacrer sa vie à l\'exploration de l\'univers.', taille: 1.2, interligne: 1.85 },
-    '15plus-avec': { texte: 'La question du changement climatique occupe une place centrale dans les débats scientifiques et politiques contemporains. Les données accumulées depuis plusieurs décennies par des milliers de chercheurs convergent vers un constat alarmant. La température moyenne de la surface terrestre a augmenté d\'environ un degré et demi depuis l\'ère préindustrielle. Cette hausse, en apparence modeste, engendre des perturbations systémiques aux conséquences potentiellement irréversibles. La fonte accélérée des glaciers arctiques et antarctiques contribue à l\'élévation du niveau des océans à l\'échelle mondiale. Les événements météorologiques extrêmes, canicules, inondations et tempêtes, gagnent en fréquence et en intensité. La biodiversité terrestre et marine est menacée par la rapidité des transformations que les espèces peinent à absorber. Les migrations climatiques pourraient déplacer des centaines de millions de personnes d\'ici la fin du siècle. Face à ces constats, la communauté internationale a multiplié les accords et les engagements depuis les années quatre-vingt-dix. L\'accord de Paris de 2015 fixait l\'objectif ambitieux de limiter le réchauffement à un virgule cinq degré. Cependant, les trajectoires actuelles d\'émissions de gaz à effet de serre demeurent incompatibles avec cet objectif. Les secteurs de l\'énergie, des transports, de l\'agriculture et de l\'industrie doivent opérer des transformations profondes. La transition énergétique vers les renouvelables s\'accélère mais se heurte à des résistances économiques considérables. Les investissements nécessaires sont colossaux et leur distribution soulève des questions d\'équité internationale. Les pays en développement, qui ont le moins contribué au problème, en subissent souvent les conséquences les plus sévères. Cette injustice fondamentale alimente des tensions lors des négociations climatiques multilatérales. Les solutions technologiques, capture du carbone et hydrogène vert, suscitent des espoirs et des débats. Certains estiment qu\'elles permettront de concilier croissance économique et stabilité climatique. D\'autres soutiennent qu\'aucune innovation ne compensera un modèle de consommation fondamentalement insoutenable. Cette tension entre optimisme technologique et sobriété volontaire traverse les sociétés contemporaines. Les mouvements de la société civile portés par les jeunes générations ont accéléré la prise de conscience mondiale. Les mobilisations des dernières années ont placé l\'urgence climatique au cœur de l\'agenda politique international. L\'engagement individuel constitue néanmoins un levier de transformation culturelle non négligeable. Modifier nos habitudes alimentaires et nos pratiques de consommation envoie des signaux aux marchés et aux décideurs. L\'éducation à l\'environnement joue un rôle essentiel dans la formation des citoyens de demain. Comprendre les mécanismes du système climatique permet d\'adopter une posture informée dans les débats démocratiques. La science climatique, bien que complexe, doit être accessible à tous pour que les choix collectifs soient éclairés. Les défis qui attendent les générations actuelles et futures sont sans précédent dans l\'histoire de l\'humanité. Ils exigent une combinaison rare de lucidité, de créativité, de solidarité et de volonté politique soutenue. La question n\'est plus de savoir si le changement climatique est réel mais comment y répondre collectivement.', taille: 1.1, interligne: 1.8 },
-    '15plus-libre': { texte: 'L\'intelligence artificielle représente sans doute la mutation technologique la plus significative de ce siècle. En quelques années, les progrès dans le domaine de l\'apprentissage automatique ont dépassé les prévisions les plus optimistes. Les systèmes capables de reconnaître des images ou de comprendre le langage surpassent désormais les meilleurs humains. Ces avancées soulèvent des interrogations profondes sur la nature de l\'intelligence et de la conscience. La frontière entre ce qui est proprement humain et ce que les machines simulent devient difficile à tracer. Les applications pratiques touchent des domaines aussi variés que la médecine, la justice et l\'éducation. En oncologie, des algorithmes détectent certains cancers avec une précision supérieure aux radiologues expérimentés. Dans le système judiciaire, des outils d\'aide à la décision sont utilisés avec des biais documentés et préoccupants. Ces exemples illustrent à la fois le potentiel immense et les risques éthiques que porte le déploiement de ces technologies. La question de la responsabilité en cas d\'erreur commise par un système automatisé reste largement non résolue. Les régulateurs du monde entier tentent de construire des cadres législatifs adaptés à une réalité qui évolue rapidement. L\'Union européenne a adopté une approche fondée sur les droits fondamentaux avec son règlement sur l\'intelligence artificielle. Ce texte classe les applications selon leur niveau de risque et impose des obligations de transparence strictes. La Chine et les États-Unis adoptent des approches différentes reflétant leurs priorités stratégiques distinctes. La compétition géopolitique autour de la domination de l\'intelligence artificielle est devenue un enjeu de puissance mondiale. Les questions de propriété des données et de souveraineté numérique structurent ce nouveau champ de rivalités internationales. Sur le plan social, l\'automatisation menace de déstabiliser des marchés du travail déjà fragilisés. Certains emplois disparaîtront rapidement tandis que de nouveaux profils professionnels émergent simultanément. La capacité des systèmes éducatifs à former des individus adaptables sera déterminante dans cette transition. Les compétences cognitives de haut niveau, pensée critique et intelligence émotionnelle, seront des atouts croissants. L\'intelligence artificielle excelle dans l\'exécution de tâches définies mais peine avec l\'intuition humaine contextualisée. Cette complémentarité pourrait constituer le fondement d\'une collaboration féconde entre humains et machines. À condition que cette collaboration ne reproduise pas et n\'amplifie pas les inégalités existantes entre nations. Les biais présents dans les données d\'entraînement se reflètent inévitablement dans les décisions des systèmes appris. Corriger ces biais exige une attention constante, des équipes diversifiées et une volonté politique ferme d\'équité. La gouvernance de l\'intelligence artificielle est un enjeu démocratique qui ne peut être laissé aux seuls ingénieurs. Les citoyens, les philosophes et les juristes doivent participer à ces choix collectifs fondamentaux. Définir les limites de l\'acceptable dans l\'usage des technologies est une responsabilité partagée par la société entière. L\'avenir de l\'intelligence artificielle dépend moins de sa puissance technique que des valeurs que nous lui donnons. Ces choix collectifs détermineront si cette révolution technologique sera au service de l\'humanité ou contre elle.', taille: 1.1, interligne: 1.8 },
-    '15plus-sans': { texte: 'La révolution numérique a profondément modifié les modalités d\'accès à l\'information et au savoir. En l\'espace de deux décennies, internet est passé du statut de curiosité technologique à celui d\'infrastructure essentielle. Les bibliothèques physiques, longtemps seules gardiennes du savoir organisé, coexistent désormais avec des ressources numériques colossales. Cette transition soulève des questions fondamentales sur la qualité, la fiabilité et l\'accessibilité de l\'information. La démocratisation de la publication en ligne a permis à chacun de devenir producteur de contenu sans filtre éditorial. Si cette ouverture représente une opportunité considérable pour la liberté d\'expression, elle génère également des risques nouveaux. La prolifération des informations non vérifiées exige des lecteurs contemporains un niveau critique accru et des compétences nouvelles. L\'éducation aux médias est ainsi devenue une nécessité civique comparable à l\'apprentissage de la lecture. Les algorithmes des plateformes numériques façonnent nos habitudes informationnelles selon des logiques commerciales opaques. La personnalisation des flux d\'information crée des bulles cognitives qui limitent notre exposition à des perspectives différentes. Ce phénomène, parfois désigné comme l\'effet de chambre d\'écho, renforce les convictions préexistantes plutôt qu\'il ne les questionne. Les chercheurs en sciences de l\'information s\'interrogent sur les implications de ces dynamiques pour la cohésion sociale. La capacité à distinguer une source fiable d\'une source partisane nécessite aujourd\'hui des outils pédagogiques adaptés. Les institutions éducatives intègrent progressivement ces compétences informationnelles dans leurs programmes officiels. Vérifier l\'origine d\'une information, recouper les sources et évaluer la légitimité d\'un auteur sont des réflexes à cultiver. Ces pratiques constituent ce que les spécialistes nomment la littératie numérique, compétence fondamentale du citoyen contemporain. Les moteurs de recherche, malgré leur puissance apparente, ne hiérarchisent pas les contenus selon leur valeur intrinsèque. Un résultat bien référencé n\'est pas nécessairement un résultat exact, rigoureux ou représentatif de l\'état des connaissances. La popularité d\'une information sur les réseaux sociaux ne constitue en aucun cas un critère de véracité suffisant. Les fake news exploitent précisément nos biais cognitifs et notre tendance à partager l\'émotion avant la réflexion. Lutter contre ce phénomène exige un effort collectif impliquant journalistes, éducateurs, plateformes et utilisateurs. Des initiatives citoyennes de fact-checking se sont développées pour offrir des contre-feux à la désinformation organisée. La transparence des sources, l\'honnêteté intellectuelle et la rigueur méthodologique restent les meilleures garanties du savoir. L\'histoire des sciences montre que les grandes avancées sont nées du doute systématique et de la remise en question permanente. Adopter cette posture épistémique dans notre vie quotidienne est un acte à la fois intellectuel et démocratique. Il ne s\'agit pas de soupçonner toute information mais d\'exercer en permanence son jugement critique et éclairé. Cette exigence est d\'autant plus nécessaire que les enjeux politiques, sanitaires et climatiques concernent nos vies. Les sociétés qui cultivent l\'esprit critique de leurs citoyens se révèlent mieux armées face aux crises et aux manipulations. L\'éducation demeure ainsi le levier le plus puissant pour préparer les nouvelles générations aux défis informationnels. Apprendre à penser par soi-même reste, dans ce contexte numérique saturé, un acte de résistance et de liberté.', taille: 1.1, interligne: 1.8 },
-    '8-9ans-avec': { texte: 'La petite tortue Marina vivait près d\'un lac tranquille. Elle nageait chaque matin avant que le soleil se lève. Son écaille brillait comme un miroir sous la lumière de l\'aube. Un jour, elle aperçut une bouteille flottant au milieu du lac. Curieuse, elle nagea jusqu\'à elle et la tira vers le bord. À l\'intérieur se trouvait un message écrit sur du papier jauni. Le message disait : cherche le vieux saule au bout du lac. Marina n\'avait jamais exploré ce côté du lac toute seule. Elle demanda à sa cousine la grenouille de l\'accompagner. Ensemble, elles longèrent la rive en observant les plantes. Des libellules bleues voletaient au-dessus de l\'eau calme. Après une longue baignade, elles aperçurent un grand saule pleureur. Ses longues branches touchaient presque la surface du lac. Sous ses racines, une petite boîte en bois était cachée. Marina l\'ouvrit avec précaution de ses pattes avant. Elle contenait un carnet illustré de dessins d\'animaux du lac. Chaque page montrait un habitant de cet endroit depuis des années. La grenouille reconnut la forme de ses ancêtres dans les dessins. Marina referma doucement le carnet avec respect. Elles comprirent que quelqu\'un avait aimé ce lac avant elles. Elles décidèrent de continuer ce carnet avec leurs propres dessins. Chaque semaine, elles y ajoutaient une nouvelle page. Les oiseaux, les poissons et les insectes y trouvèrent leur portrait. Le carnet devint le trésor secret du vieux saule. D\'autres animaux apprirent son existence et vinrent le consulter. Bientôt, tout le lac connaissait l\'histoire du carnet de Marina. La petite tortue était devenue la gardienne de la mémoire du lac. Elle apprit que préserver la nature était le plus beau des cadeaux. Chaque matin, elle nageait encore plus fièrement qu\'avant. Et le vieux saule semblait pencher ses branches pour la remercier.', taille: 1.4, interligne: 2.0 },
-    '8-9ans-libre': { texte: 'Le jeune hérisson Hugo habitait sous un buisson de lavande. L\'odeur des fleurs violettes berçait ses nuits doucement. Un matin d\'automne, il décida de préparer ses provisions d\'hiver. Il ramassa des pommes, des noisettes et des baies sauvages. Son panier était presque plein quand il rencontra un escargot. L\'escargot avançait très lentement sur le chemin mouillé. Hugo s\'arrêta pour lui parler sans l\'écraser par inadvertance. L\'escargot s\'appelait Silvio et cherchait un abri pour la pluie. Hugo lui proposa de partager son buisson pour la nuit. Silvio accepta avec reconnaissance et rentra dans sa coquille. Le lendemain matin, il n\'avait pas bougé de l\'endroit. Hugo lui apporta une feuille de salade fraîche en guise de bonjour. Silvio sortit sa tête et sourit du mieux qu\'il pouvait. Les deux amis passèrent la matinée à observer les oiseaux. Un rouge-gorge vint se poser tout près d\'eux sans peur. Il cherchait des vers dans la terre humide de l\'aube. Hugo et Silvio regardèrent en silence pour ne pas l\'effrayer. Quand l\'oiseau repartit, ils sentirent qu\'ils avaient partagé quelque chose. L\'après-midi, ils explorèrent ensemble le jardin du voisin. Des chrysanthèmes orange et jaunes illuminaient les parterres. Hugo expliqua à Silvio comment reconnaître les champignons comestibles. Silvio lui apprit à observer les traces des limaces après la pluie. Chacun enseignait à l\'autre ce qu\'il savait le mieux. Au coucher du soleil, ils rentrèrent chargés de nouvelles découvertes. Hugo réalisa que l\'amitié pouvait naître des rencontres les plus inattendues. Silvio promit de revenir au printemps quand les fleurs refleuriraient. Ils se dirent au revoir sous les derniers rayons orange du soir. Hugo regarda l\'escargot disparaître lentement derrière la haie. Il se roula en boule sous son buisson avec le cœur chaud. Cette nuit-là, il s\'endormit en pensant à leur prochaine aventure.', taille: 1.4, interligne: 2.0 },
-    '8-9ans-sans': { texte: 'Le petit renard Roux vivait dans une forêt pleine de mystères. Chaque matin, il partait explorer les sentiers entre les arbres. Son ami le lapin blanc l\'accompagnait souvent dans ses aventures. Un jour, ils découvrirent une grotte cachée derrière une cascade. À l\'intérieur, des pierres brillantes couvraient les murs. Le renard prit une pierre et la montra à sa mère le soir. Elle lui expliqua que c\'étaient des cristaux formés depuis très longtemps. Le lendemain, Roux retourna à la grotte avec une lampe de poche. La lumière fit apparaître des couleurs magnifiques sur les murs. Le lapin blanc sauta de joie en voyant ce spectacle. Ils décidèrent de garder le secret de leur découverte. Mais le vieux hibou du chêne avait tout observé depuis la nuit. Il vola jusqu\'à eux et leur dit qu\'il connaissait cette grotte. Jadis, les animaux de la forêt s\'y réunissaient pendant l\'hiver. Roux proposa de faire revivre cette tradition. Il invita tous ses amis : le blaireau, la biche et les écureuils. Le soir venu, ils se retrouvèrent tous dans la grotte illuminée. Chacun apporta quelque chose à manger ou à partager. Le hibou raconta des histoires sur la forêt d\'autrefois. Les jeunes animaux écoutaient avec de grands yeux ébahis. La biche chanta une douce mélodie qui résonna dans la grotte. Les cristaux semblaient vibrer au rythme de sa voix. Roux regardait ses amis avec bonheur autour de lui. Il comprit que les meilleures découvertes se partagent. Avant de partir, chaque animal posa une pierre dans un coin. Ce serait leur façon de se souvenir de cette belle soirée. Depuis ce jour, ils se retrouvèrent dans la grotte chaque mois. La forêt entière semblait plus lumineuse et plus chaleureuse. Roux était fier d\'avoir transformé une grotte en lieu de partage. Et chaque soir, il regardait les étoiles en pensant à ses amis.', taille: 1.4, interligne: 2.0 },
+    '10-11ans-avec': { texte: {fr: 'Inès adorait les sciences depuis que sa maîtresse avait apporté un microscope en classe. Elle décida de créer son propre laboratoire dans le garage de ses parents. Avec quelques bocaux, des loupes et un cahier de notes, elle commença ses expériences. Sa première observation porta sur l\'eau prélevée dans la mare du jardin. Sous la loupe, elle aperçut de minuscules créatures se déplaçant rapidement. Elle dessina chaque forme observée avec le plus de précision possible. Sa mère lui offrit un livre sur les micro-organismes pour l\'encourager. Inès passa des heures à comparer ses dessins avec les illustrations du livre. Elle identifia des paramécies, des rotifères et des larves d\'insectes aquatiques. Son carnet de laboratoire se remplissait de notes et de croquis détaillés. Un voisin biologiste apprit ses expériences et proposa de lui prêter un vrai microscope. Inès n\'en croyait pas ses yeux quand elle vit sa première cellule végétale. La paroi cellulaire et les chloroplastes verts apparaissaient avec une netteté parfaite. Elle comprit alors que le monde invisible était d\'une richesse infinie. Elle prépara des lames avec des feuilles, des pétales et des morceaux de bois. Chaque matériau révélait une organisation différente sous les lentilles grossissantes. Inès invita ses amis à venir regarder dans le microscope un mercredi après-midi. Certains étaient sceptiques au départ mais restèrent bouche bée devant les images. Son ami Tom décida de commencer lui aussi un carnet d\'observations scientifiques. Inès lui expliqua comment préparer une lame sans abîmer l\'échantillon. Ils formèrent un petit club des sciences qui se réunissait chaque semaine. Ensemble, ils observèrent des cheveux, des fourmis et des grains de pollen. Le voisin biologiste venait parfois répondre à leurs questions avec plaisir. Inès apprit que la curiosité était le premier outil de tout scientifique. Elle rêvait de découvrir un organisme encore jamais identifié par personne. Son carnet était devenu un véritable journal de bord scientifique personnel. Les pages s\'enrichissaient chaque semaine de nouvelles découvertes fascinantes. Ses parents étaient fiers de voir leur fille aussi passionnée et sérieuse. Inès savait maintenant qu\'elle voulait travailler dans la recherche plus tard. Et tout avait commencé avec un peu d\'eau prélevée dans une simple mare.', en: 'Inès had loved science ever since her teacher brought a microscope into class. She decided to set up her own laboratory in her parents\' garage. With a few jars, magnifying glasses, and a notebook, she began her experiments. Her first observation was of water taken from the pond in the garden. Under the lens, she spotted tiny creatures moving quickly. She drew every shape she observed as precisely as she could. Her mother gave her a book about micro-organisms to encourage her. Inès spent hours comparing her drawings with the pictures in the book. She identified paramecia, rotifers, and aquatic insect larvae. Her lab notebook filled up with notes and detailed sketches. A neighbor who was a biologist heard about her experiments and offered to lend her a real microscope. Inès couldn\'t believe her eyes when she saw her first plant cell. The cell wall and the green chloroplasts appeared with perfect clarity. She realized then that the invisible world was endlessly rich. She prepared slides with leaves, petals, and pieces of wood. Each material revealed a different structure under the magnifying lenses. Inès invited her friends to look through the microscope one Wednesday afternoon. Some were skeptical at first but were left speechless by the images. Her friend Tom decided to start his own notebook of scientific observations too. Inès explained to him how to prepare a slide without damaging the sample. They formed a small science club that met every week. Together, they observed hair, ants, and pollen grains. The neighbor biologist sometimes came by to happily answer their questions. Inès learned that curiosity was the first tool of every scientist. She dreamed of discovering an organism no one had ever identified before. Her notebook had become a genuine personal scientific logbook. Its pages grew richer each week with fascinating new discoveries. Her parents were proud to see their daughter so passionate and serious. Inès now knew she wanted to work in research later on. And it had all started with a little water taken from a simple pond.'}, taille: 1.3, interligne: 1.9 },
+    '10-11ans-libre': { texte: {fr: 'Marcus était passionné de football depuis ses cinq ans. Il s\'entraînait tous les jours dans la cour de son immeuble après l\'école. Cette année, il avait intégré l\'équipe de son quartier pour la première fois. Les entraînements avaient lieu le mardi et le jeudi soir au stade municipal. L\'entraîneur s\'appelait Monsieur Bertrand et il était très exigeant mais juste. Dès le premier entraînement, Marcus réalisa qu\'il avait encore beaucoup à apprendre. Les autres joueurs maîtrisaient des techniques qu\'il n\'avait jamais pratiquées. Il rentra chez lui ce soir-là avec la tête pleine de questions et de doutes. Sa sœur aînée lui dit que les débuts étaient toujours les plus difficiles. Le lendemain matin, il se leva tôt pour s\'exercer avant d\'aller en classe. Semaine après semaine, ses gestes devinrent plus précis et plus fluides. Monsieur Bertrand remarqua ses progrès et lui confia un rôle de milieu de terrain. Marcus apprit à lire le jeu et à anticiper les mouvements de ses coéquipiers. Il comprit que le football était autant un sport collectif qu\'individuel. Le premier match officiel approchait et la pression montait dans le groupe. La veille, Marcus dormit mal en pensant aux actions importantes du lendemain. Mais dès le coup de sifflet, toute la nervosité disparut instantanément. Il courait, passait et défendait avec une énergie qu\'il ne se connaissait pas. À la vingtième minute, il offrit une passe décisive à son coéquipier Kevin. Le stade retentit d\'applaudissements quand le ballon entra dans le filet. Son équipe gagna ce match par deux buts à un après une belle résistance. Dans les vestiaires, l\'ambiance était joyeuse et les sourires communicatifs. Monsieur Bertrand félicita chaque joueur individuellement avec des mots précis. Il dit à Marcus qu\'il avait montré une belle intelligence de jeu ce soir. Marcus se sentait appartenir à quelque chose de plus grand que lui-même. Le chemin pour devenir meilleur était encore long mais il était sur la bonne voie. Il remercia ses parents qui avaient assisté à chaque entraînement sans exception. Sa mère lui dit qu\'elle était fière de sa persévérance plus que de ses buts. Marcus comprit ce soir-là la valeur du travail régulier et de la patience. Il avait hâte de retrouver ses coéquipiers pour le prochain entraînement.', en: 'Marcus had been passionate about soccer since he was five years old. He practiced every day in his building\'s courtyard after school. This year, he had joined his neighborhood team for the first time. Practices were held on Tuesday and Thursday evenings at the municipal stadium. The coach was named Mr. Bertrand, and he was very demanding but fair. From the very first practice, Marcus realized he still had a lot to learn. The other players had mastered techniques he had never practiced. He went home that evening with his head full of questions and doubts. His older sister told him that beginnings were always the hardest. The next morning, he got up early to practice before going to school. Week after week, his moves became more precise and more fluid. Mr. Bertrand noticed his progress and gave him a role as midfielder. Marcus learned to read the game and anticipate his teammates\' moves. He understood that soccer was as much a team sport as an individual one. The first official match was approaching, and the tension in the group was rising. The night before, Marcus slept poorly, thinking about the important plays ahead. But the moment the whistle blew, all his nervousness vanished instantly. He ran, passed, and defended with an energy he didn\'t know he had. In the twentieth minute, he set up a decisive assist for his teammate Kevin. The stadium erupted in applause as the ball hit the back of the net. His team won the match two goals to one after a tough fight. In the locker room, the mood was joyful and smiles were contagious. Mr. Bertrand congratulated each player individually with precise words. He told Marcus he had shown real game intelligence that evening. Marcus felt like he belonged to something bigger than himself. The road to becoming better was still long, but he was on the right track. He thanked his parents, who had attended every practice without exception. His mother told him she was prouder of his perseverance than of his goals. That evening, Marcus understood the value of steady work and patience. He couldn\'t wait to see his teammates again at the next practice.'}, taille: 1.3, interligne: 1.9 },
+    '10-11ans-sans': { texte: {fr: 'Chaque été, Léo passait ses vacances dans la vieille ferme de ses grands-parents. Cette année, il avait décidé d\'explorer le grenier que personne n\'ouvrait plus. Une échelle branlante menait à une trappe poussiéreuse sous les tuiles. En poussant la trappe, une lumière dorée envahit l\'obscurité du grenier. Des caisses en bois, des malles en cuir et des meubles couverts de draps attendaient. Léo s\'avança prudemment sur le plancher qui craquait à chaque pas. Dans un coin, il découvrit une vieille valise portant les initiales de son arrière-grand-père. La serrure céda facilement sous ses doigts après quelques tentatives. À l\'intérieur, des photographies en noir et blanc étaient soigneusement rangées. On y voyait des hommes et des femmes dans des vêtements d\'une autre époque. Léo reconnut le visage de son grand-père enfant sur l\'une d\'elles. Il y avait aussi des lettres pliées en quatre attachées avec un ruban rouge. L\'écriture ancienne était difficile à déchiffrer mais Léo prit son temps. Les lettres racontaient la vie à la ferme pendant les années difficiles d\'après-guerre. Son arrière-grand-père y décrivait les saisons, les récoltes et les fêtes du village. Léo descendit avec précaution en serrant la valise contre lui. Son grand-père, assis dans le jardin, leva les yeux avec surprise. Quand il vit la valise, une émotion profonde traversa son visage ridé. Il s\'assit à côté de Léo et commença à raconter des histoires longtemps gardées. Les photographies devinrent des portes vers un monde disparu mais vivant. Léo écoutait en prenant des notes dans son carnet bleu. Ils passèrent l\'après-midi entier à voyager dans le temps ensemble. Le grand-père riait en se rappelant des souvenirs d\'enfance oubliés. Léo comprit que les objets anciens portaient des vies entières en eux. Le soir, toute la famille se réunit autour de la valise ouverte. Chacun reconnut un visage ou une histoire entendue jadis. La ferme semblait soudain plus grande remplie de tous ces souvenirs. Léo promit de scanner les photographies pour les conserver numériquement. Son grand-père le regarda avec fierté et lui dit merci à voix basse. Ce soir-là, Léo s\'endormit avec le sentiment d\'avoir retrouvé ses racines.', en: 'Every summer, Léo spent his vacation at his grandparents\' old farm. This year, he had decided to explore the attic that no one opened anymore. A rickety ladder led to a dusty hatch beneath the roof tiles. As he pushed the hatch open, golden light flooded the attic\'s darkness. Wooden crates, leather trunks, and furniture covered in sheets were waiting there. Léo stepped carefully across the floorboards, which creaked with every step. In a corner, he discovered an old suitcase bearing his great-grandfather\'s initials. The lock gave way easily under his fingers after a few tries. Inside, black-and-white photographs were carefully arranged. They showed men and women in clothes from another era. Léo recognized his grandfather\'s face as a child in one of them. There were also letters folded in four and tied with a red ribbon. The old handwriting was hard to decipher, but Léo took his time. The letters told of life on the farm during the hard years after the war. His great-grandfather described the seasons, the harvests, and the village festivals. Léo came down carefully, holding the suitcase against him. His grandfather, sitting in the garden, looked up in surprise. When he saw the suitcase, deep emotion crossed his weathered face. He sat down next to Léo and began telling stories kept hidden for a long time. The photographs became doorways to a world that was gone but still alive. Léo listened, taking notes in his blue notebook. They spent the whole afternoon traveling through time together. His grandfather laughed as he recalled forgotten childhood memories. Léo understood that old objects carried whole lives within them. That evening, the whole family gathered around the open suitcase. Everyone recognized a face or a story they had once heard. The farm suddenly seemed bigger, filled with all these memories. Léo promised to scan the photographs to preserve them digitally. His grandfather looked at him with pride and quietly said thank you. That night, Léo fell asleep with the feeling of having found his roots.'}, taille: 1.3, interligne: 1.9 },
+    '12-14ans-avec': { texte: {fr: 'Le projet artistique de Nathan avait débuté comme un simple passe-temps pendant les vacances scolaires. Il avait commencé à peindre des paysages urbains en utilisant des techniques mixtes sur grand format. L\'acrylique, l\'encre de Chine et les collages de journaux se mêlaient dans des compositions complexes. Son professeur d\'arts plastiques avait immédiatement remarqué son sens original de la composition. Elle l\'avait encouragé à soumettre une œuvre pour l\'exposition annuelle de l\'école secondaire. Nathan travailla pendant trois semaines sur une pièce représentant sa ville vue depuis les toits. Il superposait des couches de peinture transparentes pour créer une impression de profondeur et de mouvement. Les détails architecturaux côtoyaient des formes abstraites qui évoquaient la vie urbaine contemporaine. Quand il présenta son œuvre à l\'exposition, les réactions furent largement positives et encourageantes. Un galeriste local présent ce soir-là lui proposa de rejoindre un atelier collectif pour jeunes artistes. Cet espace de création partagé lui permit de rencontrer d\'autres adolescents partageant sa passion. Les échanges avec les autres artistes enrichirent sa vision et l\'amenèrent à expérimenter de nouvelles techniques. Il découvrit la gravure, la sérigraphie et les techniques numériques appliquées à l\'art traditionnel. Chaque nouvelle technique lui ouvrait des possibilités expressives qu\'il n\'avait pas envisagées. Nathan s\'intéressa également à l\'histoire de l\'art pour comprendre les mouvements qui avaient précédé le sien. Il passa des heures dans les bibliothèques à consulter des ouvrages sur l\'expressionnisme et l\'art conceptuel. Ces références historiques enrichissaient son travail personnel d\'une dimension culturelle nouvelle. Il commença à écrire des textes accompagnant ses œuvres pour expliquer ses intentions artistiques. Cette démarche réflexive l\'amena à mieux comprendre ce qu\'il cherchait à exprimer visuellement. L\'écriture et la peinture devinrent pour lui deux faces complémentaires d\'un même besoin d\'expression. Il fut sélectionné pour représenter sa région dans un concours national d\'arts plastiques pour lycéens. La préparation de ce concours lui demanda une discipline et une rigueur nouvelles dans son travail. Il apprit à gérer la pression des délais sans sacrifier l\'authenticité de sa démarche créative. Le jour de la présentation, il défendit son projet devant un jury professionnel avec assurance et clarté. Sa capacité à expliquer ses choix artistiques impressionna autant les jurés que ses œuvres elles-mêmes. Nathan obtint une mention spéciale pour l\'originalité de sa démarche plastique et conceptuelle. Cette reconnaissance lui donna confiance pour envisager des études supérieures dans le domaine des arts. Il comprit que la créativité sans réflexion restait incomplète et que l\'inverse était tout aussi vrai. Son parcours lui avait appris que l\'art était un dialogue constant entre l\'intuition et la pensée. Il continuait à peindre chaque soir en sachant que chaque œuvre le rapprochait de lui-même.', en: 'Nathan\'s art project had started as a simple hobby during school vacation. He had begun painting urban landscapes using mixed media on a large scale. Acrylic, India ink, and newspaper collage blended together in complex compositions. His art teacher had immediately noticed his original sense of composition. She had encouraged him to submit a piece for the high school\'s annual exhibition. Nathan spent three weeks working on a piece depicting his city seen from the rooftops. He layered transparent coats of paint to create a sense of depth and movement. Architectural details sat alongside abstract shapes evoking contemporary urban life. When he presented his work at the exhibition, the reactions were largely positive and encouraging. A local gallery owner present that evening invited him to join a collective studio for young artists. This shared creative space let him meet other teenagers who shared his passion. Exchanges with other artists broadened his vision and led him to experiment with new techniques. He discovered engraving, screen printing, and digital techniques applied to traditional art. Each new technique opened expressive possibilities he hadn\'t considered before. Nathan also became interested in art history to understand the movements that came before his own. He spent hours in libraries consulting books on expressionism and conceptual art. These historical references enriched his personal work with a new cultural dimension. He began writing texts to accompany his pieces, explaining his artistic intentions. This reflective process helped him better understand what he was trying to express visually. Writing and painting became, for him, two complementary sides of the same need for expression. He was selected to represent his region in a national visual arts competition for high schoolers. Preparing for this competition demanded new discipline and rigor in his work. He learned to handle deadline pressure without sacrificing the authenticity of his creative process. On presentation day, he defended his project before a professional jury with confidence and clarity. His ability to explain his artistic choices impressed the judges as much as his artworks themselves. Nathan received a special mention for the originality of his visual and conceptual approach. This recognition gave him the confidence to consider higher education in the arts. He realized that creativity without reflection remained incomplete, and that the reverse was just as true. His journey had taught him that art was a constant dialogue between intuition and thought. He kept painting every evening, knowing that each piece brought him closer to himself.'}, taille: 1.2, interligne: 1.85 },
+    '12-14ans-libre': { texte: {fr: 'La décision de Sarah de créer un jardin partagé dans son quartier n\'avait pas été prise à la légère. Elle avait observé pendant des mois la parcelle abandonnée au coin de sa rue sans comprendre sa destination. Après quelques recherches à la mairie, elle apprit que le terrain appartenait à la ville et était disponible. Elle rédigea une pétition demandant sa transformation en espace vert communautaire et collecta des signatures. Ses voisins furent nombreux à soutenir l\'initiative, surpris qu\'une adolescente prenne une telle démarche. La mairie reçut la pétition avec bienveillance et proposa une réunion avec les habitants concernés. Sarah prépara une présentation détaillée du projet avec plans, budget prévisionnel et planning de réalisation. Elle avait consulté des guides de jardinage urbain et contacté des associations locales pour s\'informer. Lors de la réunion publique, elle présenta son projet devant une cinquantaine de personnes attentives. Les questions fusèrent mais Sarah avait anticipé la plupart des objections et proposait des solutions concrètes. La mairie donna finalement son accord pour une période d\'essai de deux ans avec un soutien financier modeste. Le chantier de transformation débuta un samedi matin d\'avril sous un ciel dégagé et motivant. Des habitants de tous âges vinrent avec leurs outils, leurs graines et leur bonne volonté communicative. Sarah organisait les équipes, répartissait les tâches et résolvait les petits conflits avec diplomatie. En quelques semaines, la friche fut transformée en un espace verdoyant structuré en parcelles individuelles. Chaque famille adoptante s\'engageait à respecter une charte de jardinage biologique et de partage. Des ateliers hebdomadaires permettaient aux débutants d\'apprendre les bases de la culture maraîchère. Les échanges entre générations créaient des liens sociaux nouveaux dans un quartier parfois anonyme. Des enfants qui ne se connaissaient pas se retrouvaient à arroser les tomates côte à côte le mercredi. Des personnes âgées transmettaient leurs savoirs ancestraux sur les associations de plantes bénéfiques. Sarah documentait l\'évolution du jardin avec des photographies et des témoignages réguliers. Elle alimentait un blog suivi par d\'autres porteurs de projets similaires dans différentes villes. Son initiative fut mentionnée dans le journal local comme exemple de citoyenneté active et responsable. Elle fut invitée à présenter son expérience lors d\'une conférence sur l\'urbanisme participatif. Sarah réalisa que son projet avait dépassé largement ses ambitions initiales de simple jardinage. Il était devenu un laboratoire vivant de lien social, d\'écologie urbaine et d\'engagement citoyen. Cette expérience lui donna envie de poursuivre des études en urbanisme ou en sciences environnementales. Elle comprit que les jeunes pouvaient transformer leur environnement immédiat avec des idées et de la persévérance. Son jardin continuait de pousser, saison après saison, comme témoin de ce qu\'on peut accomplir ensemble. Et chaque légume récolté lui rappelait que les plus grandes aventures commencent souvent par un petit geste.', en: 'Sarah\'s decision to create a shared garden in her neighborhood had not been taken lightly. For months, she had watched the abandoned lot at the corner of her street without understanding what it was for. After a bit of research at the town hall, she learned that the land belonged to the city and was available. She wrote a petition asking for it to be turned into a community green space and collected signatures. Many of her neighbors supported the initiative, surprised that a teenager would take such action. The town hall received the petition warmly and proposed a meeting with the residents concerned. Sarah prepared a detailed presentation of the project, with plans, an estimated budget, and a construction schedule. She had consulted urban gardening guides and contacted local associations to learn more. At the public meeting, she presented her project to about fifty attentive people. Questions came thick and fast, but Sarah had anticipated most objections and offered concrete solutions. The town hall finally gave its approval for a two-year trial period with modest financial support. The transformation work began on an April Saturday morning under a clear, motivating sky. Residents of all ages came with their tools, their seeds, and their infectious goodwill. Sarah organized the teams, assigned tasks, and resolved small conflicts with diplomacy. Within a few weeks, the wasteland was transformed into a green space divided into individual plots. Each participating family agreed to follow a charter of organic gardening and sharing. Weekly workshops let beginners learn the basics of vegetable growing. Exchanges between generations created new social bonds in a neighborhood that had sometimes felt anonymous. Children who didn\'t know each other found themselves watering tomatoes side by side on Wednesdays. Older residents passed on their traditional knowledge about companion planting. Sarah documented the garden\'s progress with photographs and regular accounts. She kept a blog followed by other people running similar projects in different cities. Her initiative was mentioned in the local newspaper as an example of active, responsible citizenship. She was invited to share her experience at a conference on participatory urban planning. Sarah realized her project had far exceeded her initial, simple ambition of gardening. It had become a living laboratory of social connection, urban ecology, and civic engagement. This experience made her want to pursue studies in urban planning or environmental science. She understood that young people could transform their immediate surroundings with ideas and persistence. Her garden kept growing, season after season, as proof of what people can achieve together. And every vegetable harvested reminded her that the greatest adventures often start with one small gesture.'}, taille: 1.2, interligne: 1.85 },
+    '12-14ans-sans': { texte: {fr: 'La passion de Camille pour l\'astronomie avait commencé par une nuit d\'été exceptionnelle. Son père l\'avait réveillée à trois heures du matin pour observer une pluie de météorites. Allongés sur des transats dans le jardin, ils avaient regardé le ciel en silence pendant des heures. Des dizaines d\'étoiles filantes traversaient l\'obscurité comme des traits de lumière fugaces. Depuis cette nuit-là, Camille consultait chaque jour les applications d\'astronomie sur sa tablette. Elle avait appris à identifier les principales constellations visibles depuis son jardin. La Grande Ourse, Orion et Cassiopée étaient devenus des repères familiers dans sa nuit. Pour son anniversaire, ses parents lui offrirent un télescope d\'entrée de gamme mais performant. Les premières observations de la lune la laissèrent sans voix devant les détails des cratères. Elle distinguait clairement les mers lunaires, ces grandes plaines sombres formées par des impacts anciens. Son carnet d\'observations se remplissait de croquis précis réalisés à la lumière d\'une lampe rouge. Elle rejoignit un club d\'astronomie local qui se réunissait une fois par mois dans un champ isolé. Les membres plus expérimentés lui enseignèrent les rudiments de la mise en station équatoriale. Elle apprit également comment calculer l\'heure sidérale pour pointer précisément ses observations. Les soirées d\'observation duraient parfois jusqu\'à l\'aube, entre discussions et découvertes partagées. Camille fut particulièrement fascinée par l\'observation des planètes et de leurs satellites. Jupiter révélait ses bandes nuageuses et ses quatre grands satellites galiléens dès le premier coup d\'œil. Saturne et ses anneaux restaient pour elle la vision la plus saisissante du système solaire. Elle commença à photographier le ciel en adaptant son appareil photo à l\'oculaire du télescope. Ses premières images étaient floues mais chaque tentative améliorait sa technique de prise de vue. Un astronome amateur du club lui expliqua les bases du traitement d\'images astronomiques. Grâce à des logiciels spécialisés, elle parvint à faire ressortir des détails imperceptibles à l\'œil nu. Ses photographies de la nébuleuse d\'Orion furent publiées dans le bulletin du club régional. Camille réalisa alors que la science n\'était pas réservée aux professionnels ni aux adultes. Elle présenta ses travaux devant sa classe dans le cadre d\'un exposé sur l\'exploration spatiale. Ses camarades furent impressionnés par la qualité de ses photographies et la profondeur de ses connaissances. Le professeur de physique lui conseilla de préparer un dossier pour un concours scientifique national. Camille travailla plusieurs semaines sur une étude comparative de la luminosité de plusieurs étoiles variables. Son dossier fut sélectionné parmi les cinq finalistes au niveau régional, une fierté immense pour elle. Cette expérience lui confirma qu\'elle voulait consacrer sa vie à l\'exploration de l\'univers.', en: 'Camille\'s passion for astronomy had begun on an extraordinary summer night. Her father had woken her at three in the morning to watch a meteor shower. Lying on lounge chairs in the garden, they had watched the sky in silence for hours. Dozens of shooting stars streaked across the darkness like fleeting trails of light. Ever since that night, Camille checked astronomy apps on her tablet every day. She had learned to identify the main constellations visible from her garden. The Big Dipper, Orion, and Cassiopeia had become familiar landmarks in her night sky. For her birthday, her parents gave her an entry-level but capable telescope. Her first observations of the moon left her speechless at the detail of the craters. She could clearly make out the lunar seas, those vast dark plains formed by ancient impacts. Her observation notebook filled up with precise sketches made by the light of a red lamp. She joined a local astronomy club that met once a month in a remote field. More experienced members taught her the basics of equatorial mount alignment. She also learned how to calculate sidereal time to aim her observations precisely. Observation nights sometimes lasted until dawn, filled with discussion and shared discoveries. Camille was especially fascinated by observing planets and their moons. Jupiter revealed its cloud bands and its four large Galilean moons at first glance. Saturn and its rings remained, for her, the most striking sight in the solar system. She began photographing the sky by fitting her camera to the telescope\'s eyepiece. Her first images were blurry, but each attempt improved her shooting technique. An amateur astronomer from the club explained the basics of astrophotography image processing to her. Thanks to specialized software, she managed to bring out details invisible to the naked eye. Her photographs of the Orion Nebula were published in the regional club\'s newsletter. Camille then realized that science wasn\'t reserved for professionals or adults. She presented her work to her class as part of a report on space exploration. Her classmates were impressed by the quality of her photographs and the depth of her knowledge. Her physics teacher suggested she prepare an entry for a national science competition. Camille spent several weeks on a comparative study of the brightness of several variable stars. Her entry was selected among the five regional finalists, a huge source of pride for her. This experience confirmed that she wanted to devote her life to exploring the universe.'}, taille: 1.2, interligne: 1.85 },
+    '15plus-avec': { texte: {fr: 'La question du changement climatique occupe une place centrale dans les débats scientifiques et politiques contemporains. Les données accumulées depuis plusieurs décennies par des milliers de chercheurs convergent vers un constat alarmant. La température moyenne de la surface terrestre a augmenté d\'environ un degré et demi depuis l\'ère préindustrielle. Cette hausse, en apparence modeste, engendre des perturbations systémiques aux conséquences potentiellement irréversibles. La fonte accélérée des glaciers arctiques et antarctiques contribue à l\'élévation du niveau des océans à l\'échelle mondiale. Les événements météorologiques extrêmes, canicules, inondations et tempêtes, gagnent en fréquence et en intensité. La biodiversité terrestre et marine est menacée par la rapidité des transformations que les espèces peinent à absorber. Les migrations climatiques pourraient déplacer des centaines de millions de personnes d\'ici la fin du siècle. Face à ces constats, la communauté internationale a multiplié les accords et les engagements depuis les années quatre-vingt-dix. L\'accord de Paris de 2015 fixait l\'objectif ambitieux de limiter le réchauffement à un virgule cinq degré. Cependant, les trajectoires actuelles d\'émissions de gaz à effet de serre demeurent incompatibles avec cet objectif. Les secteurs de l\'énergie, des transports, de l\'agriculture et de l\'industrie doivent opérer des transformations profondes. La transition énergétique vers les renouvelables s\'accélère mais se heurte à des résistances économiques considérables. Les investissements nécessaires sont colossaux et leur distribution soulève des questions d\'équité internationale. Les pays en développement, qui ont le moins contribué au problème, en subissent souvent les conséquences les plus sévères. Cette injustice fondamentale alimente des tensions lors des négociations climatiques multilatérales. Les solutions technologiques, capture du carbone et hydrogène vert, suscitent des espoirs et des débats. Certains estiment qu\'elles permettront de concilier croissance économique et stabilité climatique. D\'autres soutiennent qu\'aucune innovation ne compensera un modèle de consommation fondamentalement insoutenable. Cette tension entre optimisme technologique et sobriété volontaire traverse les sociétés contemporaines. Les mouvements de la société civile portés par les jeunes générations ont accéléré la prise de conscience mondiale. Les mobilisations des dernières années ont placé l\'urgence climatique au cœur de l\'agenda politique international. L\'engagement individuel constitue néanmoins un levier de transformation culturelle non négligeable. Modifier nos habitudes alimentaires et nos pratiques de consommation envoie des signaux aux marchés et aux décideurs. L\'éducation à l\'environnement joue un rôle essentiel dans la formation des citoyens de demain. Comprendre les mécanismes du système climatique permet d\'adopter une posture informée dans les débats démocratiques. La science climatique, bien que complexe, doit être accessible à tous pour que les choix collectifs soient éclairés. Les défis qui attendent les générations actuelles et futures sont sans précédent dans l\'histoire de l\'humanité. Ils exigent une combinaison rare de lucidité, de créativité, de solidarité et de volonté politique soutenue. La question n\'est plus de savoir si le changement climatique est réel mais comment y répondre collectivement.', en: 'The question of climate change occupies a central place in contemporary scientific and political debate. Data gathered over several decades by thousands of researchers converge on an alarming conclusion. The average surface temperature of the Earth has risen by about one and a half degrees since the pre-industrial era. This rise, modest as it may seem, is generating systemic disruptions with potentially irreversible consequences. The accelerated melting of Arctic and Antarctic glaciers is contributing to rising ocean levels worldwide. Extreme weather events, heat waves, floods, and storms, are growing more frequent and more intense. Land and marine biodiversity is threatened by the speed of changes that species struggle to adapt to. Climate migration could displace hundreds of millions of people by the end of the century. Faced with these facts, the international community has multiplied agreements and commitments since the 1990s. The 2015 Paris Agreement set the ambitious goal of limiting warming to one and a half degrees. However, current greenhouse gas emission trends remain incompatible with that goal. The energy, transportation, agriculture, and industry sectors must undergo profound transformations. The energy transition toward renewables is accelerating but faces considerable economic resistance. The investments required are colossal, and how they are distributed raises questions of international fairness. Developing countries, which have contributed least to the problem, often suffer its most severe consequences. This fundamental injustice fuels tension in multilateral climate negotiations. Technological solutions, such as carbon capture and green hydrogen, spark both hope and debate. Some believe they will make it possible to reconcile economic growth with climate stability. Others argue that no innovation will offset a fundamentally unsustainable model of consumption. This tension between technological optimism and voluntary restraint runs through contemporary societies. Civil society movements driven by younger generations have accelerated global awareness. Mobilizations in recent years have placed climate urgency at the heart of the international political agenda. Individual commitment nevertheless remains a significant lever for cultural change. Changing our eating habits and consumption patterns sends signals to markets and decision-makers. Environmental education plays an essential role in shaping tomorrow\'s citizens. Understanding how the climate system works allows people to take an informed stance in democratic debates. Climate science, though complex, must be accessible to everyone so that collective choices can be well informed. The challenges awaiting current and future generations are unprecedented in human history. They demand a rare combination of clear-sightedness, creativity, solidarity, and sustained political will. The question is no longer whether climate change is real, but how to respond to it collectively.'}, taille: 1.1, interligne: 1.8 },
+    '15plus-libre': { texte: {fr: 'L\'intelligence artificielle représente sans doute la mutation technologique la plus significative de ce siècle. En quelques années, les progrès dans le domaine de l\'apprentissage automatique ont dépassé les prévisions les plus optimistes. Les systèmes capables de reconnaître des images ou de comprendre le langage surpassent désormais les meilleurs humains. Ces avancées soulèvent des interrogations profondes sur la nature de l\'intelligence et de la conscience. La frontière entre ce qui est proprement humain et ce que les machines simulent devient difficile à tracer. Les applications pratiques touchent des domaines aussi variés que la médecine, la justice et l\'éducation. En oncologie, des algorithmes détectent certains cancers avec une précision supérieure aux radiologues expérimentés. Dans le système judiciaire, des outils d\'aide à la décision sont utilisés avec des biais documentés et préoccupants. Ces exemples illustrent à la fois le potentiel immense et les risques éthiques que porte le déploiement de ces technologies. La question de la responsabilité en cas d\'erreur commise par un système automatisé reste largement non résolue. Les régulateurs du monde entier tentent de construire des cadres législatifs adaptés à une réalité qui évolue rapidement. L\'Union européenne a adopté une approche fondée sur les droits fondamentaux avec son règlement sur l\'intelligence artificielle. Ce texte classe les applications selon leur niveau de risque et impose des obligations de transparence strictes. La Chine et les États-Unis adoptent des approches différentes reflétant leurs priorités stratégiques distinctes. La compétition géopolitique autour de la domination de l\'intelligence artificielle est devenue un enjeu de puissance mondiale. Les questions de propriété des données et de souveraineté numérique structurent ce nouveau champ de rivalités internationales. Sur le plan social, l\'automatisation menace de déstabiliser des marchés du travail déjà fragilisés. Certains emplois disparaîtront rapidement tandis que de nouveaux profils professionnels émergent simultanément. La capacité des systèmes éducatifs à former des individus adaptables sera déterminante dans cette transition. Les compétences cognitives de haut niveau, pensée critique et intelligence émotionnelle, seront des atouts croissants. L\'intelligence artificielle excelle dans l\'exécution de tâches définies mais peine avec l\'intuition humaine contextualisée. Cette complémentarité pourrait constituer le fondement d\'une collaboration féconde entre humains et machines. À condition que cette collaboration ne reproduise pas et n\'amplifie pas les inégalités existantes entre nations. Les biais présents dans les données d\'entraînement se reflètent inévitablement dans les décisions des systèmes appris. Corriger ces biais exige une attention constante, des équipes diversifiées et une volonté politique ferme d\'équité. La gouvernance de l\'intelligence artificielle est un enjeu démocratique qui ne peut être laissé aux seuls ingénieurs. Les citoyens, les philosophes et les juristes doivent participer à ces choix collectifs fondamentaux. Définir les limites de l\'acceptable dans l\'usage des technologies est une responsabilité partagée par la société entière. L\'avenir de l\'intelligence artificielle dépend moins de sa puissance technique que des valeurs que nous lui donnons. Ces choix collectifs détermineront si cette révolution technologique sera au service de l\'humanité ou contre elle.', en: 'Artificial intelligence undoubtedly represents the most significant technological shift of this century. In just a few years, progress in machine learning has exceeded even the most optimistic forecasts. Systems capable of recognizing images or understanding language now outperform the best humans. These advances raise profound questions about the nature of intelligence and consciousness. The line between what is properly human and what machines simulate is becoming hard to draw. Practical applications now touch fields as varied as medicine, justice, and education. In oncology, algorithms detect certain cancers with greater accuracy than experienced radiologists. In the justice system, decision-support tools are being used despite documented and troubling biases. These examples illustrate both the immense potential and the ethical risks carried by the rollout of these technologies. The question of responsibility when an automated system makes an error remains largely unresolved. Regulators around the world are trying to build legal frameworks suited to a rapidly evolving reality. The European Union has adopted a rights-based approach with its regulation on artificial intelligence. This law classifies applications according to their level of risk and imposes strict transparency requirements. China and the United States are taking different approaches, reflecting their distinct strategic priorities. The geopolitical race for dominance in artificial intelligence has become a matter of global power. Questions of data ownership and digital sovereignty are shaping this new field of international rivalry. On the social front, automation threatens to destabilize labor markets that are already fragile. Some jobs will disappear quickly while new professional roles emerge at the same time. The ability of education systems to train adaptable individuals will be decisive in this transition. High-level cognitive skills, critical thinking, and emotional intelligence will become increasingly valuable assets. Artificial intelligence excels at defined tasks but struggles with human intuition shaped by context. This complementarity could form the basis of a fruitful collaboration between humans and machines. Provided that this collaboration does not reproduce or amplify existing inequalities between nations. Biases present in training data inevitably show up in the decisions made by learned systems. Correcting these biases requires constant attention, diverse teams, and firm political will toward fairness. Governing artificial intelligence is a democratic issue that cannot be left to engineers alone. Citizens, philosophers, and legal scholars must take part in these fundamental collective choices. Defining the limits of acceptable use of these technologies is a responsibility shared by all of society. The future of artificial intelligence depends less on its technical power than on the values we give it. These collective choices will determine whether this technological revolution serves humanity or works against it.'}, taille: 1.1, interligne: 1.8 },
+    '15plus-sans': { texte: {fr: 'La révolution numérique a profondément modifié les modalités d\'accès à l\'information et au savoir. En l\'espace de deux décennies, internet est passé du statut de curiosité technologique à celui d\'infrastructure essentielle. Les bibliothèques physiques, longtemps seules gardiennes du savoir organisé, coexistent désormais avec des ressources numériques colossales. Cette transition soulève des questions fondamentales sur la qualité, la fiabilité et l\'accessibilité de l\'information. La démocratisation de la publication en ligne a permis à chacun de devenir producteur de contenu sans filtre éditorial. Si cette ouverture représente une opportunité considérable pour la liberté d\'expression, elle génère également des risques nouveaux. La prolifération des informations non vérifiées exige des lecteurs contemporains un niveau critique accru et des compétences nouvelles. L\'éducation aux médias est ainsi devenue une nécessité civique comparable à l\'apprentissage de la lecture. Les algorithmes des plateformes numériques façonnent nos habitudes informationnelles selon des logiques commerciales opaques. La personnalisation des flux d\'information crée des bulles cognitives qui limitent notre exposition à des perspectives différentes. Ce phénomène, parfois désigné comme l\'effet de chambre d\'écho, renforce les convictions préexistantes plutôt qu\'il ne les questionne. Les chercheurs en sciences de l\'information s\'interrogent sur les implications de ces dynamiques pour la cohésion sociale. La capacité à distinguer une source fiable d\'une source partisane nécessite aujourd\'hui des outils pédagogiques adaptés. Les institutions éducatives intègrent progressivement ces compétences informationnelles dans leurs programmes officiels. Vérifier l\'origine d\'une information, recouper les sources et évaluer la légitimité d\'un auteur sont des réflexes à cultiver. Ces pratiques constituent ce que les spécialistes nomment la littératie numérique, compétence fondamentale du citoyen contemporain. Les moteurs de recherche, malgré leur puissance apparente, ne hiérarchisent pas les contenus selon leur valeur intrinsèque. Un résultat bien référencé n\'est pas nécessairement un résultat exact, rigoureux ou représentatif de l\'état des connaissances. La popularité d\'une information sur les réseaux sociaux ne constitue en aucun cas un critère de véracité suffisant. Les fake news exploitent précisément nos biais cognitifs et notre tendance à partager l\'émotion avant la réflexion. Lutter contre ce phénomène exige un effort collectif impliquant journalistes, éducateurs, plateformes et utilisateurs. Des initiatives citoyennes de fact-checking se sont développées pour offrir des contre-feux à la désinformation organisée. La transparence des sources, l\'honnêteté intellectuelle et la rigueur méthodologique restent les meilleures garanties du savoir. L\'histoire des sciences montre que les grandes avancées sont nées du doute systématique et de la remise en question permanente. Adopter cette posture épistémique dans notre vie quotidienne est un acte à la fois intellectuel et démocratique. Il ne s\'agit pas de soupçonner toute information mais d\'exercer en permanence son jugement critique et éclairé. Cette exigence est d\'autant plus nécessaire que les enjeux politiques, sanitaires et climatiques concernent nos vies. Les sociétés qui cultivent l\'esprit critique de leurs citoyens se révèlent mieux armées face aux crises et aux manipulations. L\'éducation demeure ainsi le levier le plus puissant pour préparer les nouvelles générations aux défis informationnels. Apprendre à penser par soi-même reste, dans ce contexte numérique saturé, un acte de résistance et de liberté.', en: 'The digital revolution has profoundly changed how we access information and knowledge. Within the span of two decades, the internet went from a technological curiosity to an essential piece of infrastructure. Physical libraries, for a long time the sole guardians of organized knowledge, now coexist alongside vast digital resources. This shift raises fundamental questions about the quality, reliability, and accessibility of information. The democratization of online publishing has allowed anyone to become a content producer without editorial oversight. While this openness represents a considerable opportunity for freedom of expression, it also creates new risks. The proliferation of unverified information demands a higher level of critical thinking and new skills from today\'s readers. Media literacy has thus become a civic necessity comparable to learning to read. The algorithms behind digital platforms shape our information habits according to opaque commercial logic. The personalization of information feeds creates cognitive bubbles that limit our exposure to different perspectives. This phenomenon, sometimes called the echo-chamber effect, reinforces existing beliefs rather than questioning them. Researchers in information science are examining what these dynamics mean for social cohesion. Being able to tell a reliable source from a partisan one now requires suitable educational tools. Educational institutions are gradually incorporating these information literacy skills into their official curricula. Checking where information comes from, cross-referencing sources, and assessing an author\'s credibility are habits worth cultivating. These practices make up what specialists call digital literacy, a fundamental skill for today\'s citizen. Search engines, despite their apparent power, do not rank content according to its intrinsic value. A well-ranked result is not necessarily an accurate, rigorous one, or one that reflects the current state of knowledge. The popularity of a piece of information on social media is in no way a sufficient measure of its truthfulness. Fake news exploits precisely our cognitive biases and our tendency to share emotion before reflection. Fighting this phenomenon requires a collective effort involving journalists, educators, platforms, and users alike. Citizen-led fact-checking initiatives have emerged to counter organized disinformation. Transparency of sources, intellectual honesty, and methodological rigor remain the best guarantees of knowledge. The history of science shows that great breakthroughs were born from systematic doubt and constant questioning. Adopting this way of thinking in our everyday lives is both an intellectual and a democratic act. It is not about doubting all information, but about constantly exercising informed critical judgment. This is all the more necessary given that political, health, and climate issues affect our lives. Societies that cultivate their citizens\' critical thinking prove better equipped to face crises and manipulation. Education thus remains the most powerful lever for preparing new generations to face information challenges. In this saturated digital age, learning to think for oneself remains an act of resistance and freedom.'}, taille: 1.1, interligne: 1.8 },
+    '8-9ans-avec': { texte: {fr: 'La petite tortue Marina vivait près d\'un lac tranquille. Elle nageait chaque matin avant que le soleil se lève. Son écaille brillait comme un miroir sous la lumière de l\'aube. Un jour, elle aperçut une bouteille flottant au milieu du lac. Curieuse, elle nagea jusqu\'à elle et la tira vers le bord. À l\'intérieur se trouvait un message écrit sur du papier jauni. Le message disait : cherche le vieux saule au bout du lac. Marina n\'avait jamais exploré ce côté du lac toute seule. Elle demanda à sa cousine la grenouille de l\'accompagner. Ensemble, elles longèrent la rive en observant les plantes. Des libellules bleues voletaient au-dessus de l\'eau calme. Après une longue baignade, elles aperçurent un grand saule pleureur. Ses longues branches touchaient presque la surface du lac. Sous ses racines, une petite boîte en bois était cachée. Marina l\'ouvrit avec précaution de ses pattes avant. Elle contenait un carnet illustré de dessins d\'animaux du lac. Chaque page montrait un habitant de cet endroit depuis des années. La grenouille reconnut la forme de ses ancêtres dans les dessins. Marina referma doucement le carnet avec respect. Elles comprirent que quelqu\'un avait aimé ce lac avant elles. Elles décidèrent de continuer ce carnet avec leurs propres dessins. Chaque semaine, elles y ajoutaient une nouvelle page. Les oiseaux, les poissons et les insectes y trouvèrent leur portrait. Le carnet devint le trésor secret du vieux saule. D\'autres animaux apprirent son existence et vinrent le consulter. Bientôt, tout le lac connaissait l\'histoire du carnet de Marina. La petite tortue était devenue la gardienne de la mémoire du lac. Elle apprit que préserver la nature était le plus beau des cadeaux. Chaque matin, elle nageait encore plus fièrement qu\'avant. Et le vieux saule semblait pencher ses branches pour la remercier.', en: 'Marina the little turtle lived near a quiet lake. She swam every morning before the sun came up. Her shell shone like a mirror in the light of dawn. One day, she spotted a bottle floating in the middle of the lake. Curious, she swam over to it and pulled it to the shore. Inside was a message written on yellowed paper. The message said: look for the old willow at the far end of the lake. Marina had never explored that side of the lake on her own. She asked her cousin the frog to come with her. Together, they followed the shoreline, looking at the plants. Blue dragonflies fluttered above the calm water. After a long swim, they spotted a great weeping willow. Its long branches almost touched the surface of the lake. Beneath its roots, a small wooden box was hidden. Marina opened it carefully with her front paws. Inside was a notebook full of drawings of the lake\'s animals. Each page showed a creature that had lived there for years. The frog recognized the shape of her ancestors in the drawings. Marina gently closed the notebook with respect. They understood that someone had loved this lake before them. They decided to continue the notebook with their own drawings. Every week, they added a new page. Birds, fish, and insects all found their portrait inside. The notebook became the old willow\'s secret treasure. Other animals learned about it and came to look through it. Soon, the whole lake knew the story of Marina\'s notebook. The little turtle had become the keeper of the lake\'s memory. She learned that protecting nature was the most beautiful gift of all. Every morning, she swam even more proudly than before. And the old willow seemed to lean its branches down to thank her.'}, taille: 1.4, interligne: 2.0 },
+    '8-9ans-libre': { texte: {fr: 'Le jeune hérisson Hugo habitait sous un buisson de lavande. L\'odeur des fleurs violettes berçait ses nuits doucement. Un matin d\'automne, il décida de préparer ses provisions d\'hiver. Il ramassa des pommes, des noisettes et des baies sauvages. Son panier était presque plein quand il rencontra un escargot. L\'escargot avançait très lentement sur le chemin mouillé. Hugo s\'arrêta pour lui parler sans l\'écraser par inadvertance. L\'escargot s\'appelait Silvio et cherchait un abri pour la pluie. Hugo lui proposa de partager son buisson pour la nuit. Silvio accepta avec reconnaissance et rentra dans sa coquille. Le lendemain matin, il n\'avait pas bougé de l\'endroit. Hugo lui apporta une feuille de salade fraîche en guise de bonjour. Silvio sortit sa tête et sourit du mieux qu\'il pouvait. Les deux amis passèrent la matinée à observer les oiseaux. Un rouge-gorge vint se poser tout près d\'eux sans peur. Il cherchait des vers dans la terre humide de l\'aube. Hugo et Silvio regardèrent en silence pour ne pas l\'effrayer. Quand l\'oiseau repartit, ils sentirent qu\'ils avaient partagé quelque chose. L\'après-midi, ils explorèrent ensemble le jardin du voisin. Des chrysanthèmes orange et jaunes illuminaient les parterres. Hugo expliqua à Silvio comment reconnaître les champignons comestibles. Silvio lui apprit à observer les traces des limaces après la pluie. Chacun enseignait à l\'autre ce qu\'il savait le mieux. Au coucher du soleil, ils rentrèrent chargés de nouvelles découvertes. Hugo réalisa que l\'amitié pouvait naître des rencontres les plus inattendues. Silvio promit de revenir au printemps quand les fleurs refleuriraient. Ils se dirent au revoir sous les derniers rayons orange du soir. Hugo regarda l\'escargot disparaître lentement derrière la haie. Il se roula en boule sous son buisson avec le cœur chaud. Cette nuit-là, il s\'endormit en pensant à leur prochaine aventure.', en: 'Hugo the young hedgehog lived under a lavender bush. The scent of the purple flowers gently soothed his nights. One autumn morning, he decided to prepare his winter supplies. He gathered apples, hazelnuts, and wild berries. His basket was nearly full when he met a snail. The snail was moving very slowly along the wet path. Hugo stopped to speak to it so he wouldn\'t accidentally step on it. The snail\'s name was Silvio, and he was looking for shelter from the rain. Hugo offered to share his bush with him for the night. Silvio accepted gratefully and went back into his shell. The next morning, he hadn\'t moved an inch. Hugo brought him a fresh lettuce leaf to say good morning. Silvio poked his head out and smiled as best he could. The two friends spent the morning watching birds. A robin came to land close by, unafraid. It was looking for worms in the damp morning soil. Hugo and Silvio watched quietly so as not to frighten it. When the bird flew off, they felt they had shared something special. In the afternoon, they explored the neighbor\'s garden together. Orange and yellow chrysanthemums lit up the flower beds. Hugo explained to Silvio how to recognize edible mushrooms. Silvio taught him how to spot slug trails after the rain. Each one taught the other what he knew best. At sunset, they went home loaded with new discoveries. Hugo realized that friendship could be born from the most unexpected encounters. Silvio promised to come back in spring when the flowers bloomed again. They said goodbye beneath the evening\'s last orange rays. Hugo watched the snail slowly disappear behind the hedge. He curled up in a ball under his bush, his heart warm. That night, he fell asleep thinking about their next adventure.'}, taille: 1.4, interligne: 2.0 },
+    '8-9ans-sans': { texte: {fr: 'Le petit renard Roux vivait dans une forêt pleine de mystères. Chaque matin, il partait explorer les sentiers entre les arbres. Son ami le lapin blanc l\'accompagnait souvent dans ses aventures. Un jour, ils découvrirent une grotte cachée derrière une cascade. À l\'intérieur, des pierres brillantes couvraient les murs. Le renard prit une pierre et la montra à sa mère le soir. Elle lui expliqua que c\'étaient des cristaux formés depuis très longtemps. Le lendemain, Roux retourna à la grotte avec une lampe de poche. La lumière fit apparaître des couleurs magnifiques sur les murs. Le lapin blanc sauta de joie en voyant ce spectacle. Ils décidèrent de garder le secret de leur découverte. Mais le vieux hibou du chêne avait tout observé depuis la nuit. Il vola jusqu\'à eux et leur dit qu\'il connaissait cette grotte. Jadis, les animaux de la forêt s\'y réunissaient pendant l\'hiver. Roux proposa de faire revivre cette tradition. Il invita tous ses amis : le blaireau, la biche et les écureuils. Le soir venu, ils se retrouvèrent tous dans la grotte illuminée. Chacun apporta quelque chose à manger ou à partager. Le hibou raconta des histoires sur la forêt d\'autrefois. Les jeunes animaux écoutaient avec de grands yeux ébahis. La biche chanta une douce mélodie qui résonna dans la grotte. Les cristaux semblaient vibrer au rythme de sa voix. Roux regardait ses amis avec bonheur autour de lui. Il comprit que les meilleures découvertes se partagent. Avant de partir, chaque animal posa une pierre dans un coin. Ce serait leur façon de se souvenir de cette belle soirée. Depuis ce jour, ils se retrouvèrent dans la grotte chaque mois. La forêt entière semblait plus lumineuse et plus chaleureuse. Roux était fier d\'avoir transformé une grotte en lieu de partage. Et chaque soir, il regardait les étoiles en pensant à ses amis.', en: 'Roux the little fox lived in a forest full of mysteries. Every morning, he set out to explore the paths between the trees. His friend the white rabbit often joined him on his adventures. One day, they discovered a cave hidden behind a waterfall. Inside, shiny stones covered the walls. The fox took a stone and showed it to his mother that evening. She explained that these were crystals formed a very long time ago. The next day, Roux went back to the cave with a flashlight. The light made beautiful colors appear on the walls. The white rabbit jumped for joy at the sight. They decided to keep their discovery a secret. But the old owl in the oak tree had seen everything from the night sky. He flew over to them and told them he knew that cave. Long ago, the forest animals used to gather there during the winter. Roux suggested reviving that tradition. He invited all his friends: the badger, the doe, and the squirrels. When evening came, they all met in the glowing cave. Everyone brought something to eat or to share. The owl told stories about the forest of long ago. The young animals listened, wide-eyed with wonder. The doe sang a gentle melody that echoed through the cave. The crystals seemed to shimmer in rhythm with her voice. Roux looked around at his friends, filled with happiness. He understood that the best discoveries are meant to be shared. Before leaving, each animal placed a stone in a corner. It would be their way of remembering that lovely evening. From that day on, they met in the cave every month. The whole forest seemed brighter and warmer. Roux was proud of having turned a cave into a place for sharing. And every evening, he looked at the stars, thinking of his friends.'}, taille: 1.4, interligne: 2.0 },
   };
 
 
   const textesCache = {};
   async function chargerTexte(nom) {
     if (TEXTES_INLINE[nom]) return TEXTES_INLINE[nom];
-    return { texte: 'Texte non disponible.', taille: 1.3, interligne: 1.9 };
+    return { texte: { fr: 'Texte non disponible.', en: 'Text unavailable.' }, taille: 1.3, interligne: 1.9 };
   }
 
 
@@ -1552,7 +1911,7 @@ function navTo(pageId, el) {
       if (i > 0) prog += `<div class="prog-line ${i <= testStep ? 'done' : ''}"></div>`;
       prog += `<div class="prog-step">
         <div class="prog-dot ${cls}">${lbl}</div>
-        <div class="prog-label ${cls}">${st.label}</div>
+        <div class="prog-label ${cls}">${st.label[LANG]}</div>
       </div>`;
     });
     prog += '</div>';
@@ -1565,7 +1924,7 @@ function navTo(pageId, el) {
       AGES.forEach((ag, i) => {
         const sel = testLevel === i ? 'selected' : '';
         center += `<div class="age-card ${sel}" onclick="selectLevel(${i})">
-          <div class="age-label">${ag.label}</div>
+          <div class="age-label">${ag.label[LANG]}</div>
         </div>`;
       });
       center += '</div>';
@@ -1578,10 +1937,10 @@ function navTo(pageId, el) {
       // Affichage placeholder pendant le chargement
       center = `<div class="reading-card-full">
         <div class="reading-badges">
-          <span class="reading-age-badge">${ag.label}</span>
+          <span class="reading-age-badge">${ag.label[LANG]}</span>
         </div>
         <div class="reading-text-full" id="readingTextZone" style="line-height:1.9;">
-          Chargement du texte...
+          ${t('loading_text')}
         </div>
       </div>`;
 
@@ -1590,7 +1949,7 @@ function navTo(pageId, el) {
       chargerTexte(fichier).then(data => {
         const zone = document.getElementById('readingTextZone');
         if (zone) {
-          zone.textContent = data.texte;
+          zone.textContent = data.texte[LANG];
           zone.style.fontSize   = (data.taille || 1.3) + 'rem';
           zone.style.lineHeight = (data.interligne || 1.9);
         }
@@ -1610,8 +1969,8 @@ function navTo(pageId, el) {
       if (testStep === 1 || testStep === 3) {
         center = `<img class="boitier-gif" src="${img}" alt="Boîtier de contrôle">`;
       } else {
-        const label1    = testStep === 4 ? 'Tourner le bouton jusqu\'à atteindre 80 Hz.'       : 'Tourner le bouton pour faire varier la fréquence entre 60 et 120 Hz.';
-        const label2    = testStep === 4 ? 'Tourner le bouton jusqu\'à atteindre 20%.'          : 'Tourner le bouton pour faire varier la balance.';
+        const label1    = testStep === 4 ? t('label_freq_80hz') : t('label_freq_range');
+        const label2    = testStep === 4 ? t('label_balance_20') : t('label_balance_range');
         const badge1txt = testStep === 4 ? '80 Hz'  : '60–120 Hz';
         const badge2txt = testStep === 4 ? '20 %'   : '—';
 
@@ -1624,7 +1983,7 @@ function navTo(pageId, el) {
               <img class="boitier-gif-dual" src="lexilens-assets/Images/boitier-reglage.gif" alt="Bouton fréquence">
             </div>
             ${testStep === 4 ? `<div class="boitier-dual-badge">
-              <div class="badge-dot-row"><span class="badge-dot dot-red"></span><span class="badge-text">Fréquence Lexilens®</span></div>
+              <div class="badge-dot-row"><span class="badge-dot dot-red"></span><span class="badge-text">${t('badge_freq')}</span></div>
               <div class="badge-value">${badge1txt}</div>
             </div>` : ''}
           </div>
@@ -1636,7 +1995,7 @@ function navTo(pageId, el) {
               <img class="boitier-gif-dual" src="lexilens-assets/Images/boitier-libre.gif" alt="Bouton balance">
             </div>
             ${testStep === 4 ? `<div class="boitier-dual-badge">
-              <div class="badge-dot-row"><span class="badge-dot dot-blue"></span><span class="badge-text">Balance Lexilens®</span></div>
+              <div class="badge-dot-row"><span class="badge-dot dot-blue"></span><span class="badge-text">${t('badge_balance')}</span></div>
               <div class="badge-value">${badge2txt}</div>
             </div>` : ''}
           </div>
@@ -1649,23 +2008,23 @@ function navTo(pageId, el) {
     else if (testStep === 8) {
       center = `<div class="result-card">
         <div class="result-icon">🤔</div>
-        <p class="feedback-question">Avez-vous ressenti une différence de confort avec la technologie Lexilens® activée&nbsp;?</p>
+        <p class="feedback-question">${t('feedback_question')}</p>
         <div class="feedback-btns">
-          <button class="feedback-btn" onclick="selectFeedback(this, 'Aucune différence')">Aucune différence</button>
-          <button class="feedback-btn" onclick="selectFeedback(this, 'Un peu mieux')">Un peu mieux</button>
-          <button class="feedback-btn" onclick="selectFeedback(this, 'C\\'est TOP !')">C'est TOP !</button>
+          <button class="feedback-btn" onclick="selectFeedback(this, 'none')">${t('feedback_none')}</button>
+          <button class="feedback-btn" onclick="selectFeedback(this, 'better')">${t('feedback_better')}</button>
+          <button class="feedback-btn" onclick="selectFeedback(this, 'top')">${t('feedback_top')}</button>
         </div>
         <div class="result-reveal" id="resultReveal" style="display:none;">
           <div class="result-reveal-inner">
             <div class="result-reveal-text">
-              <div class="result-title">Test terminé !</div>
-              <div class="result-sub">Nos experts sont disponibles pour vous expliquer les résultats et vous orienter vers le produit adapté à votre besoin.</div>
+              <div class="result-title">${t('result_title')}</div>
+              <div class="result-sub">${t('result_sub')}</div>
               <div class="result-btns">
-                <button class="btn-go-products" onclick="navTo('page-products',null)">🛍️ Voir les produits</button>
+                <button class="btn-go-products" onclick="navTo('page-products',null)">${t('result_btn_products')}</button>
               </div>
             </div>
             <div class="result-qr-block">
-              <span class="result-qr-label">En savoir plus</span>
+              <span class="result-qr-label">${t('result_qr_label')}</span>
               <img class="result-qr-img" src="lexilens-assets/Images/qrcode.png" alt="QR Code Lexilens">
             </div>
           </div>
@@ -1675,16 +2034,16 @@ function navTo(pageId, el) {
 
     // ── Boutons nav : Précédent à GAUCHE du fil d'ariane, Suivant à DROITE ──
     const prevBtn = testStep > 0
-      ? `<button class="btn-prev-step" onclick="prevStep()">◀ Précédent</button>`
+      ? `<button class="btn-prev-step" onclick="prevStep()">${t('btn_prev')}</button>`
       : `<div></div>`;
 
     let rightBtn = '';
     if (testStep === 0) {
-      rightBtn = `<button class="btn-next-step" onclick="confirmLevel()">Confirmation ▶</button>`;
+      rightBtn = `<button class="btn-next-step" onclick="confirmLevel()">${t('btn_confirm')}</button>`;
     } else if (testStep === 8) {
-      rightBtn = `<button class="btn-next-step" onclick="startTest()">🔄 Recommencer le test</button>`;
+      rightBtn = `<button class="btn-next-step" onclick="startTest()">${t('btn_restart')}</button>`;
     } else {
-      rightBtn = `<button class="btn-next-step" onclick="nextStep()">Suivant ▶</button>`;
+      rightBtn = `<button class="btn-next-step" onclick="nextStep()">${t('btn_next')}</button>`;
     }
 
     area.innerHTML = `
@@ -1696,8 +2055,8 @@ function navTo(pageId, el) {
       ${(testStep === 1 || testStep === 3 || testStep === 4 || testStep === 6)
         ? `<div class="boitier-page-layout">
              <div class="boitier-zone-header">
-               <div class="step-title">${s.title}</div>
-               ${s.instruction ? `<div class="step-instruction">${s.instruction}</div>` : ''}
+               <div class="step-title">${s.title[LANG]}</div>
+               ${s.instruction ? `<div class="step-instruction">${s.instruction[LANG]}</div>` : ''}
              </div>
              <div class="boitier-zone-content">${center}</div>
              <div class="boitier-zone-arrow">
@@ -1706,8 +2065,8 @@ function navTo(pageId, el) {
                </svg>
              </div>
            </div>`
-        : `<div class="step-title">${s.title}</div>
-           ${s.instruction ? `<div class="step-instruction">${s.instruction}</div>` : ''}
+        : `<div class="step-title">${s.title[LANG]}</div>
+           ${s.instruction ? `<div class="step-instruction">${s.instruction[LANG]}</div>` : ''}
            <div class="step-content">${center}</div>`
       }
     `;
@@ -1719,7 +2078,7 @@ function navTo(pageId, el) {
   }
 
   function confirmLevel() {
-    if (testLevel === null) { alert('Veuillez choisir votre tranche d\'âge avant de continuer.'); return; }
+    if (testLevel === null) { alert(t('alert_choose_age')); return; }
     nextStep();
   }
 
@@ -1733,6 +2092,7 @@ function navTo(pageId, el) {
 
   // ── Feedback résultats ──
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyo72IHgZ9SuZlewvkNXCUtvkef7CUIC6d6Dfp18KxUuhnOECqQTbTMzohAqjvnUoAv/exec';
+  const FEEDBACK_KEYS = { none: 'feedback_none', better: 'feedback_better', top: 'feedback_top' };
 
   function selectFeedback(btn, value) {
     // Figer tous les boutons
@@ -1746,7 +2106,8 @@ function navTo(pageId, el) {
     if (reveal) reveal.style.display = 'block';
 
     // Préparer les données
-    const ageLabel = testLevel !== null ? AGES[testLevel].label : 'Non renseigné';
+    const ageLabel = testLevel !== null ? AGES[testLevel].label[LANG] : t('age_not_provided');
+    const feedbackLabel = t(FEEDBACK_KEYS[value] || value);
     const now = new Date();
     const horodatage = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
 
@@ -1775,7 +2136,8 @@ function navTo(pageId, el) {
             body: JSON.stringify({
               horodatage,
               age:     ageLabel,
-              feedback: value,
+              feedback: feedbackLabel,
+              lang:    LANG,
               ip:      loc.ip,
               ville:   loc.ville,
               region:  loc.region,
@@ -1788,36 +2150,36 @@ function navTo(pageId, el) {
 
   /* ── Products data ── */
   const products = [
-    { ref:"ABLR024322C01M", name:"Lexilens® Enfant — Gris Mat",    size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:false,
+    { ref:"ABLR024322C01M", name:{fr:"Lexilens® Enfant — Gris Mat", en:"Lexilens® Kids — Matte Grey"}, size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:false,
       img3:"lexilens-assets/products/ABLR024322C01M_3.png", img2:"lexilens-assets/products/ABLR024322C01M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris mat." },
-    { ref:"ABLT024322C02M", name:"Lexilens® Enfant — Gris",         size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      desc:{fr:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris mat.", en:"Reading-assistance frame. Integrated Lexilens® technology. Matte grey color."} },
+    { ref:"ABLT024322C02M", name:{fr:"Lexilens® Enfant — Gris", en:"Lexilens® Kids — Grey"}, size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
       img3:"lexilens-assets/products/ABLT024322C02M_3.png", img2:"lexilens-assets/products/ABLT024322C02M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
-    { ref:"ABLT024322C03M", name:"Lexilens® Enfant — Bleu",            size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      desc:{fr:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie", en:"Reading-assistance frame. Integrated Lexilens® technology. Grey color with interchangeable red or blue sleeves. Ultra-flexible structure for optimal comfort. Ideal for children. Guaranteed Made in France"} },
+    { ref:"ABLT024322C03M", name:{fr:"Lexilens® Enfant — Bleu", en:"Lexilens® Kids — Blue"}, size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
       img3:"lexilens-assets/products/ABLT024322C03M_3.png", img2:"lexilens-assets/products/ABLT024322C03M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris bleu avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
-    { ref:"ABLT024322C04M", name:"Lexilens® Enfant — Noir Mat",       size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
+      desc:{fr:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris bleu avec manchons interchangeables rouge ou bleu. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie", en:"Reading-assistance frame. Integrated Lexilens® technology. Blue color with interchangeable red or blue sleeves. Ultra-flexible structure for optimal comfort. Ideal for children. Guaranteed Made in France"} },
+    { ref:"ABLT024322C04M", name:{fr:"Lexilens® Enfant — Noir Mat", en:"Lexilens® Kids — Matte Black"}, size:"S", calibre:"43 mm / 22 mm", branch:"135 mm", france:true,
       img3:"lexilens-assets/products/ABLT024322C04M_3.png", img2:"lexilens-assets/products/ABLT024322C04M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris noir avec manchons interchangeables orange ou noir. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie" },
-    { ref:"ABLZ034625C01M", name:"Lexilens® Adolescent/Adulte — Gris Mat",             size:"M", calibre:"46 mm / 25 mm", branch:"136 mm", france:false,
+      desc:{fr:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris noir avec manchons interchangeables orange ou noir. Structure ultra-flexible pour un confort optimal. Idéale pour les enfants. Origine France Garantie", en:"Reading-assistance frame. Integrated Lexilens® technology. Black color with interchangeable orange or black sleeves. Ultra-flexible structure for optimal comfort. Ideal for children. Guaranteed Made in France"} },
+    { ref:"ABLZ034625C01M", name:{fr:"Lexilens® Adolescent/Adulte — Gris Mat", en:"Lexilens® Teen/Adult — Matte Grey"}, size:"M", calibre:"46 mm / 25 mm", branch:"136 mm", france:false,
       img3:"lexilens-assets/products/ABLZ034625C01M_3.png", img2:"lexilens-assets/products/ABLZ034625C01M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris mat. Monture taille M idéale pour adolescent ou adulte" },
-    { ref:"ABLT044625C01M", name:"Lexilens® Adulte — Noir Mat",       size:"L", calibre:"48 mm / 25 mm", branch:"136 mm", france:false,
+      desc:{fr:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris gris mat. Monture taille M idéale pour adolescent ou adulte", en:"Reading-assistance frame. Integrated Lexilens® technology. Matte grey color. Size M frame, ideal for teens or adults"} },
+    { ref:"ABLT044625C01M", name:{fr:"Lexilens® Adulte — Noir Mat", en:"Lexilens® Adult — Matte Black"}, size:"L", calibre:"48 mm / 25 mm", branch:"136 mm", france:false,
       img3:"lexilens-assets/products/ABLT044625C01M_3.png", img2:"lexilens-assets/products/ABLT044625C01M_2.png",
-      desc:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris noir mat. Monture taille L idéale pour adulte" },
-    { ref:"ABEVT24G144P01", name:"Moniteur LED Lexilens®", size:"MON",
-      ecran:"23,8 pouces (60,5 cm)", resolution:"FHD 1920 × 1080", dalle:"IPS LED — Noir mat",
+      desc:{fr:"Monture d'aide à la lecture. Technologie Lexilens® intégrée. Coloris noir mat. Monture taille L idéale pour adulte", en:"Reading-assistance frame. Integrated Lexilens® technology. Matte black color. Size L frame, ideal for adults"} },
+    { ref:"ABEVT24G144P01", name:{fr:"Moniteur LED Lexilens®", en:"Lexilens® LED Monitor"}, size:"MON",
+      ecran:{fr:"23,8 pouces (60,5 cm)", en:"23.8 inches (60.5 cm)"}, resolution:"FHD 1920 × 1080", dalle:{fr:"IPS LED — Noir mat", en:"IPS LED — Matte black"},
       refresh:"144 Hz", response:"< 3 ms", connectiques:"HDMI ×2 — VGA ×1 — Audio ×2",
       france:false, isMonitor:true,
 	  img3:"lexilens-assets/products/Lexilens_Monitor_face.png",
       img2:"lexilens-assets/products/Lexilens_Monitor_3-4.png",
-      desc:"Le Moniteur LED Lexilens® est conçu pour améliorer la clarté de lecture et le confort cognitif. Technologie Lexilens® Inside — Édition Hybride avec boîtier de contrôle externe et OSD. Idéal pour le bureau et l'enseignement. Fonctionne indépendamment des lunettes Lexilens." },
+      desc:{fr:"Le Moniteur LED Lexilens® est conçu pour améliorer la clarté de lecture et le confort cognitif. Technologie Lexilens® Inside — Édition Hybride avec boîtier de contrôle externe et OSD. Idéal pour le bureau et l'enseignement. Fonctionne indépendamment des lunettes Lexilens.", en:"The Lexilens® LED Monitor is designed to improve reading clarity and cognitive comfort. Lexilens® Inside technology — Hybrid Edition with external control box and OSD. Ideal for office and educational use. Works independently of Lexilens glasses."} },
   ];
 
   let currentProd = 0;
   let currentView = 0;
-  const AUDIENCE = { S: 'Enfant', M: 'Ado / Adulte', L: 'Adulte' };
+  const AUDIENCE = { S: {fr:'Enfant', en:'Kids'}, M: {fr:'Ado / Adulte', en:'Teen / Adult'}, L: {fr:'Adulte', en:'Adult'} };
 
   function buildList() {
     const list = document.getElementById('prodList');
@@ -1825,13 +2187,14 @@ function navTo(pageId, el) {
     products.forEach((p, i) => {
       const item = document.createElement('div');
       item.className = 'prod-list-item' + (i === currentProd ? ' active' : '');
+      const audienceLabel = AUDIENCE[p.size] ? AUDIENCE[p.size][LANG] : p.size;
       item.innerHTML = `
         <div class="prod-list-thumb">
-          <img src="${p.img3}" alt="${p.name}" onerror="this.style.opacity='0.3'">
+          <img src="${p.img3}" alt="${p.name[LANG]}" onerror="this.style.opacity='0.3'">
         </div>
         <div class="prod-list-info">
-          <div class="prod-list-name">${p.name.replace('Lexilens ', '')}</div>
-          <span class="prod-list-chip chip-${p.size}">${p.isMonitor ? 'Moniteur' : (AUDIENCE[p.size] || p.size)}</span>
+          <div class="prod-list-name">${p.name[LANG].replace('Lexilens ', '')}</div>
+          <span class="prod-list-chip chip-${p.size}">${p.isMonitor ? t('prod_monitor') : audienceLabel}</span>
         </div>`;
       item.onclick = () => goToProd(i);
       list.appendChild(item);
@@ -1846,8 +2209,8 @@ function navTo(pageId, el) {
     document.getElementById('imgMain').className = 'p-img p-visible';
     document.getElementById('imgAlt').className  = 'p-img p-hidden';
     document.getElementById('pRef').textContent     = p.ref;
-    document.getElementById('pName').textContent    = p.name;
-    document.getElementById('pDesc').textContent    = p.desc;
+    document.getElementById('pName').textContent    = p.name[LANG];
+    document.getElementById('pDesc').textContent    = p.desc[LANG];
     document.getElementById('pFrance').style.display = p.france ? 'flex' : 'none';
 
     const badge = document.getElementById('pSizeBadge');
@@ -1858,33 +2221,34 @@ function navTo(pageId, el) {
       badge.style.background = 'linear-gradient(135deg,#1a3558,#2558a8)';
       document.getElementById('pSizeVal').textContent  = '24"';
       document.getElementById('pSizeSub').textContent  = 'FHD';
-      document.getElementById('pSize').textContent     = 'Moniteur';
-      document.getElementById('pCalibre').textContent  = p.ecran;
+      document.getElementById('pSize').textContent     = t('prod_monitor');
+      document.getElementById('pCalibre').textContent  = p.ecran[LANG];
       document.getElementById('pBranch').textContent   = p.resolution;
       /* Changer les labels specs */
       const labels = document.querySelectorAll('.p-spec-label');
-      if (labels[0]) labels[0].textContent = 'ÉCRAN';
-      if (labels[1]) labels[1].textContent = 'RÉSOLUTION';
-      if (labels[2]) labels[2].textContent = 'RAFRAÎCHISSEMENT';
+      if (labels[0]) labels[0].textContent = t('prod_spec_screen');
+      if (labels[1]) labels[1].textContent = t('prod_spec_resolution');
+      if (labels[2]) labels[2].textContent = t('prod_spec_refresh');
       const vals = document.querySelectorAll('.p-spec-val');
-      if (vals[0]) vals[0].textContent = p.ecran;
+      if (vals[0]) vals[0].textContent = p.ecran[LANG];
       if (vals[1]) vals[1].textContent = p.resolution;
       if (vals[2]) vals[2].textContent = p.refresh;
     } else {
+      const audienceLabel = AUDIENCE[p.size] ? AUDIENCE[p.size][LANG] : '';
       badge.style.background = '';
       badge.className = 'p-size-badge p-size-' + p.size;
       document.getElementById('pSizeVal').textContent  = p.size;
-      document.getElementById('pSizeSub').textContent  = AUDIENCE[p.size] || '';
-      document.getElementById('pSize').textContent     = p.size + ' — ' + (AUDIENCE[p.size] || '');
+      document.getElementById('pSizeSub').textContent  = audienceLabel;
+      document.getElementById('pSize').textContent     = p.size + ' — ' + audienceLabel;
       document.getElementById('pCalibre').textContent  = p.calibre;
       document.getElementById('pBranch').textContent   = p.branch;
       /* Restaurer les labels specs */
       const labels = document.querySelectorAll('.p-spec-label');
-      if (labels[0]) labels[0].textContent = 'TAILLE';
-      if (labels[1]) labels[1].textContent = 'CALIBRE';
-      if (labels[2]) labels[2].textContent = 'BRANCHES';
+      if (labels[0]) labels[0].textContent = t('prod_spec_size');
+      if (labels[1]) labels[1].textContent = t('prod_spec_calibre');
+      if (labels[2]) labels[2].textContent = t('prod_spec_branch');
       const vals = document.querySelectorAll('.p-spec-val');
-      if (vals[0]) vals[0].textContent = p.size + ' — ' + (AUDIENCE[p.size] || '');
+      if (vals[0]) vals[0].textContent = p.size + ' — ' + audienceLabel;
       if (vals[1]) vals[1].textContent = p.calibre;
       if (vals[2]) vals[2].textContent = p.branch;
     }
@@ -1921,6 +2285,7 @@ function navTo(pageId, el) {
 
   // Init on page load
 window.addEventListener('load', () => {
+  applyStaticI18n();
   document.querySelectorAll('#page-home video').forEach(v => v.play().catch(()=>{}));
   updateProd(false);
 });
